@@ -3,7 +3,8 @@ module Members
 
 		def index
 			@member = Member.find(params[:member_id])
-			@ordinances = @member.ordinances.order(number: :asc).page(params[:page]).per(30)
+			@sorted = @member.authored_ordinances.sort_by(&:joined_number).reverse
+			@ordinances = Kaminari.paginate_array(@sorted).page(params[:page]).per(30)
 		end
 	end
 end

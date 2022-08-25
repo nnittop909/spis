@@ -3,7 +3,7 @@ module Committees
 
 		def index
 			@committee = Committee.find(params[:committee_id])
-			@resolutions = @committee.resolutions.order(:number, :asc)
+			@resolutions = @committee.sponsored_resolutions.order(number: :asc).page(params[:page]).per(30)
 		end
 	end
 end

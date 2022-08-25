@@ -1,0 +1,16 @@
+<table class="table">
+	<tbody>
+    <% resolutions.each do |resolution| %>
+    	<tr>
+            <td class="col-md-2"><%= resolution.number %></td>
+            <td><%= resolution.title %></td>
+    		<td><% resolution.documents.each do |document| %>
+                <%= link_to resolution.name, coverpage_downloadable_path(downloadable_id: downloadable.id, id: downloadable.id), data: {modal: true} %>
+                <%= link_to "Download", rails_blob_path(@resolution.file.blob, disposition: "attachment"), class: "btn btn-sm btn-primary" %>  
+                <% end %>   
+            </td>
+    	</tr>
+    <% end %>
+  </tbody>
+</table>
+<center><%= paginate resolutions, :window => 1 %></center>

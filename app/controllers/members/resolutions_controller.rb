@@ -3,7 +3,7 @@ module Members
 
 		def index
 			@member = Member.find(params[:member_id])
-			@resolutions = @member.resolutions.order(number: :asc).page(params[:page]).per(30)
+			@resolutions = @member.authored_resolutions.order(number: :asc).page(params[:page]).per(30)
 		end
 	end
 end

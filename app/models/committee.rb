@@ -13,11 +13,11 @@ class Committee < ApplicationRecord
 	has_many :session_committees
 	has_many :sp_sessions, through: :committee_sessions
 	has_many :authorships, as: :author, dependent: :destroy
-	has_many :ordinances, through: :authorships, source: :authorable, source_type: "Ordinance"
-	has_many :resolutions, through: :authorships, source: :authorable, source_type: "Resolution"
+	has_many :authored_ordinances, through: :authorships, source: :authorable, source_type: "Ordinance"
+	has_many :authored_resolutions, through: :authorships, source: :authorable, source_type: "Resolution"
 	has_many :sponsorships, as: :sponsor
-	has_many :ordinances, through: :sponsorships, source: :sponsorable, source_type: "Ordinance"
-	has_many :resolutions, through: :sponsorships, source: :sponsorable, source_type: "Resolution"
+	has_many :sponsored_ordinances, through: :sponsorships, source: :sponsorable, source_type: "Ordinance"
+	has_many :sponsored_resolutions, through: :sponsorships, source: :sponsorable, source_type: "Resolution"
 
 	def current_members
 		current_membership.committee_members
