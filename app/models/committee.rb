@@ -8,16 +8,19 @@ class Committee < ApplicationRecord
 	has_many :committee_members, dependent: :destroy
   has_many :committee_memberships, dependent: :destroy
   has_many :members, through: :committee_members
-	has_many :forum_committees
-	has_many :forums, through: :forum_committees
-	has_many :session_committees
-	has_many :sp_sessions, through: :committee_sessions
+
 	has_many :authorships, as: :author, dependent: :destroy
 	has_many :authored_ordinances, through: :authorships, source: :authorable, source_type: "Ordinance"
 	has_many :authored_resolutions, through: :authorships, source: :authorable, source_type: "Resolution"
+
 	has_many :sponsorships, as: :sponsor
 	has_many :sponsored_ordinances, through: :sponsorships, source: :sponsorable, source_type: "Ordinance"
 	has_many :sponsored_resolutions, through: :sponsorships, source: :sponsorable, source_type: "Resolution"
+
+	has_many :committee_events
+	has_many :committee_sessions, through: :committee_events, source: :eventable, source_type: "SpSession"
+	has_many :committee_hearings, through: :committee_events, source: :eventable, source_type: "Hearing"
+	has_many :committee_meetings, through: :committee_events, source: :eventable, source_type: "Meeting"
 
 	def current_members
 		current_membership.committee_members

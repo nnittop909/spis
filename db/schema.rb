@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "attendances", force: :cascade do |t|
+    t.bigint "attendee_id", null: false
+    t.string "eventable_type"
+    t.bigint "eventable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attendee_id"], name: "index_attendances_on_attendee_id"
+    t.index ["eventable_type", "eventable_id"], name: "index_attendances_on_eventable"
+  end
+
   create_table "attendees", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -70,6 +80,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "committee_events", force: :cascade do |t|
+    t.bigint "committee_id"
+    t.string "eventable_type"
+    t.bigint "eventable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["committee_id"], name: "index_committee_events_on_committee_id"
+    t.index ["eventable_type", "eventable_id"], name: "index_committee_events_on_eventable"
   end
 
   create_table "committee_members", force: :cascade do |t|
@@ -114,15 +134,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
     t.index ["member_id"], name: "index_community_taxes_on_member_id"
   end
 
-  create_table "considered_ordinances", force: :cascade do |t|
-    t.bigint "ordinance_id", null: false
-    t.bigint "forum_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["forum_id"], name: "index_considered_ordinances_on_forum_id"
-    t.index ["ordinance_id"], name: "index_considered_ordinances_on_ordinance_id"
-  end
-
   create_table "documents", force: :cascade do |t|
     t.string "name"
     t.string "documentable_type"
@@ -138,32 +149,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "forum_attendees", force: :cascade do |t|
-    t.string "name"
-    t.bigint "forum_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["forum_id"], name: "index_forum_attendees_on_forum_id"
-  end
-
-  create_table "forum_committees", force: :cascade do |t|
-    t.bigint "forum_id", null: false
-    t.bigint "committee_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["committee_id"], name: "index_forum_committees_on_committee_id"
-    t.index ["forum_id"], name: "index_forum_committees_on_forum_id"
-  end
-
-  create_table "forums", force: :cascade do |t|
+  create_table "hearings", force: :cascade do |t|
+    t.string "title"
     t.date "date"
-    t.integer "forum_type"
-    t.string "time_start"
-    t.string "time_end"
-    t.string "venue"
-    t.text "agenda"
-    t.text "conclusions"
-    t.string "resource_person"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -175,6 +165,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["staging_id"], name: "index_lce_approvals_on_staging_id"
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.string "title"
+    t.date "date"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "members", force: :cascade do |t|
@@ -253,24 +252,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
     t.index ["category_id"], name: "index_resolutions_on_category_id"
   end
 
-  create_table "session_attendees", force: :cascade do |t|
-    t.string "name"
-    t.integer "author_type"
-    t.bigint "sp_session_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["sp_session_id"], name: "index_session_attendees_on_sp_session_id"
-  end
-
-  create_table "session_committees", force: :cascade do |t|
-    t.bigint "committee_id", null: false
-    t.bigint "sp_session_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["committee_id"], name: "index_session_committees_on_committee_id"
-    t.index ["sp_session_id"], name: "index_session_committees_on_sp_session_id"
-  end
-
   create_table "sp_sessions", force: :cascade do |t|
     t.date "date"
     t.integer "session_type"
@@ -341,11 +322,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
     t.string "first_name"
     t.string "last_name"
     t.string "full_name"
+    t.string "username"
     t.integer "role"
     t.bigint "office_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -361,24 +342,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_005029) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attendances", "attendees"
+  add_foreign_key "committee_events", "committees"
   add_foreign_key "committee_members", "committee_memberships"
   add_foreign_key "committee_members", "committees"
   add_foreign_key "committee_members", "members"
   add_foreign_key "committee_memberships", "committees"
   add_foreign_key "community_taxes", "members"
-  add_foreign_key "considered_ordinances", "forums"
-  add_foreign_key "considered_ordinances", "ordinances"
-  add_foreign_key "forum_attendees", "forums"
-  add_foreign_key "forum_committees", "committees"
-  add_foreign_key "forum_committees", "forums"
   add_foreign_key "lce_approvals", "stagings"
   add_foreign_key "members", "civil_service_eligibilities"
   add_foreign_key "members", "educational_attainments"
   add_foreign_key "ordinances", "categories"
   add_foreign_key "resolutions", "categories"
-  add_foreign_key "session_attendees", "sp_sessions"
-  add_foreign_key "session_committees", "committees"
-  add_foreign_key "session_committees", "sp_sessions"
   add_foreign_key "stagings", "stages"
   add_foreign_key "terms", "political_parties"
   add_foreign_key "terms", "positions"

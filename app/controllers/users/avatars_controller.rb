@@ -1,6 +1,5 @@
 module Users
 	class AvatarsController < ApplicationController
-		respond_to :html, :json
 
 		def update
 			@user = User.find(params[:user_id])

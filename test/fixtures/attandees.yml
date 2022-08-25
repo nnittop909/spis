@@ -1,9 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  committee: one
-  eventable: one
+  public_servant: one
 
 two:
-  committee: two
-  eventable: two
+  public_servant: two

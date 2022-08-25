@@ -1,2 +1,0 @@
-class Attendee < ApplicationRecord
-end

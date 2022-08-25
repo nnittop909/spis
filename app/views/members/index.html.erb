@@ -24,11 +24,11 @@
 	<div class="card-body">
 		<div data-controller="auto-submit">
 			<%=form_tag members_path, method: :get, data: { action: "ajax:success->auto-submit#onPostSuccess", "auto-submit-target": "form" } do %>
-			  <div class="input-group mb-4">
-			    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control small", prompt: "Select Term", data: { action: "change->auto-submit#formSubmit" } %>
+			  <div class="input-group mb-4 w-25">
+			    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Term", data: { action: "change->auto-submit#formSubmit" } %>
 			    <span class="input-group-append">
-			      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
-			        <i class="fas fa-search fa-sm">Filter</i>
+			      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary", title: "Filter") do %>
+			        <i class="fas fa-filter fa-sm">Filter</i>
 			      <% end %>
 			    </span>
 			  </div>
