@@ -1,0 +1,9 @@
+<%= link_to "Update Committee Details", edit_committee_path(committee.id), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+<table class="table">
+	<tbody>
+  	<tr>
+      <td class="col-md-4">Name</td>
+  		<td><%= @committee.name %></td>
+  	</tr>
+  </tbody>
+</table>

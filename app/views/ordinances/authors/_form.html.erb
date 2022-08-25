@@ -1,0 +1,9 @@
+<%= simple_form_for @authorship, html: { autocomplete: "off"}, url: @authorship.persisted? ? ordinance_author_path(ordinance_id: @ordinance.id, id: @authorship.id) : ordinance_authors_path(ordinance_id: @ordinance.id), method: @authorship.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :polymorphic_author, as: :grouped_select, label: 'Author', collection: [["SB Members", @authorship.polymorphic_member_authors], ["Committees", @authorship.polymorphic_committee_authors]], :group_method => :last, :label_method => :name, :value_method => :to_global_id %>
+  <%= f.input :role, collection: Authorship.roles.keys.to_a.map{ |a| [a.titleize, a]} %>
+
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

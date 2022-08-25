@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+  <div class="col-xl-10 col-lg-12 col-md-9">
+
+    <div class="card o-hidden border-0 shadow-lg my-5 bg-glass-3">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-6 d-none d-lg-block">
+            <div class="p-5">
+              <div class="text-center">
+                <%= image_tag("ifugao_seal.png", width: 150, class: "") %>
+                <h1 class="h3 mb-4">Office of the Sangunuang Panlalawigan Secretary</h1>
+                <h5 class=""></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 mb-4">Account Sign-in</h1>
+                <%=image_tag("default.png", height: 100, width: 100, class: 'rounded-circle mb-4') %>
+              </div>
+              <hr class="white">
+              <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), class: "user") do |f| %>
+                <div class="form-group">
+                  <%= f.input :login, label: false, required: false, autofocus: true, class: "form-control-user text-white bg-transparent", id: "exampleInputEmail", placeholder: "Username/Email", aria: {describedby: "emailHelp"} %>
+                </div>
+                <div class="form-group">
+                  <%= f.input :password, label: false, required: false, class: "form-control-user", id: "exampleInputPassword", placeholder: "Password" %>
+                </div>
+                <div class="form-group">
+                  <div class="custom-control-lg custom-control custom-checkbox">
+                    <%= f.input :remember_me, as: :boolean, class: "custom-control-input" if devise_mapping.rememberable? %>
+                  </div>
+                </div>
+                <%= f.button :submit, "Log in", class: "btn btn-primary btn-user btn-block" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

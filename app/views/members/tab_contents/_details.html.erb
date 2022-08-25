@@ -1,0 +1,21 @@
+<%= link_to "Update Member Details", edit_member_path(member), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+<table class="table">
+	<tbody>
+  	<tr>
+      <td class="col-md-4">Name</td>
+  		<td><%= @member.name %></td>
+  	</tr>
+  	<tr>
+      <td class="col-md-4">Party</td>
+  		<td><%= member.current_party %></td>
+  	</tr>
+  	<tr>
+      <td class="col-md-4">Position</td>
+  		<td><%= member.current_position %></td>
+  	</tr>
+  	<tr>
+      <td class="col-md-4">Appointment Status</td>
+  		<td><%= member.current_appointment_status %></td>
+  	</tr>
+  </tbody>
+</table>

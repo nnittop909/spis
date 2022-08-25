@@ -1,0 +1,11 @@
+<%= simple_form_for @term, html: { autocomplete: "off"}, url: @term.persisted? ? member_term_path(id: @term.id, member_id: @member.id) : member_terms_path(member_id: @member.id), data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :start_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950, default: { month: 7, day: 1 } %>
+  <%= f.input :end_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year + 5, end_year: 1950, default: { year: Date.current.year + 3, month: 6, day: 30 } %>
+  <%= f.input :position_id, collection: Position.all.map{|t| [t, t.id]} %>
+  <%= f.input :appointment_status, collection: Term.appointment_statuses.keys.to_a.map{|t| [t.titleize, t]} %>
+  <%= f.input :political_party_id, collection: PoliticalParty.all.map{|t| [t, t.id]} %>
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

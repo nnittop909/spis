@@ -1,0 +1,3 @@
+<%= turbo_stream.update "remote_modal_body" do %>
+  <%= render partial: "members/form", locals: { member: @member.persisted? ? @member_processor : @member } %>
+<% end %>

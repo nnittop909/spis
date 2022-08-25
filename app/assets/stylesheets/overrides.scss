@@ -1,0 +1,15 @@
+button.as-a-link {
+  padding: 0;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  padding: 0 !important;
+}
+
+button.as-a-link:hover {
+  color: red;
+}
+
+.btn-link {
+	padding: 0 !important;
+}

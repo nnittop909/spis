@@ -1,0 +1,12 @@
+<%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? resolution_stage_path(resolution_id: @resolution.id, id: @stage.id) : resolution_stages_path(resolution_id: @resolution.id), data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :stage_id, collection: Stage.all.map{|s| [s.name, s.id]}, input_html: {data: { action: "input->toggle#changed", target: "toggle.element" }} %>
+  <label >Date</label>
+  <%= f.input :date, as: :date, label: false, :include_blank => true, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
+  <div class="" data-target="toggle.element" data-values="5">
+    <%= f.input :effectivity_date, as: :date, label: "Date Enacted", :include_blank => true, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

@@ -1,0 +1,7 @@
+<%= simple_form_for @position, html: { autocomplete: "off"}, url: @position.persisted? ? settings_position_path(id: @position.id) : settings_positions_path do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name %>
+    
+  <%= link_to 'Cancel', settings_path, class: 'btn btn-outline-secondary' %>
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

@@ -1,0 +1,74 @@
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="row">
+			<div class="col-md-3 col-sm-12">
+				<h2 class="font-weight-bold text-primary">Members</h2>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<%=form_tag members_path, method: :get, class: "" do %>
+				  <div class="input-group">
+				    <%= text_field_tag :search, params[:search], class: "form-control small", placeholder: "Search for members..." %>
+				    <span class="input-group-append">
+				      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
+				        <i class="fas fa-search fa-sm"></i>
+				      <% end %>
+				    </span>
+				  </div>
+				<% end %>
+			</div>
+			<div class="col-md-3 col-sm-12">
+				<%= link_to "New Member", new_member_path, class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<div data-controller="auto-submit">
+			<%=form_tag members_path, method: :get, data: { action: "ajax:success->auto-submit#onPostSuccess", "auto-submit-target": "form" } do %>
+			  <div class="input-group mb-4">
+			    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control small", prompt: "Select Term", data: { action: "change->auto-submit#formSubmit" } %>
+			    <span class="input-group-append">
+			      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
+			        <i class="fas fa-search fa-sm">Filter</i>
+			      <% end %>
+			    </span>
+			  </div>
+			<% end %>
+		</div>
+		<div class="table-responsive">
+      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+      	<table class="table">
+	      	<thead>
+	        	<tr>
+	        		<td>Name</td>
+	        		<td>Party</td>
+	        		<td>Position</td>
+	        		<td>Appointment Status</td>
+	        		<td>Term</td>
+	        	</tr>
+	        </thead>
+	        <tbody>
+	        	<% @members.each do |member| %>
+		        	<tr>
+		        		<td><%= link_to member.name, member_path(member) %></td>
+		        		<td>
+		        			<%= params[:year].present? ? TermFinder.new(termable: member, year: params[:year]).by_term_party : member.current_party %>
+		        		</td>
+		        		<td>
+		        			<%= params[:year].present? ? TermFinder.new(termable: member, year: params[:year]).by_term_position : member.current_position %>
+		        		</td>
+		        		<td>
+		        			<%= params[:year].present? ? TermFinder.new(termable: member, year: params[:year]).by_term_appointment_status : member.current_appointment_status %>
+		        		</td>
+		        		<td>
+		        			<%= params[:year].present? ? TermFinder.new(termable: member, year: params[:year]).by_term_in_years : member.current_term_in_years %>
+		        				
+		        		</td>
+		        	</tr>
+		        <% end %>
+	        </tbody>
+	      </table>
+	      <center><%= paginate @members, :window => 1 %></center>
+      </div>
+    </div>
+	</div>
+</div>

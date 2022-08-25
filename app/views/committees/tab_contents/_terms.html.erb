@@ -1,0 +1,14 @@
+<%= link_to "Add Term", new_committee_term_path(committee), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+<table class="table">
+	<tbody>
+    <% terms.each do |term| %>
+    	<tr>
+            <td><%= term.name %></td>
+            <td><%= term.in_date_range %></td>
+    		<td class="text-right">
+                <%= link_to "Edit", edit_committee_term_path(committee_id: committee.id, id: term.id), data: { turbo_frame: "remote_modal", turbo: true }, class: "d-inline" %> | 
+                <%= button_to "Delete", committee_term_path(committee_id: committee.id, id: term.id), method: :delete, data: { confirm: "Are you sure?" }, form: { class: 'd-inline'}, class: 'btn btn-link' %></td>
+    	</tr>
+    <% end %>
+  </tbody>
+</table>

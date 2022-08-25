@@ -1,0 +1,97 @@
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="row">
+			<div class="col-md-4">
+				<h2 class="font-weight-bold text-primary">Ordinance # <%= @ordinance.number %></h2>
+		    <small class="badge bg-info"><%= @ordinance.current_stage.titleize if @ordinance.stages.present? %></small>
+			</div>
+			<div class="col-md-8">
+				<ul class="nav nav-pills justify-content-end">
+					<li class="nav-item px-2">
+				    <%= link_to 'Update Stage', new_ordinance_stage_path(@ordinance), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				  <li class="nav-item px-2">
+				    <%= link_to 'Add Author', new_ordinance_author_path(@ordinance), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				  <li class="nav-item px-2">
+				    <%= link_to 'Add Sponsor', new_ordinance_sponsor_path(@ordinance), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				  <li class="nav-item px-2">
+				    <%= link_to 'Upload Document', new_ordinance_document_path(@ordinance), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				  <li class="nav-item px-2">
+				  	<%= link_to "Update Details", edit_ordinance_path(@ordinance), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<table class="table">
+			<tbody>
+		  	<tr>
+		      <td class="col-md-4">Title</td>
+		  		<td><%= @ordinance.title %></td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4">Date Calendared</td>
+		  		<td><%= @ordinance.date.strftime("%B %e, %Y") if @ordinance.date.present? %></td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4">Sponsors</td>
+		  		<td>
+		  			<% @sponsors.each do |sponsor| %>
+		  					<%= sponsor.name %>
+				  			<span class="float-right">
+				  				<%= link_to "Edit", edit_ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), data: { turbo_frame: "remote_modal", turbo: true }, class: "d-inline" %> | 
+				  				<%= button_to "Delete", ordinance_sponsor_path(ordinance_id: @ordinance.id, id: sponsor.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+				  			</span>
+			  		<% end %>
+		  		</td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4">Author/s</td>
+		  		<td>
+		  			<% @authors.each do |author| %>
+	  					<%= author.name_in_honorifics %>
+			  			<span class="float-right">
+			  				<%= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), data: { turbo_frame: "remote_modal", turbo: true }, class: 'd-inline' %> | 
+			  				<%= button_to "Delete", ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+			  			</span>
+			  			<hr>
+			  		<% end %>
+		  		</td>
+		  	</tr>
+		  	<tr>
+		  		<td class="col-md-4">Stages</td>
+		  		<td>
+		  			<% if @ordinance.stagings.present? %>
+		  				<% @ordinance.stagings.each do |staging| %>
+		  					<%= staging.stage.name %> - <%= staging.date.strftime("%B %e, %Y") %>
+		  					<br>
+		  				<% end %>
+		  			<% end %>
+		  		</td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4">Remarks</td>
+		  		<td><%= @ordinance.remarks %></td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4" rowspan="<%= @ordinance.documents.count %>">Attached Documents</td>
+		      <td>
+		  			<% if @ordinance.documents.present? %>
+			  			<% @ordinance.documents.each do |document| %>
+				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" if document.document_file.attached? %>
+				  				<span class="float-right">
+				  					<%= button_to "Delete", ordinance_document_path(ordinance_id: @ordinance.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if document.document_file.attached? %>
+				  				</span> <hr>
+			  			<% end %>
+			  		<% end %>
+			  	</td>
+		  	</tr>
+		  </tbody>
+		</table>
+	</div>
+</div>

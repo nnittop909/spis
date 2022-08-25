@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  resolution: one
+  member: one
+  sponsor_type: 1
+
+two:
+  resolution: two
+  member: two
+  sponsor_type: 1

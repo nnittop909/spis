@@ -1,0 +1,46 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-laugh-wink"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">
+      <%= current_user.office.abbreviation %>
+    </div>
+  </a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Interface
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <%= nav_link("members", members_path, "fa-user", "Members") %>
+  <%= nav_link("committees", committees_path, "fa-users", "Committees") %>
+  <%= nav_link("ordinances", ordinances_path, "fa-file", "Ordinances") %>
+  <%= nav_link("resolutions", resolutions_path, "fa-file", "Resolutions") %>
+  <%= nav_link("sp_sessions", sp_sessions_path, "fa-bullhorn", "Sessions") %>
+  <%= nav_link("hearings", hearings_path, "fa-bullhorn", "Hearings") %>
+  <%= nav_link("meetings", meetings_path, "fa-bullhorn", "Meetings") %>
+
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <%= nav_link("settings", settings_path, "fa-cog", "Settings") %>
+
+  
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+
+</ul>

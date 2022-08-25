@@ -1,0 +1,8 @@
+<%= simple_form_for @term, html: { autocomplete: "off"}, url: @term.persisted? ? settings_term_path(id: @term.id) : settings_terms_path do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :start_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950, default: { month: 7, day: 1 } %>
+  <%= f.input :end_of_term, as: :date, :order => [:month, :day, :year], start_year: (Date.current + 5.years).year, end_year: 1950, default: { month: 6, day: 30 } %>
+    
+  <%= link_to 'Cancel', settings_path, class: 'btn btn-outline-secondary' %>
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

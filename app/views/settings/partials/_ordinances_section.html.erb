@@ -1,0 +1,47 @@
+<h5>Ordinances Upload</h5>
+<%= simple_form_for @ordinances_import, url: :settings_importers_ordinances do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :file, as: :file, label: false, input_html: { class: 'choose-btn center-block' } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+    </div>
+  </div>
+<% end %>
+<hr class="my-4">
+<h5>Ordinance Authors Upload</h5>
+<%= simple_form_for @ordinance_authors_import, url: :settings_importers_ordinance_authors do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :file, as: :file, label: false, input_html: { class: 'choose-btn center-block' } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+    </div>
+  </div>
+<% end %>
+<hr class="my-4">
+<h5>Ordinance Sponsors Upload</h5>
+<%= simple_form_for @ordinance_sponsors_import, url: :settings_importers_ordinance_sponsors do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :file, as: :file, label: false, input_html: { class: 'choose-btn center-block' } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+    </div>
+  </div>
+<% end %>
+<hr class="my-4">
+<h5>Ordinance Documents Upload</h5>
+<%= simple_form_for @ordinance_document, url: :settings_importers_ordinance_documents do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :files, as: :file, label: false, input_html: { multipart: true }, multiple: true %>
+    </div>
+    <div class="col-md-6">
+      <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+    </div>
+  </div>
+<% end %>

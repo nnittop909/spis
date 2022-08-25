@@ -1,0 +1,12 @@
+<%= simple_form_for term, html: { autocomplete: "off" }, url: @term.persisted? ? committee_term_path(id: @term.id, committee_id: committee.id) : committee_terms_path(committee_id: committee.id), method: @term.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :name %>
+  <%= f.input :start_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950, default: { month: 7, day: 1 } %>
+  <%= f.input :end_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year + 5, end_year: 1950, default: { year: Date.current.year + 3, month: 6, day: 30 } %>
+  <%= f.input :active, label: "Set as default", as: :boolean %>
+
+  <%= f.input :committee_id, input_html: {value: committee.id}, as: :hidden %>
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing...", turbo: true } %>
+<% end %>

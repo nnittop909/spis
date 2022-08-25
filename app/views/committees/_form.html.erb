@@ -1,0 +1,8 @@
+<%= simple_form_for committee, html: { autocomplete: "off"}, url: @committee.persisted? ? committee_path(@committee) : committees_path, method: @committee.persisted? ? :patch : :post, data: {turbo: true} do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name %>
+  <%= f.input :start_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950, default: { month: 7, day: 1 } %>
+  <%= f.input :end_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year + 5, end_year: 1950, default: { year: Date.current.year + 3, month: 6, day: 30 } %>
+  <%= f.input :active, as: :boolean %>
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

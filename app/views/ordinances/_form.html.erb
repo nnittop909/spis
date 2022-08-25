@@ -1,0 +1,9 @@
+<%= simple_form_for @ordinance, html: { autocomplete: "off"}, url: @ordinance.persisted? ? ordinance_path(@ordinance) : ordinances_path, method: @ordinance.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :number %>
+  <%= f.input :title, as: :text, input_html: {rows: 5} %>
+  <%= f.input :category_id, collection: Category.all.map{ |a| [a, a.id]} %>
+  <%= f.input :date, label: "Date Calendared", :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950, include_blank: true %>
+  <%= f.input :remarks, as: :text %>
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

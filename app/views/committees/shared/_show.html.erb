@@ -1,0 +1,40 @@
+<%= render "committees/shared/card", committee: committee %>
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<ul class="nav nav-pills">
+		  <li class="nav-item">
+		    <%= link_to 'Details', committee_path(committee), class: "nav-link #{'active' if current_page?(committee_path(committee))}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Members', committee_members_path(committee_id: committee.id, committee_membership_id: committee.current_membership.id), class: "nav-link #{'active' if current_page?(committee_members_path(committee_id: committee.id, committee_membership_id: params[:committee_membership_id]))}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Terms', committee_terms_path(committee), class: "nav-link #{'active' if current_page?(committee_terms_path(committee))}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Ordinances', committee_ordinances_path(committee), class: "nav-link #{'active' if current_page?(committee_ordinances_path(committee))}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Resolutions', committee_resolutions_path(committee), class: "nav-link #{'active' if current_page?(committee_resolutions_path(committee))}" %>
+		  </li>
+		</ul>
+	</div>
+	<div class="card-body">
+		<% if current_page?(committee_path(committee)) %>
+	    <%=render 'committees/tab_contents/details', committee: committee %>
+	  <% end %>
+	  <% if current_page?(committee_members_path(committee)) %>
+	    <%=render 'committees/tab_contents/members', committee: committee, members: members %>
+	  <% end %>
+		<% if current_page?(committee_terms_path(committee)) %>
+	    <%=render 'committees/tab_contents/terms', committee: committee, terms: terms %>
+	  <% end %>
+	  <% if current_page?(committee_ordinances_path(committee)) %>
+	    <%=render 'committees/tab_contents/ordinances', committee: committee, ordinances: ordinances %>
+	  <% end %>
+	  <% if current_page?(committee_resolutions_path(committee)) %>
+	    <%=render 'committees/tab_contents/resolutions', committee: committee, resolutions: resolutions %>
+	  <% end %>
+		
+	</div>
+</div>

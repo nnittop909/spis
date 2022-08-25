@@ -1,0 +1,6 @@
+<%= simple_form_for user, url: :user_password, html: { autocomplete: "off" }, method: :patch, data: { turbo: true } do |f| %>
+  <%= f.input :password, label: 'New Password'  %>
+  <%= f.input :password_confirmation, label: "Re-Type New Password" %>
+  
+  <%= f.submit "Update", class: 'btn btn-danger float-right' %>
+<% end %>

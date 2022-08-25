@@ -1,0 +1,43 @@
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<div class="card o-hidden border-0 shadow-lg my-3">
+			<div class="card-header align-items-center justify-content-between">
+				<div class="row">
+					<div class="col-md-4 col-sm-12">
+						<h4 class="m-0">Users</h4>
+					</div>
+					<div class="col-md-4 col-sm-12">
+						
+			    </div>
+			    <div class="col-md-4 col-sm-12">
+						<%= link_to "New User", new_user_path, class: "btn btn-primary float-right", data: {modal: true} if current_user.admin? %>
+					</div>
+			  </div>
+			</div>
+		</div>
+		<%=form_tag users_path, method: :get, class: "d-none d-sm-inline-block form-inline my-2" do %>
+	    <div class="input-group">
+	      <%= text_field_tag :search, params[:search], class: "form-control ml-0", placeholder: "Search users..." %>
+	      <span class="input-group-append">
+	        <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
+	          <i class="fas fa-search fa-sm"></i>
+	        <% end %>
+	      </span>
+	    </div>
+	  <% end %>
+		<div class="row">
+			<div class="col-sm-12">
+				<% @users.each do |user| %>
+					<%= link_to user_path(user) do %>
+						<%= render "users/shared/header", user: user %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<%= paginate @users, params: { controllers: 'users', action: 'index' } %>
+			</div>
+		</div>
+	</div>
+</div>

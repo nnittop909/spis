@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2022-08-01
+  forum_type: 1
+  time_start: MyString
+  time_end: MyString
+  venue: MyString
+  agenda: MyText
+  conclutions: MyText
+  resource_person: MyString
+
+two:
+  date: 2022-08-01
+  forum_type: 1
+  time_start: MyString
+  time_end: MyString
+  venue: MyString
+  agenda: MyText
+  conclutions: MyText
+  resource_person: MyString

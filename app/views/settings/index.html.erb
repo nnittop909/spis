@@ -1,0 +1,197 @@
+<h2 class="font-weight-bold text-primary">
+	<span class="fas fa-gear"></span> Settings
+</h2>
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+		<!-- <div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Terms</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <div class="table-responsive">
+		      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+		      	<table class="table table-bordered">
+			        <tbody>
+			        </tbody>
+			      </table>
+		      </div>
+		    </div>
+		  </div>
+		</div> -->
+		<div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Member Positions</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    		<%= link_to "New", new_settings_position_path, class: "btn btn-primary btn-sm text-right pull-right float-right" %>
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <div class="table-responsive">
+		      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+		      	<table class="table table-bordered">
+			        <tbody>
+			        	<% @positions.each do |position| %>
+			        		<tr>
+			        			<td><%= position %></td>
+			        			<td class="text-right"><%= link_to "Edit", edit_settings_position_path(id: position.id) %></td>
+			        		</tr>
+			        	<% end %>
+			        </tbody>
+			      </table>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+
+	<div class="col-sm-12 col-md-6">
+		<div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Political Parties</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    		<%= link_to "New", new_settings_political_party_path, class: "btn btn-primary btn-sm text-right pull-right float-right" %>
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <div class="table-responsive">
+		      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+		      	<table class="table table-bordered">
+			        <tbody>
+			        	<% @political_parties.each do |political_party| %>
+			        		<tr>
+			        			<td><%= political_party.name %></td>
+			        			<td class="text-right"><%= link_to "Edit", edit_settings_political_party_path(id: political_party.id) %></td>
+			        		</tr>
+			        	<% end %>
+			        </tbody>
+			      </table>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+		<!-- <div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Provincial Districts</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    		
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <div class="table-responsive">
+		      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+		      	<table class="table table-bordered">
+			        <tbody>
+			        </tbody>
+			      </table>
+		      </div>
+		    </div>
+		  </div>
+		</div> -->
+	</div>
+</div>
+<div class="form-group">
+	<label>Select Type</label>
+	<select name="type" class="form-control" data-action="input->toggle#changed" data-target="toggle.select">
+		<option value="TextQuestion">Text Question</option>
+		<option value="UrlQuestion">URL Question</option>
+	</select>
+</div>
+<div class="form-group" data-target="toggle.element" data-values="UrlQuestion">
+  <input type="" name="url" class="form-control">
+</div>  
+
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+		<!-- Members Section -->
+		<div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Members Section</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <%= render 'settings/partials/members_section' %>
+		  </div>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-6">
+		<!-- Committees Section -->
+		<div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Committees Section</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <%= render 'settings/partials/committees_section' %>
+		  </div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12 col-md-6">
+		<!-- Ordinance Section -->
+		<div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Ordinance Section</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <%= render 'settings/partials/ordinances_section' %>
+		  </div>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-6">
+		<!-- Resolutions Section -->
+		<div class="card shadow mb-4">
+		  <div class="card-header py-3">
+		  	<div class="row">
+		  		<div class="col-md-6">
+		    		<h6 class="m-0 font-weight-bold">Resolutions Section</h6>
+		    	</div>
+		    	<div class="col-md-6">
+		    	</div>
+		    </div>
+		  </div>
+		  <div class="card-body">
+		    <%= render 'settings/partials/resolutions_section' %>
+		  </div>
+		</div>
+	</div>
+</div>

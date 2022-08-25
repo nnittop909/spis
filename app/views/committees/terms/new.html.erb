@@ -1,0 +1,5 @@
+<%= render "layouts/shared/remote_modal", title: "New Term" do %>
+
+  <%= render "committees/terms/form", term: @term.persisted? ? @term_processor : @term, committee: @committee %>
+
+<% end %>

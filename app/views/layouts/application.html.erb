@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SPIS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body id="page-top">
+    <div id="wrapper">
+      <%= turbo_frame_tag "remote_modal", target: "_top" %>
+      <%=render 'layouts/shared/sidebar' %>
+      <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+          <%=render 'layouts/shared/header' %>
+          <div class="container-fluid">
+            <%=render 'layouts/shared/flash' %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

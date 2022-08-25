@@ -1,0 +1,19 @@
+<%= render "ordinances/shared/card", ordinance: ordinance %>
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<ul class="nav nav-pills justify-content-end">
+		  <li class="nav-item">
+		    <%= link_to 'Details', ordinance_path(ordinance), class: "nav-link" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Terms', ordinance_terms_path(ordinance), class: "nav-link #{'active' if current_page?(ordinance_terms_path(ordinance))}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Ordinances', ordinance_ordinances_path(ordinance), class: "nav-link #{'active' if current_page?(ordinance_ordinances_path(ordinance))}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Resolutions', ordinance_resolutions_path(ordinance), class: "nav-link #{'active' if current_page?(ordinance_resolutions_path(ordinance))}" %>
+		  </li>
+		</ul>
+	</div>
+</div>

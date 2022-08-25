@@ -1,0 +1,53 @@
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="row">
+			<div class="col-md-3 col-sm-12">
+				<h2 class="font-weight-bold text-primary">Ordinances</h2>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<%=form_tag ordinances_path, method: :get, class: "" do %>
+				  <div class="input-group">
+				    <%= text_field_tag :search, params[:search], class: "form-control border-0 small", placeholder: "Search for ordinances..." %>
+				    <span class="input-group-append">
+				      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
+				        <i class="fas fa-search fa-sm"></i>
+				      <% end %>
+				    </span>
+				  </div>
+				<% end %>
+			</div>
+			<div class="col-md-3 col-sm-12">
+				<%= link_to "New Ordinance", new_ordinance_path, class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+      	<table class="table">
+	      	<thead>
+	        	<tr>
+	        		<td>Number</td>
+	        		<td>Title</td>
+	        		<td>Date Approved/Enacted</td>
+	        	</tr>
+	        </thead>
+	        <tbody>
+	        	<% @ordinances.each do |ordinance| %>
+		        	<tr>
+		        		<td>
+		        			<%= ordinance.number %>
+		        			<br>
+		        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
+		        		</td>
+		        		<td class="col-md-8"><%= link_to ordinance.title, ordinance_path(ordinance) %></td>
+		        		<td><%= ordinance.date_approved_or_enacted %></td>
+		        	</tr>
+		        <% end %>
+	        </tbody>
+	      </table>
+	      <center><%= paginate @ordinances, :window => 1 %></center>
+      </div>
+    </div>
+	</div>
+</div>

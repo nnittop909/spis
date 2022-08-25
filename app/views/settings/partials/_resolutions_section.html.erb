@@ -1,0 +1,35 @@
+<h5>Resolutions Upload</h5>
+<%= simple_form_for @resolutions_import, url: :settings_importers_resolutions do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :file, as: :file, label: false, input_html: { class: 'choose-btn center-block' } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+    </div>
+  </div>
+<% end %>
+<hr class="my-4">
+<h5>Resolution Authors Upload</h5>
+<%= simple_form_for @resolution_authors_import, url: :settings_importers_resolution_authors do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :file, as: :file, label: false, input_html: { class: 'choose-btn center-block' } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+    </div>
+  </div>
+<% end %>
+<hr class="my-4">
+<h5>Resolution Documents Upload</h5>
+<%= simple_form_for @resolution_document, url: :settings_importers_resolution_documents do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :files, as: :file, label: false, input_html: { multipart: true, multiple: true } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+    </div>
+  </div>
+<% end %>

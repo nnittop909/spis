@@ -1,0 +1,12 @@
+<%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? ordinance_stage_path(ordinance_id: @ordinance.id, id: @stage.id) : ordinance_stages_path(ordinance_id: @ordinance.id), data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :stage_id, collection: Stage.all.map{|s| [s.name, s.id]}, input_html: {data: { action: "input->toggle#changed", target: "toggle.element" }} %>
+  <label >Date</label>
+  <%= f.input :date, as: :date, label: false %>
+  <div class="" data-target="toggle.element" data-values="5">
+    <%= f.input :effectivity_date, as: :date, label: "Date Enacted" %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

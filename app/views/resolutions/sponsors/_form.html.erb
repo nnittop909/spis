@@ -1,0 +1,8 @@
+<%= simple_form_for @sponsorship, html: { autocomplete: "off"}, url: @sponsorship.persisted? ? resolution_sponsor_path(resolution_id: @resolution.id, id: @sponsorship.id) : resolution_sponsors_path(resolution_id: @resolution.id), data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :committee_id, label: 'Sponsor', collection: Committee.all.map{ |a| [a.name, a.id]}, input_html: {id: "resolution-sponsors-select"}, data: {controller: "stimulus-slimselect"} %>
+  <%= f.input :sponsor_type, collection: Sponsorship.sponsor_types.keys.to_a.map{ |a| [a.titleize, a]} %>
+
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>
