@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
     t.bigint "attendee_id", null: false
     t.string "eventable_type"
     t.bigint "eventable_id"
+    t.integer "attendee_role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attendee_id"], name: "index_attendances_on_attendee_id"
@@ -54,6 +55,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
 
   create_table "attendees", force: :cascade do |t|
     t.string "name"
+    t.integer "sex"
+    t.string "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -149,8 +152,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "eventable_ordinances", force: :cascade do |t|
+    t.bigint "ordinance_id"
+    t.string "eventable_type"
+    t.bigint "eventable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["eventable_type", "eventable_id"], name: "index_eventable_ordinances_on_eventable"
+    t.index ["ordinance_id"], name: "index_eventable_ordinances_on_ordinance_id"
+  end
+
+  create_table "eventable_resolutions", force: :cascade do |t|
+    t.bigint "resolution_id"
+    t.string "eventable_type"
+    t.bigint "eventable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["eventable_type", "eventable_id"], name: "index_eventable_resolutions_on_eventable"
+    t.index ["resolution_id"], name: "index_eventable_resolutions_on_resolution_id"
+  end
+
   create_table "hearings", force: :cascade do |t|
     t.string "title"
+    t.text "description"
     t.date "date"
     t.datetime "start_time"
     t.datetime "end_time"
@@ -169,6 +193,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
 
   create_table "meetings", force: :cascade do |t|
     t.string "title"
+    t.text "description"
     t.date "date"
     t.datetime "start_time"
     t.datetime "end_time"
@@ -253,6 +278,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
   end
 
   create_table "sp_sessions", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
     t.date "date"
     t.integer "session_type"
     t.string "start_time"
@@ -349,6 +376,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_25_084209) do
   add_foreign_key "committee_members", "members"
   add_foreign_key "committee_memberships", "committees"
   add_foreign_key "community_taxes", "members"
+  add_foreign_key "eventable_ordinances", "ordinances"
+  add_foreign_key "eventable_resolutions", "resolutions"
   add_foreign_key "lce_approvals", "stagings"
   add_foreign_key "members", "civil_service_eligibilities"
   add_foreign_key "members", "educational_attainments"

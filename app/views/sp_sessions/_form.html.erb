@@ -1,0 +1,7 @@
+<%= simple_form_for @sp_session, html: { autocomplete: "off"}, url: @sp_session.persisted? ? sp_session_path(@sp_session) : sp_sessions_path, method: @sp_session.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :title %>
+  <%= f.input :description, as: :text, input_html: {rows: 5} %>
+  <%= f.input :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950, include_blank: true %>
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

@@ -1,0 +1,3 @@
+<%= turbo_stream.update "remote_modal_body" do %>
+  <%= render partial: "meetings/documents/form", locals: { meeting: @meeting, document: @document } %>
+<% end %>

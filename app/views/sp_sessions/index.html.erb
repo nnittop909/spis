@@ -1,1 +1,51 @@
-Sessions
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="row">
+			<div class="col-md-3 col-sm-12">
+				<h2 class="font-weight-bold text-primary">Sessions</h2>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<%=form_tag sp_sessions_path, method: :get, class: "" do %>
+				  <div class="input-group">
+				    <%= text_field_tag :search, params[:search], class: "form-control border-0 small", placeholder: "Search for sessions..." %>
+				    <span class="input-group-append">
+				      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
+				        <i class="fas fa-search fa-sm"></i>
+				      <% end %>
+				    </span>
+				  </div>
+				<% end %>
+			</div>
+			<div class="col-md-3 col-sm-12">
+				<%= link_to "New Session", new_sp_session_path, class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+      	<table class="table">
+	      	<thead>
+	        	<tr>
+	        		<td>Title & Date</td>
+	        		<td>Description</td>
+	        	</tr>
+	        </thead>
+	        <tbody>
+	        	<% @sp_sessions.each do |sp_session| %>
+		        	<tr>
+		        		<td>
+		        			<%= sp_session.title %>
+		        			<br>
+		        			<small class="badge bg-info"><%= sp_session.date.strftime("%B %e, %Y") %></small>
+		        		</td>
+		        		<td class="col-md-8"><%= link_to sp_session.description, sp_session_path(sp_session) %></td>
+		        	</tr>
+		        <% end %>
+	        </tbody>
+	      </table>
+	      <center><%= paginate @sp_sessions, :window => 1 %></center>
+      </div>
+    </div>
+	</div>
+</div>

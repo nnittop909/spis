@@ -1,0 +1,43 @@
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="row">
+			<div class="col-md-4">
+				<h2 class="font-weight-bold text-primary"><%= @sp_session.title %></h2>
+		    <small class="badge bg-info"><%= @sp_session.date.strftime("%B %e, %Y") %></small>
+			</div>
+			<div class="col-md-8">
+				<ul class="nav nav-pills justify-content-end">
+				  <li class="nav-item px-2">
+				    <%= link_to 'Upload Document', new_sp_session_document_path(@sp_session), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				  <li class="nav-item px-2">
+				  	<%= link_to "Update Details", edit_sp_session_path(@sp_session), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<table class="table">
+			<tbody>
+		  	<tr>
+		  		<td><%= @sp_session.description %></td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4" rowspan="<%= @sp_session.documents.count %>">Attached Documents</td>
+		      <td>
+		  			<% if @documents.present? %>
+			  			<% @documents.each do |document| %>
+				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" if document.document_file.attached? %>
+				  				<span class="float-right">
+				  					<%= button_to "Delete", sp_session_document_path(sp_session_id: @sp_session.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if document.document_file.attached? %>
+				  				</span> <hr>
+			  			<% end %>
+			  		<% end %>
+			  	</td>
+		  	</tr>
+		  </tbody>
+		</table>
+	</div>
+</div>

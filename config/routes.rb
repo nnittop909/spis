@@ -42,9 +42,15 @@ Rails.application.routes.draw do
     resources :stages, module: :ordinances
   end
 
-  resources :sp_sessions
-  resources :hearings
-  resources :meetings
+  resources :sp_sessions do
+    resources :documents, only: [:new, :create, :destroy], module: :sp_sessions
+  end
+  resources :hearings do
+    resources :documents, only: [:new, :create, :destroy], module: :hearings
+  end
+  resources :meetings do
+    resources :documents, only: [:new, :create, :destroy], module: :meetings
+  end
 
   resources :settings, only: [:index]
   

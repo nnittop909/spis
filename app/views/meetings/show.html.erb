@@ -1,0 +1,43 @@
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="row">
+			<div class="col-md-4">
+				<h2 class="font-weight-bold text-primary"><%= @meeting.title %></h2>
+		    <small class="badge bg-info"><%= @meeting.date.strftime("%B %e, %Y") %></small>
+			</div>
+			<div class="col-md-8">
+				<ul class="nav nav-pills justify-content-end">
+				  <li class="nav-item px-2">
+				    <%= link_to 'Upload Document', new_meeting_document_path(@meeting), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				  <li class="nav-item px-2">
+				  	<%= link_to "Update Details", edit_meeting_path(@meeting), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<table class="table">
+			<tbody>
+		  	<tr>
+		  		<td><%= @meeting.description %></td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4" rowspan="<%= @meeting.documents.count %>">Attached Documents</td>
+		      <td>
+		  			<% if @meeting.documents.present? %>
+			  			<% @meeting.documents.each do |document| %>
+				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" if document.document_file.attached? %>
+				  				<span class="float-right">
+				  					<%= button_to "Delete", meeting_document_path(meeting_id: @meeting.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if document.document_file.attached? %>
+				  				</span> <hr>
+			  			<% end %>
+			  		<% end %>
+			  	</td>
+		  	</tr>
+		  </tbody>
+		</table>
+	</div>
+</div>

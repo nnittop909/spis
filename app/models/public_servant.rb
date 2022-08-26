@@ -1,2 +1,0 @@
-class PublicServant < ApplicationRecord
-end
