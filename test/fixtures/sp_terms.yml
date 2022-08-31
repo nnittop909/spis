@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ordinal_number: 1
+  start_of_term: 2022-08-30
+  end_of_term: 2022-08-30
+  office: one
+
+two:
+  ordinal_number: 1
+  start_of_term: 2022-08-30
+  end_of_term: 2022-08-30
+  office: two

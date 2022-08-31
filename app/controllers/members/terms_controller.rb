@@ -53,7 +53,8 @@ module Members
 
 		def term_params
 			params.require(:term).permit(
-				:position_id, :political_party_id, :start_of_term, :end_of_term
+				:position_id, :political_party_id, :start_of_term, :end_of_term,
+				:interim
 			)
 		end
 	end

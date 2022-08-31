@@ -1,0 +1,7 @@
+<%= simple_form_for @resolution, html: { autocomplete: "off"}, url: sp_session_resolutions_path(sp_session_id: @sp_session.id), data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :resolution_id, collection: Resolution.all.sort_by(&:parsed_number).reverse.map{|r| [r.number, r.id]} %>
+
+  <%= f.submit "Add", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

@@ -12,6 +12,12 @@ class Term < ApplicationRecord
     in_year_range
   end
 
+  def appointed
+    if interim? == true
+      " (Interim)"
+    end
+  end
+
   def in_year_range
     if start_of_term.present?
       [start_of_term.year, end_of_term.year].join(" - ")

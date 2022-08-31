@@ -1,19 +1,15 @@
 <div class="row">
   <div class="col-md-6">
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        <%= CommitteeMembership.find(params[:committee_membership_id]).term %>
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <% if committee.committee_memberships.present? %>
-          <% committee.committee_memberships.order(start_of_term: :desc).each do |committee_membership| %>
-            <li>
-              <%= link_to committee_membership.term, committee_members_path(committee_id: committee.id, committee_membership_id: committee_membership.id), class: "dropdown-item" %>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
+    <%=form_tag committee_members_path(committee_id: committee.id), method: :get, data: { controller: "filter-form", "filter-form-target": "filterForm", action: "ajax:success->filter-form#onPostSuccess" } do %>
+      <div class="input-group mb-4 w-25">
+        <%= select_tag :committee_membership_id, options_for_select(committee.committee_memberships.order(start_of_term: :desc).map{|s| [s.term, s.id]}, params[:committee_membership_id]), class: "form-control", prompt: "Select Term", data: { action: "change->filter-form#formSubmit" } %>
+        <!-- <span class="input-group-append">
+          <%#= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary", title: "Filter", data: {"filter-form-target": "submitForm"}) do %>
+            <i class="fas fa-filter fa-sm">Filter</i>
+          <%# end %>
+        </span> -->
+      </div>
+    <% end %>
   </div>
   <div class="col-md-6">
     <%= link_to "Add Committee Member", new_committee_member_path(committee), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>

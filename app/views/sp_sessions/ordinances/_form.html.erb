@@ -1,0 +1,7 @@
+<%= simple_form_for @ordinance, html: { autocomplete: "off"}, url: sp_session_ordinances_path(sp_session_id: @sp_session.id), data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :ordinance_id, collection: Ordinance.all.map{|r| [r.number, r.id]} %>
+
+  <%= f.submit "Add", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

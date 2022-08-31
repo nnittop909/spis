@@ -21,7 +21,11 @@ class TermFinder
 	end
 
 	def by_term_position
-		by_term.position
+		if by_term.interim? == true
+			"#{by_term.position} (Interim)"
+		else
+			by_term.position
+		end
 	end
 
 	def by_term_appointment_status
@@ -42,6 +46,16 @@ class TermFinder
 		end
 	end
 
+	def current_sp_term
+		if @termable.sp_terms.present?
+			if @termable.sp_terms.where.not(start_of_term: nil).present?
+				@termable.sp_terms.where.not(start_of_term: nil).order(:start_of_term).last.in_date_range
+			end
+		else
+			"Please set term"
+		end
+	end
+
 	def current_term_in_years
 		if @termable.terms.present?
 			if @termable.terms.where.not(start_of_term: nil).present?
@@ -52,10 +66,25 @@ class TermFinder
 		end
 	end
 
+	def current_sp_term_in_years
+		if @termable.sp_terms.present?
+			if @termable.sp_terms.where.not(start_of_term: nil).present?
+				@termable.sp_terms.where.not(start_of_term: nil).order(:start_of_term).last.in_year_range
+			end
+		else
+			"Please set term"
+		end
+	end
+
 	def current_position
 		if @termable.terms.present?
 			if @termable.terms.where.not(start_of_term: nil).present?
-				@termable.terms.where.not(start_of_term: nil).order(:start_of_term).last.position
+				term = @termable.terms.where.not(start_of_term: nil).order(:start_of_term).last
+				if term.interim? == true
+					"#{term.position} (Interim)"
+				else
+					term.position
+				end
 			end
 		else
 			"Please set term"

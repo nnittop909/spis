@@ -53,7 +53,7 @@ module Resolutions
 
 		def authorship_params
 			params.require(:authorship).permit(
-				:role, :polymorphic_author
+				:role, :author_id, :author_type
 			)
 		end
 	end

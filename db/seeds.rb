@@ -1,6 +1,12 @@
 office = Office.find_or_create_by(
 	name:         "Office of the Sanguniang Panlalawigan Secretary",
-	abbreviation: "SP-SEC"
+	abbreviation: "SPSEC"
+)
+
+office.sp_terms.find_or_create_by(
+	ordinal_number: 18,
+	start_of_term: ("2019-07-01").to_date,
+	end_of_term: ("2022-06-30").to_date
 )
 
 office.users.admin.create!(
@@ -63,61 +69,5 @@ pp3 = PoliticalParty.find_or_create_by(name: "PDPLBN")
 pp4 = PoliticalParty.find_or_create_by(name: "KBL")
 pp5 = PoliticalParty.find_or_create_by(name: "AKSYON")
 pp6 = PoliticalParty.find_or_create_by(name: "NACIONALISTA")
-
-# Member.find_or_create_by!(
-# 	first_name: "Alberto Jr", last_name: "Binlang", 
-# 	district_id: d1.id, political_party_id: pp2.id, position_id: p1.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
-
-# Member.find_or_create_by!(
-# 	first_name: "Ceasario", last_name: "Cabbigat", 
-# 	district_id: d1.id, political_party_id: pp4.id, position_id: p2.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
-
-# Member.find_or_create_by(
-# 	first_name: "Jordan", last_name: "Gullitiw", 
-# 	district_id: d1.id, political_party_id: pp2.id, position_id: p3.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
-
-# Member.find_or_create_by(
-# 	first_name: "Joselito", last_name: "Guyguyon", 
-# 	district_id: d1.id, political_party_id: pp1.id, position_id: p4.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
-
-# Member.find_or_create_by(
-# 	first_name: "Orlando", last_name: "Addug", 
-# 	district_id: d2.id, political_party_id: pp2.id, position_id: p1.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
-
-# Member.find_or_create_by(
-# 	first_name: "Peter", last_name: "Bunnag", 
-# 	district_id: d2.id, political_party_id: pp2.id, position_id: p2.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
-
-# Member.find_or_create_by(
-# 	first_name: "Perfecta", last_name: "Dulnuan", 
-# 	district_id: d2.id, political_party_id: pp2.id, position_id: p3.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
-
-# Member.find_or_create_by(
-# 	first_name: "Jojo", last_name: "Odan", 
-# 	district_id: d2.id, political_party_id: pp1.id, position_id: p4.id,
-# 	civil_service_eligibility_id: cse2.id, educational_attainment_id: ea4.id,
-# 	appointment_status: "elective"
-# )
 
 puts "Seeds Loaded!"

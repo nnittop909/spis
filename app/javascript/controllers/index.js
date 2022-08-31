@@ -12,8 +12,8 @@ application.register("visibility", VisibilityController)
 import ToggleSelectController from "./toggle_select_controller.js"
 application.register("toggle-select", ToggleSelectController)
 
-import AutoSubmitController from "./auto_submit_controller.js"
-application.register("auto-submit", AutoSubmitController)
+import FilterFormController from "./filter_form_controller.js"
+application.register("filter-form", FilterFormController)
 
 // import HelloController from "./hello_controller.js"
 // application.register("hello", HelloController)

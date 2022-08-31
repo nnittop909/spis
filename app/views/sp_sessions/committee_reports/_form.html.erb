@@ -1,0 +1,9 @@
+<%= simple_form_for @committee_report, html: { autocomplete: "off"}, url: sp_session_committee_reports_path(sp_session_id: @sp_session.id), data: { turbo: true } do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :report_number %>
+  <%= f.input :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
+  <%= f.input :committee_id, collection: Committee.all.order(:current_name).map{|c| [c.current_name, c.id]} %>
+  <%= f.input :document_file, as: :file, input_html: {multipart: true} %>
+
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>

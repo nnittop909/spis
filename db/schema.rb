@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_31_014137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -118,6 +118,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
     t.index ["committee_id"], name: "index_committee_memberships_on_committee_id"
   end
 
+  create_table "committee_reports", force: :cascade do |t|
+    t.string "name"
+    t.string "report_number"
+    t.date "date"
+    t.bigint "committee_id", null: false
+    t.bigint "sp_session_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["committee_id"], name: "index_committee_reports_on_committee_id"
+    t.index ["sp_session_id"], name: "index_committee_reports_on_sp_session_id"
+  end
+
   create_table "committees", force: :cascade do |t|
     t.integer "code"
     t.string "current_name"
@@ -173,8 +185,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
   end
 
   create_table "hearings", force: :cascade do |t|
+    t.integer "event_number"
     t.string "title"
     t.text "description"
+    t.integer "event_type"
     t.date "date"
     t.datetime "start_time"
     t.datetime "end_time"
@@ -192,9 +206,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
   end
 
   create_table "meetings", force: :cascade do |t|
+    t.integer "event_number"
     t.string "title"
     t.text "description"
     t.date "date"
+    t.integer "event_type"
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at", null: false
@@ -278,10 +294,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
   end
 
   create_table "sp_sessions", force: :cascade do |t|
+    t.integer "event_number"
     t.string "title"
     t.text "description"
     t.date "date"
-    t.integer "session_type"
+    t.integer "event_type"
     t.string "start_time"
     t.string "end_time"
     t.string "agenda"
@@ -289,6 +306,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sp_terms", force: :cascade do |t|
+    t.integer "ordinal_number"
+    t.date "start_of_term"
+    t.date "end_of_term"
+    t.bigint "office_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["office_id"], name: "index_sp_terms_on_office_id"
   end
 
   create_table "sponsorships", force: :cascade do |t|
@@ -335,6 +362,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
     t.bigint "political_party_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "interim"
     t.index ["political_party_id"], name: "index_terms_on_political_party_id"
     t.index ["position_id"], name: "index_terms_on_position_id"
     t.index ["termable_type", "termable_id"], name: "index_terms_on_termable"
@@ -375,6 +403,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
   add_foreign_key "committee_members", "committees"
   add_foreign_key "committee_members", "members"
   add_foreign_key "committee_memberships", "committees"
+  add_foreign_key "committee_reports", "committees"
+  add_foreign_key "committee_reports", "sp_sessions"
   add_foreign_key "community_taxes", "members"
   add_foreign_key "eventable_ordinances", "ordinances"
   add_foreign_key "eventable_resolutions", "resolutions"
@@ -383,6 +413,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_26_004423) do
   add_foreign_key "members", "educational_attainments"
   add_foreign_key "ordinances", "categories"
   add_foreign_key "resolutions", "categories"
+  add_foreign_key "sp_terms", "offices"
   add_foreign_key "stagings", "stages"
   add_foreign_key "terms", "political_parties"
   add_foreign_key "terms", "positions"

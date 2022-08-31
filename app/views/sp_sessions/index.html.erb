@@ -35,7 +35,7 @@
 	        	<% @sp_sessions.each do |sp_session| %>
 		        	<tr>
 		        		<td>
-		        			<%= sp_session.title %>
+		        			<%= link_to sp_session.title, sp_session_path(sp_session) %>
 		        			<br>
 		        			<small class="badge bg-info"><%= sp_session.date.strftime("%B %e, %Y") %></small>
 		        		</td>

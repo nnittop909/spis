@@ -44,6 +44,9 @@ Rails.application.routes.draw do
 
   resources :sp_sessions do
     resources :documents, only: [:new, :create, :destroy], module: :sp_sessions
+    resources :committee_reports, only: [:new, :create, :destroy], module: :sp_sessions
+    resources :resolutions, only: [:new, :create, :destroy], module: :sp_sessions
+    resources :ordinances, only: [:new, :create, :destroy], module: :sp_sessions
   end
   resources :hearings do
     resources :documents, only: [:new, :create, :destroy], module: :hearings

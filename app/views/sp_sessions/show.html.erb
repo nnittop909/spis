@@ -7,6 +7,15 @@
 			</div>
 			<div class="col-md-8">
 				<ul class="nav nav-pills justify-content-end">
+					<li class="nav-item px-2">
+				    <%= link_to 'Add Ordinance', new_sp_session_ordinance_path(@sp_session), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+					<li class="nav-item px-2">
+				    <%= link_to 'Add Resolution', new_sp_session_resolution_path(@sp_session), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
+				  <li class="nav-item px-2">
+				    <%= link_to 'Upload Committee Report', new_sp_session_committee_report_path(@sp_session), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  </li>
 				  <li class="nav-item px-2">
 				    <%= link_to 'Upload Document', new_sp_session_document_path(@sp_session), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
 				  </li>
@@ -23,12 +32,30 @@
 			<tbody>
 		  	<tr>
 		  		<td><%= @sp_session.description %></td>
+		  		<td></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4" rowspan="<%= @sp_session.documents.count %>">Attached Documents</td>
+		      <td class="col-md-4" rowspan="<%= @sp_session.documents.count %>">
+		      	Attached Documents
+		      </td>
 		      <td>
 		  			<% if @documents.present? %>
 			  			<% @documents.each do |document| %>
+				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" if document.document_file.attached? %>
+				  				<span class="float-right">
+				  					<%= button_to "Delete", sp_session_document_path(sp_session_id: @sp_session.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if document.document_file.attached? %>
+				  				</span> <hr>
+			  			<% end %>
+			  		<% end %>
+			  	</td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-4" rowspan="<%= @committee_reports.count %>">
+		      	Attached Committee Reports
+		      </td>
+		      <td>
+		  			<% if @committee_reports.present? %>
+			  			<% @committee_reports.each do |document| %>
 				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" if document.document_file.attached? %>
 				  				<span class="float-right">
 				  					<%= button_to "Delete", sp_session_document_path(sp_session_id: @sp_session.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if document.document_file.attached? %>

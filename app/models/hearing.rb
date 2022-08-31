@@ -15,4 +15,6 @@ class Hearing < ApplicationRecord
 	has_many :considered_resolutions, through: :eventable_resolutions, source_type: "Resolution"
 
 	has_many :documents, as: :documentable
+
+	enum event_type: [:public_hearing, :budget_hearing, :committee_heering]
 end

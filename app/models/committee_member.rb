@@ -5,7 +5,7 @@ class CommitteeMember < ApplicationRecord
 
   enum role: [:chairperson, :vice_chairperson, :regular]
 
-  validate :single_chairperson_role, on: :create
+  # validate :single_chairperson_role, on: :create
   validates :member_id, :committee_membership_id, :role, presence: true
 
   before_save :set_default_role
@@ -25,14 +25,14 @@ class CommitteeMember < ApplicationRecord
   private
 
   def set_default_role
-    if self.role.nil? == true
+    if role.nil? == true
       self.role = "regular"
     end
   end
 
   def single_chairperson_role
-    if self.role == "chairperson"
-      if CommitteeMembership.find(self.committee_membership_id).committee_members.pluck(:role).include?(self.role) == true
+    if role == "chairperson"
+      if CommitteeMembership.find(committee_membership_id).committee_members.pluck(:role).include?(role) == true
         errors.add(:role, "Chairperson role already assigned.")
       end
     end

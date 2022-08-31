@@ -83,35 +83,28 @@
 		    </div>
 		  </div>
 		</div>
+		<div class="card">
+			<div class="card-body">
+				<h5>Merge Committees</h5>
+				<div class="row">
+					<div class="col-md-6">
+						<h6 class="m-0 font-weight-bold"></h6>
+					</div>
+					<div class="col-md-6">
+						<%= link_to "Launch Form", new_settings_mergers_committee_path, class: "btn btn-outline-danger float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-sm-12 col-md-6">
-		<!-- <div class="card shadow mb-4">
-		  <div class="card-header py-3">
-		  	<div class="row">
-		  		<div class="col-md-6">
-		    		<h6 class="m-0 font-weight-bold">Provincial Districts</h6>
-		    	</div>
-		    	<div class="col-md-6">
-		    		
-		    	</div>
-		    </div>
-		  </div>
-		  <div class="card-body">
-		    <div class="table-responsive">
-		      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-		      	<table class="table table-bordered">
-			        <tbody>
-			        </tbody>
-			      </table>
-		      </div>
-		    </div>
-		  </div>
-		</div> -->
+		
 	</div>
 </div>
+<% if current_user.developer? %>
 <div class="form-group">
 	<label>Select Type</label>
 	<select name="type" class="form-control" data-action="input->toggle#changed" data-target="toggle.select">
@@ -195,3 +188,5 @@
 		</div>
 	</div>
 </div>
+
+<% end %>

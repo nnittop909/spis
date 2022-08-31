@@ -4,7 +4,7 @@
     <% terms.each do |term| %>
     	<tr>
         <td><%= term.try(:in_date_range) %></td>
-        <td><%= term.position %></td>
+        <td><%= term.position %><%= term.appointed %></td>
         <td><%= term.political_party %></td>
         <td><%= term.appointment_status.try(:titleize) %></td>
     		<td class="text-right">

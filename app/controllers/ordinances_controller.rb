@@ -2,9 +2,9 @@ class OrdinancesController < ApplicationController
 	
 	def index
 		if params[:search].present?
-			@results = Ordinance.search(params[:search]).all.sort_by(&:joined_number).reverse
+			@results = Ordinance.search(params[:search]).all.sort_by(&:parsed_number).reverse
 		else
-			@results = Ordinance.all.sort_by(&:joined_number).reverse
+			@results = Ordinance.all.sort_by(&:parsed_number).reverse
 		end
     @ordinances = Kaminari.paginate_array(@results).page(params[:page]).per(30)
 	end

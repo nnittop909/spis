@@ -53,7 +53,7 @@ module Resolutions
 
 		def sponsorship_params
 			params.require(:sponsorship).permit(
-				:role, :polymorphic_sponsor
+				:role, :sponsor_id, :sponsor_type
 			)
 		end
 	end

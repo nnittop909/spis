@@ -2,9 +2,9 @@ class ResolutionsController < ApplicationController
 
 	def index
 		if params[:search].present?
-			@results = Resolution.search(params[:search]).all.sort_by(&:joined_number).reverse
+			@results = Resolution.search(params[:search]).all.sort_by(&:parsed_number).reverse
 		else
-			@results = Resolution.all.sort_by(&:joined_number).reverse
+			@results = Resolution.all.sort_by(&:parsed_number).reverse
 		end
     @resolutions = Kaminari.paginate_array(@results).page(params[:page]).per(30)
 	end

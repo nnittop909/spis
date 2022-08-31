@@ -44,13 +44,15 @@ class SpSessionsController < ApplicationController
 	def show
 		@sp_session = SpSession.find(params[:id])
 		@documents = @sp_session.documents
+		@committee_reports = @sp_session.committee_reports
 	end
 
 	private
 	def sp_session_params
 		params.require(:sp_session).permit(
-			:date, 
-			:title, 
+			:event_number,
+			:event_type,
+			:date,
 			:description
 		)
 	end

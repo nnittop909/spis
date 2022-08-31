@@ -15,4 +15,14 @@ class Meeting < ApplicationRecord
 	has_many :considered_resolutions, through: :eventable_resolutions, class_name: "Resolution"
 
 	has_many :documents, as: :documentable
+
+	enum event_type: [:committee, :office]
+
+	before_save :set_title
+
+	private
+
+	def set_title
+		self.title = "#{event_type.titleize} Meeting"
+	end
 end

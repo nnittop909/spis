@@ -2,7 +2,8 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <%= f.input :polymorphic_author, as: :grouped_select, label: 'Author', collection: [["SB Members", @authorship.polymorphic_member_authors], ["Committees", @authorship.polymorphic_committee_authors]], :group_method => :last, :label_method => :name, :value_method => :to_global_id %>
+  <%= f.input :author_id, label: 'Author', collection: @authorship.polymorphic_member_authors.map{|a| [a.full_name, a.id]} %>
+  <%= f.input :author_type, input_html: { value: "Author"}, as: :hidden %>
   <%= f.input :role, collection: Authorship.roles.keys.to_a.map{ |a| [a.titleize, a]} %>
 
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>

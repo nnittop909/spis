@@ -22,6 +22,8 @@ class Committee < ApplicationRecord
 	has_many :committee_hearings, through: :committee_events, source: :eventable, source_type: "Hearing"
 	has_many :committee_meetings, through: :committee_events, source: :eventable, source_type: "Meeting"
 
+	has_many :committee_reports
+
 	def current_members
 		current_membership.committee_members
 	end

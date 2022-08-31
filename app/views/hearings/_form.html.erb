@@ -1,7 +1,8 @@
 <%= simple_form_for @hearing, html: { autocomplete: "off"}, url: @hearing.persisted? ? hearing_path(@hearing) : hearings_path, method: @hearing.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
   <%= f.error_notification %>
+  <%= f.input :event_type, label: "Type", collection: Hearing.event_types.keys.to_a.map{|s| [s.titleize, s]} %>
+  <%= f.input :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
   <%= f.input :title %>
   <%= f.input :description, as: :text, input_html: {rows: 5} %>
-  <%= f.input :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>

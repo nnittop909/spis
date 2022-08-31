@@ -49,6 +49,7 @@ class HearingsController < ApplicationController
 	private
 	def hearing_params
 		params.require(:hearing).permit(
+			:event_type,
 			:date, 
 			:title, 
 			:description

@@ -7,5 +7,6 @@
   <%= f.input :position_id, collection: Position.all.map{|t| [t, t.id]} %>
   <%= f.input :appointment_status, collection: Term.appointment_statuses.keys.to_a.map{|t| [t.titleize, t]} %>
   <%= f.input :political_party_id, collection: PoliticalParty.all.map{|t| [t, t.id]} %>
+  <%= f.input :interim, as: :boolean %>
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
