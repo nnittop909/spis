@@ -1,15 +1,16 @@
 environment "production"
 
-bind  "unix:///{path_to_your_app}/shared/tmp/sockets/puma.sock"
-pidfile "/{path_to_your_app}/shared/tmp/pids/puma.pid"
-state_path "/{path_to_your_app}/shared/tmp/sockets/puma.state"
-directory "/{path_to_your_app}/current"
+bind  "unix:/home/production/spis/shared/tmp/sockets/puma.sock"
+pidfile "/home/production/spis/shared/tmp/pids/puma.pid"
+state_path "/home/production/spis/shared/tmp/sockets/puma.state"
+directory "/home/production/spis/current"
 
 workers 2
 threads 1,2
 
 daemonize true
 
-activate_control_app 'unix:///{path_to_your_app}/shared/tmp/sockets/pumactl.sock'
+stdout_redirect "/home/production/spis/shared/log/puma.stdout.log", "/home/rails-demo/app/shared/log/puma.stderr.log"
+activate_control_app 'unix:/home/production/spis/shared/tmp/sockets/pumactl.sock'
 
 prune_bundler

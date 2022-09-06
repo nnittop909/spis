@@ -4,8 +4,8 @@ require 'mina/rbenv'
 require 'mina/puma'
 
 set :application_name, 'spis'
-set :domain, '10.0.0.63'
-set :deploy_to, '/home/spsec/spis'
+set :domain, '10.0.0.50'
+set :deploy_to, '/home/production/spis'
 set :repository, 'git@github.com:nnittop909/spis.git'
 set :branch, 'main'
 
