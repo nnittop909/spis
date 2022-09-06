@@ -367,6 +367,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   kaminari
+  matrix (~> 0.4.2)
   mina
   mina-puma!
   mini_magick

@@ -44,6 +44,7 @@ gem 'cocoon'
 gem 'autonumeric-rails'
 gem 'acts_as_tree'
 gem 'trix'
+gem "matrix", "~> 0.4.2"
 
 # gem "redis", "~> 4.0"
 # gem "kredis"
@@ -66,3 +67,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
