@@ -1,6 +1,7 @@
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'
+require 'mina/bundler'
 require 'mina/puma'
 
 set :application_name, 'spis'
