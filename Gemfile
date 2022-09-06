@@ -33,7 +33,8 @@ gem 'roo'
 gem 'roo-xls'
 gem "spreadsheet"
 gem 'public_activity'
-gem 'mina-puma', require: false
+gem 'mina', require: false
+gem 'mina-puma', require: false,  github: 'untitledkingdom/mina-puma'
 gem 'delayed_job_active_record'
 gem 'mini_magick'
 gem 'chronic'
