@@ -7,7 +7,7 @@ worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
 port ENV.fetch("PORT") { 3000 }
 
-environment ENV.fetch("RAILS_ENV") { "development" }
+environment "development" 
 
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
@@ -16,19 +16,44 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 plugin :tmp_restart
 
 
+# which puma "/home/spsec/.rbenv/shims/puma"
+
 # environment "production"
 
-# bind  "unix:/home/production/spis/shared/tmp/sockets/puma.sock"
-# pidfile "/home/production/spis/shared/tmp/pids/puma.pid"
-# state_path "/home/production/spis/shared/tmp/sockets/puma.state"
-# directory "/home/production/spis/current"
+# app_dir = "/home/deploy/spis"
+# shared_tmp_dir = "#{app_dir}/shared/tmp"
+# shared_log_dir = "#{app_dir}/shared/log"
+
+# bind  "unix://#{shared_tmp_dir}/sockets/puma.sock"
+# pidfile "#{shared_tmp_dir}/pids/puma.pid"
+# state_path "#{shared_tmp_dir}/sockets/puma.state"
+# directory "#{app_dir}/current"
 
 # workers 2
 # threads 1,2
 
-# daemonize true
-
-# stdout_redirect "/home/production/spis/shared/log/puma.stdout.log", "/home/rails-demo/app/shared/log/puma.stderr.log"
-# activate_control_app 'unix:/home/production/spis/shared/tmp/sockets/pumactl.sock'
+# stdout_redirect "#{shared_log_dir}/puma.stdout.log", "#{shared_log_dir}/puma.stderr.log"
+# activate_control_app 'unix://#{shared_tmp_dir}/sockets/pumactl.sock'
 
 # prune_bundler
+
+# ------------------------------------------------------------
+
+# puma.service
+
+# [Unit]
+# Description=Puma HTTP Server
+# After=network.target
+
+# [Service]
+# Type=simple
+# User=spsec
+# WorkingDirectory=/home/deploy/spis/current
+# Environment=RAILS_ENV=production
+
+# ExecStart=/home/spsec/.rbenv/shims/puma -e production -C /home/deploy/spis/shared/config/puma.rb
+# Restart=always
+# KillMode=process
+
+# [Install]
+# WantedBy=multi-user.target

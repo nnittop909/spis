@@ -5,20 +5,25 @@ require 'mina/bundler'
 require 'mina/puma'
 
 set :application_name, 'spis'
-set :domain, '10.0.0.50'
-set :deploy_to, '/home/production/spis'
+set :domain, '10.0.0.65'
+set :deploy_to, '/home/deploy/spis'
 set :repository, 'git@github.com:nnittop909/spis.git'
 set :branch, 'main'
 
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/pids', 'tmp/sockets', 'public/uploads')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/master.key', 'config/puma.rb')
-set :user, 'spsec'
+set :user, 'deploy'
 
 task :environment do
   invoke :'rbenv:load'
 end
 
 task :setup do
+  command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/log"]
+  command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/tmp/pids"]
+  command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/tmp/sockets"]
+  command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/public/uploads"]
+
   command %[touch "#{fetch(:shared_path)}/config/database.yml"]
   command %[touch "#{fetch(:shared_path)}/config/master.key"]
   command %[touch "#{fetch(:shared_path)}/config/puma.rb"]
@@ -32,6 +37,7 @@ task :deploy do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
+    command %{#{fetch(:rails)} db:seed}
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
