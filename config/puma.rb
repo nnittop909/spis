@@ -16,24 +16,20 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 plugin :tmp_restart
 
 
-# which puma "/home/spsec/.rbenv/shims/puma"
+# which puma "/home/deploy/.rbenv/shims/puma"
 
-# environment "production"
+# environment ENV['RAILS_ENV'] || 'production'
 
-# app_dir = "/home/deploy/spis"
-# shared_tmp_dir = "#{app_dir}/shared/tmp"
-# shared_log_dir = "#{app_dir}/shared/log"
-
-# bind  "unix://#{shared_tmp_dir}/sockets/puma.sock"
-# pidfile "#{shared_tmp_dir}/pids/puma.pid"
-# state_path "#{shared_tmp_dir}/sockets/puma.state"
-# directory "#{app_dir}/current"
+# bind  'unix:///home/deploy/spis/shared/tmp/sockets/puma.sock'
+# pidfile '/home/deploy/spis/shared/tmp/pids/puma.pid'
+# state_path '/home/deploy/spis/shared/tmp/sockets/puma.state'
+# directory '/home/deploy/spis/current'
 
 # workers 2
 # threads 1,2
 
-# stdout_redirect "#{shared_log_dir}/puma.stdout.log", "#{shared_log_dir}/puma.stderr.log"
-# activate_control_app 'unix://#{shared_tmp_dir}/sockets/pumactl.sock'
+# stdout_redirect '/home/deploy/spis/shared/log/puma.stdout.log', '/home/deploy/spis/shared/log/puma.stderr.log'
+# activate_control_app 'unix:///home/deploy/spis/shared/tmp/sockets/pumactl.sock'
 
 # prune_bundler
 
@@ -47,13 +43,11 @@ plugin :tmp_restart
 
 # [Service]
 # Type=simple
-# User=spsec
+# User=deploy
 # WorkingDirectory=/home/deploy/spis/current
-# Environment=RAILS_ENV=production
-
-# ExecStart=/home/spsec/.rbenv/shims/puma -e production -C /home/deploy/spis/shared/config/puma.rb
+# ExecStart=/home/deploy/.rbenv/shims/puma -e production -C /home/deploy/spis/shared/config/puma.rb
+# ExecStop=/home/deploy/.rbenv/shims/puma exec bundle exec pumactl -S /home/deploy/spis/shared/tmp/pids/puma.state stop
 # Restart=always
-# KillMode=process
 
 # [Install]
 # WantedBy=multi-user.target

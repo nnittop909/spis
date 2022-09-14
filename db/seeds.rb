@@ -9,24 +9,6 @@ office.sp_terms.find_or_create_by(
 	end_of_term: ("2022-06-30").to_date
 )
 
-office.users.admin.create!(
-	first_name:            "Admin", 
-	last_name:             "User",
-	username:              "admin",
-	email:                 "admin@sis.com",
-	password:              "11111111",
-	password_confirmation: "11111111"
-)
-
-office.users.developer.create!(
-	first_name:            "Developer", 
-	last_name:             "User",
-	username:              "devop",
-	email:                 "devop@sis.com",
-	password:              "11111111",
-	password_confirmation: "11111111"
-)
-
 Stage.find_or_create_by(name: "First Reading", phase: 0, alias_name: "first_reading")
 Stage.find_or_create_by(name: "Second Reading", phase: 1, alias_name: "second_reading")
 Stage.find_or_create_by(name: "Disapproved on Third Reading", phase: 2, alias_name: "disapproved_on_third_reading")
