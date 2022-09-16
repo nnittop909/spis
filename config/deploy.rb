@@ -10,7 +10,7 @@ set :deploy_to, '/home/deploy/spis'
 set :repository, 'git@github.com:nnittop909/spis.git'
 set :branch, 'main'
 
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/pids', 'tmp/sockets', 'public/assets', 'public/uploads', 'vendor/bundle', 'vendor/javascript')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/pids', 'tmp/sockets', 'public/uploads', 'vendor/bundle', 'storage')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/master.key', 'config/puma.rb')
 set :user, 'deploy'
 # set :bundle_options, -> { '' }
@@ -23,10 +23,9 @@ task :setup do
   command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/log"]
   command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/tmp/pids"]
   command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/tmp/sockets"]
-  command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/public/assets"]
   command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/public/uploads"]
   command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/vendor/bundle"]
-  command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/vendor/javascript"]
+  command %[chmod g+rx,u+rwx "#{fetch(:shared_path)}/storage"]
 
   # command "#{fetch(:bundle_bin)} config set deployment 'true'"
   # command "#{fetch(:bundle_bin)} config set path '#{fetch(:bundle_path)}'"
@@ -47,6 +46,7 @@ task :deploy do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     command %{#{fetch(:rails)} db:seed}
+    command %{#{fetch(:rails)} assets:clobber}
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
   end

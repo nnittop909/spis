@@ -80,5 +80,5 @@ test:
 production:
   <<: *default
   database: spis_production
-  username: deploy
+  username: neu
   password: <%= ENV["SPIS_PRODUCTION_DATABASE_PASSWORD"] %>

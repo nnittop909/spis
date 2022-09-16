@@ -7,7 +7,7 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.4"
 gem "jquery-rails"
 gem 'bootstrap', '~> 5.1.3'
 gem 'font-awesome-rails'
-gem "sprockets-rails"
+gem "sprockets-rails", :require => 'sprockets/railtie'
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "importmap-rails"

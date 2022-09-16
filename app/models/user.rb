@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include ActiveStoragePath
   include PgSearch::Model
   pg_search_scope( :search, 
                     against: [:first_name, :middle_name, :last_name, :fullname],
