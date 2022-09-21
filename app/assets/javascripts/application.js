@@ -13,7 +13,6 @@
 //= require activestorage
 //= require turbolinks
 //= require modals
-//= require rails.validations.simple_form.bootstrap4
 //= require flatpickr
 //= require flatpickr/plugins/confirmDate/confirmDate
 //= require select2
