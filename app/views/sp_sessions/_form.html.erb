@@ -1,4 +1,4 @@
-<%= simple_form_for @sp_session, html: { autocomplete: "off"}, url: @sp_session.persisted? ? sp_session_path(@sp_session) : sp_sessions_path, method: @sp_session.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
+<%= simple_form_for @sp_session, html: { autocomplete: "off"}, url: @sp_session.persisted? ? sp_session_path(@sp_session) : sp_sessions_path, method: @sp_session.persisted? ? :patch : :post do |f| %>
   <%= f.error_notification %>
   <h4 class="mb-4">
     <%= current_sp_term.ordinal_number %><sup><%= current_sp_term.ordinal %></sup> Sanguniang Panlalawigan

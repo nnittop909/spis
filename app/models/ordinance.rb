@@ -6,8 +6,8 @@ class Ordinance < ApplicationRecord
                     using: { tsearch: { prefix: true }} )
 
   belongs_to :category
-  has_many :committee_events
-  has_many :con, through: :considered_ordinances
+  has_many :eventable_ordinances
+  has_many :considered_ordinances, through: :eventable_ordinances
 
   has_many :authorships, as: :authorable, dependent: :destroy
   has_many :member_authors, through: :authorships, source: :author, source_type: "Member"

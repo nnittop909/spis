@@ -8,18 +8,17 @@ module Committees
 
 		def new
 			@committee = Committee.find(params[:committee_id])
-			@term = Committees::TermProcessor.new
+			@term = @committee.committee_memberships.new
 		end
 
 		def create
 			@committee = Committee.find(params[:committee_id])
-			@term = Committees::TermProcessor.new(term_params)
+			@term = @committee.committee_memberships.create(term_params)
 			respond_to do |format|
-	      if @term.process!
+	      if @term.save
 	        format.html { redirect_to committee_terms_url(id: @committee.id), notice: "Term created." }
 	      else
 	        format.html { render :new, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -27,19 +26,16 @@ module Committees
 		def edit
 			@committee = Committee.find(params[:committee_id])
 			@term = @committee.committee_memberships.find(params[:id])
-			@term_processor = Committees::TermProcessor.new("id" => @term.id)
 		end
 
 		def update
 			@committee = Committee.find(params[:committee_id])
 			@term = @committee.committee_memberships.find(params[:id])
-			@term_processor = Committees::TermProcessor.new(term_params.merge("id" => @term.id))
 			respond_to do |format|
-	      if @term_processor.update!
+	      if @term.update(term_params)
 	        format.html { redirect_to committee_terms_url(id: @committee.id), notice: "Term updated." }
 	      else
 	        format.html { render :edit, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -54,8 +50,8 @@ module Committees
 		private
 
 		def term_params
-			params.require(:committees_term_processor).permit(
-				:name, :start_of_term, :end_of_term, :active, :committee_id
+			params.require(:committee_membership).permit(
+				:name, :start_of_term, :end_of_term, :committee_id
 			)
 		end
 	end

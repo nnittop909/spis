@@ -1,19 +1,56 @@
-<%= simple_form_for member, html: { autocomplete: "off"}, url: @member.persisted? ? member_path(id: @member.id) : members_path, method: @member.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :first_name %>
-  <%= f.input :middle_name %>
-  <%= f.input :last_name %>
-  <%= f.input :name_suffix %>
-  <%= f.input :birthdate, as: :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
-  <%= f.input :civil_status, collection: Member.civil_statuses.keys.to_a.map{ |a| [a.titleize, a]} %>
-  <%= f.input :contact_number %>
-  <%= f.input :address %>
-  <%= f.input :educational_attainment_id, collection: EducationalAttainment.all.map{ |a| [a, a.id]} %>
-  <%= f.input :civil_service_eligibility_id, collection: CivilServiceEligibility.all.map{ |a| [a, a.id]} %>
-  <%= f.input :tin_number, label: "TIN Number" %>
-  <%= f.input :gsis_number, label: "GSIS Number" %>
-
-  <h4>Other Info</h4>
-  <%= f.input :other_info, as: :text %>
-  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<%= simple_form_for member, validate: true, html: { autocomplete: "off" }, url: @member.persisted? ? member_path(id: @member.id) : members_path, method: @member.persisted? ? :patch : :post do |f| %>
+    <%= f.error_notification %>
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :first_name, validate: { presence: true } %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :middle_name, validate: { presence: true } %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :last_name, validate: { presence: true } %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :name_suffix %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :birthdate, as: :string, label: "Date", placeholder: "Select date...", input_html: { class: "datepicker", value: @member.persisted? ? @member.birthdate.present? ? @member.birthdate.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :civil_status, collection: Member.civil_statuses.keys.to_a.map{ |a| [a.titleize, a]} %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :contact_number %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :address %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <%= f.input :educational_attainment_id, collection: EducationalAttainment.all.map{ |a| [a, a.id]} %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :civil_service_eligibility_id, collection: CivilServiceEligibility.all.map{ |a| [a, a.id]} %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :tin_number, label: "TIN Number" %>
+      </div>
+      <div class="col-md-3">
+        <%= f.input :gsis_number, label: "GSIS Number" %>
+      </div>
+    </div>
+    <h4>Other Info</h4>
+    <%= f.input :other_info, as: :text, label: false %>
+    <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.datepicker').flatpickr({
+      dateFormat: "F j, Y"
+    });
+  });
+</script>

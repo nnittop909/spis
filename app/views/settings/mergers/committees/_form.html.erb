@@ -1,9 +1,20 @@
-<%= simple_form_for @committee_merger, url: :settings_mergers_committees, method: :post, data: { turbo: true } do |f| %>
+<%= simple_form_for @committee_merger, url: :settings_mergers_committees, method: :post do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <h3>Select committee to be merged</h3>
-  <%= f.input :merge_from_id, label: false, collection: Committee.all.map{|c| [c.name, c.id]}, input_html: {id: "committee-merge-from"} %>
+  <%= f.input :merge_from_id, label: false, collection: Committee.all.map{|c| [c.name, c.id]}, input_html: {id: "committeeMergeFromSelect"} %>
   <h3>Merge To:</h3>
-  <%= f.input :merge_to_id, label: false, collection: Committee.all.map{|c| [c.name, c.id]}, input_html: {id: "committee-merge-to"} %>
+  <%= f.input :merge_to_id, label: false, collection: Committee.all.map{|c| [c.name, c.id]}, input_html: {id: "committeeMergeToSelect"} %>
   <%= f.submit "Merge", class: "btn btn-outline-danger float-right", data: { disable_with: "Processing..." } %>
 <% end %>
+
+<script type="text/javascript">
+  $( "#committeeMergeFromSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+  $( "#committeeMergeToSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+</script>

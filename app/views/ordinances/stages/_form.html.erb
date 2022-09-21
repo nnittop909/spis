@@ -1,12 +1,34 @@
-<%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? ordinance_stage_path(ordinance_id: @ordinance.id, id: @stage.id) : ordinance_stages_path(ordinance_id: @ordinance.id), data: { turbo: true } do |f| %>
+<%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? ordinance_stage_path(ordinance_id: @ordinance.id, id: @stage.id) : ordinance_stages_path(ordinance_id: @ordinance.id) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :stage_id, collection: Stage.all.map{|s| [s.name, s.id]}, input_html: {data: { action: "input->toggle#changed", target: "toggle.element" }} %>
-  <label >Date</label>
-  <%= f.input :date, as: :date, label: false %>
-  <div class="" data-target="toggle.element" data-values="5">
-    <%= f.input :effectivity_date, as: :date, label: "Date Enacted" %>
+  <%= f.input :stage_id, collection: Stage.all.map{|s| [s.name, s.id]}, input_html: {class: 'stageSelect'} %>
+  <label class="dateLabel">Date</label>
+  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.date.present? ? @stage.date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
+  <div class="effDate">
+    <%= f.input :effectivity_date, as: :string, label: "Date Enacted", placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
   </div>
 
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
+
+<script type="text/javascript">
+  $(function() {
+    $('.effDate').hide(); 
+    $('.stageSelect').change(function(){
+      if($('.stageSelect').val() == '5' || $('.stageSelect').val() == '7') {
+        $('.effDate').show(); 
+        $('.dateLabel').text('Date Approved')
+      } else {
+        $('.effDate').hide(); 
+        $('.dateLabel').text('Date')
+      } 
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.datepicker').flatpickr({
+      dateFormat: "F j, Y"
+    });
+  });
+</script>

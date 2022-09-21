@@ -1,7 +1,7 @@
-<%= simple_form_for @political_party, html: { autocomplete: "off"}, url: @political_party.persisted? ? settings_political_party_path(id: @political_party.id) : settings_political_parties_path do |f| %>
+<%= simple_form_for @political_party, html: { autocomplete: "off"}, url: @political_party.persisted? ? settings_political_party_path(id: @political_party.id) : settings_political_parties_path, method: @political_party.persisted? ? :patch : :post do |f| %>
   <%= f.error_notification %>
   <%= f.input :name %>
+  <%= f.input :code %>
   
-  <%= link_to 'Cancel', settings_path, class: 'btn btn-outline-secondary' %>
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>

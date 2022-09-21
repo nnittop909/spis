@@ -1,6 +1,4 @@
 //= link_tree ../images
+//= link_tree ../fonts
 //= link_directory ../stylesheets .css
-//= link_tree ../../javascript .js
-//= link_tree ../../../vendor/javascript .js
-//= link jquery.min.js
-//= link jquery_ujs.js
+//= link_directory ../javascripts .js

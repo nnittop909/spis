@@ -1,7 +1,14 @@
-<%= simple_form_for @ordinance, html: { autocomplete: "off"}, url: sp_session_ordinances_path(sp_session_id: @sp_session.id), data: { turbo: true } do |f| %>
+<%= simple_form_for @ordinance, html: { autocomplete: "off"}, url: sp_session_ordinances_path(sp_session_id: @sp_session.id) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :ordinance_id, collection: Ordinance.all.map{|r| [r.number, r.id]} %>
+  <%= f.input :ordinance_id, collection: Ordinance.all.map{|r| [r.number, r.id]}, input_html: {id: "ordinanceSelect"} %>
 
   <%= f.submit "Add", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
+
+<script type="text/javascript">
+  $( "#ordinanceSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+</script>

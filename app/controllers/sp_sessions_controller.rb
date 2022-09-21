@@ -20,7 +20,6 @@ class SpSessionsController < ApplicationController
         format.html { redirect_to sp_session_url(@sp_session), notice: "SpSession saved." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
       end
     end
 	end
@@ -36,7 +35,6 @@ class SpSessionsController < ApplicationController
         format.html { redirect_to sp_session_url(@sp_session), notice: "SpSession updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
       end
     end
 	end
@@ -45,6 +43,9 @@ class SpSessionsController < ApplicationController
 		@sp_session = SpSession.find(params[:id])
 		@documents = @sp_session.documents
 		@committee_reports = @sp_session.committee_reports
+		@ordinances = @sp_session.considered_ordinances
+		@resolutions = @sp_session.considered_resolutions
+		@committee_events = @sp_session.committee_events
 	end
 
 	private

@@ -1,0 +1,14 @@
+<%= simple_form_for @committee, html: { autocomplete: "off"}, url: sp_session_committees_path(sp_session_id: @sp_session.id) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :committee_id, collection: Committee.all.map{|r| [r.name, r.id]}, input_html: {id: "committeeSelect"} %>
+
+  <%= f.submit "Add", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>
+
+<script type="text/javascript">
+  $( "#committeeSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+</script>

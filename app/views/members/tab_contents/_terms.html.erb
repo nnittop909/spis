@@ -1,4 +1,4 @@
-<%= link_to "Add Term", new_member_term_path(member), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+<%= link_to "New Term", new_member_term_path(member), class: "btn btn-primary btn-sm float-right" %>
 <table class="table">
 	<tbody>
     <% terms.each do |term| %>
@@ -8,8 +8,8 @@
         <td><%= term.political_party %></td>
         <td><%= term.appointment_status.try(:titleize) %></td>
     		<td class="text-right">
-          <%= link_to "Edit", edit_member_term_path(member_id: member.id, id: term.id), data: { turbo_frame: "remote_modal", turbo: true } %> | 
-          <%= button_to "Delete", member_term_path(member_id: member.id, id: term.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %></td>
+          <%= link_to "Edit", edit_member_term_path(member_id: member.id, id: term.id) %> | 
+          <%= link_to "Delete", member_term_path(member_id: member.id, id: term.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
     	</tr>
     <% end %>
   </tbody>

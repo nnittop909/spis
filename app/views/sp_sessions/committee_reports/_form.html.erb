@@ -2,8 +2,14 @@
   <%= f.error_notification %>
   <%= f.input :report_number %>
   <%= f.input :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
-  <%= f.input :committee_id, collection: Committee.all.order(:current_name).map{|c| [c.current_name, c.id]} %>
+  <%= f.input :committee_id, collection: Committee.all.order(:current_name).map{|c| [c.current_name, c.id]}, input_html: {id: "committeeSelect"} %>
   <%= f.input :document_file, as: :file, input_html: {multipart: true} %>
 
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
+<script type="text/javascript">
+  $( "#committeeSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+</script>

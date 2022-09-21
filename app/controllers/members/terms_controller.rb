@@ -1,5 +1,6 @@
 module Members
 	class TermsController < ApplicationController
+		respond_to :html, :json, :flash
 
 		def index
 			@member = Member.find(params[:member_id])
@@ -13,14 +14,11 @@ module Members
 
 		def create
 			@member = Member.find(params[:member_id])
-			@term = @member.terms.create(term_params)
-			respond_to do |format|
-	      if @member.save
-	        format.html { redirect_to member_terms_url(id: @member.id), notice: "Term saved." }
-	      else
-	        format.html { render :new, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
-	      end
+			@term = @member.terms.create!(term_params)
+			if @member.save
+				redirect_to member_terms_url(id: @member.id), notice: "Term saved."
+	    else
+	    	render :new
 	    end
 		end
 
@@ -32,14 +30,11 @@ module Members
 		def update
 			@member = Member.find(params[:member_id])
 			@term = Term.find(params[:id])
-			respond_to do |format|
-	      if @term.update(term_params)
-	        format.html { redirect_to member_terms_url(id: @member.id), notice: "Term updated." }
-	      else
-	        format.html { render :edit, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
-	      end
-	    end
+      if @term.update(term_params)
+        redirect_to member_terms_url(id: @member.id), notice: "Term updated."
+      else
+        render :edit
+      end
 		end
 
 		def destroy
@@ -54,7 +49,7 @@ module Members
 		def term_params
 			params.require(:term).permit(
 				:position_id, :political_party_id, :start_of_term, :end_of_term,
-				:interim
+				:appointment_status
 			)
 		end
 	end

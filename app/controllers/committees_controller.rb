@@ -20,7 +20,6 @@ class CommitteesController < ApplicationController
         format.html { redirect_to committees_url, notice: "Committee created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
       end
     end
 	end
@@ -38,7 +37,6 @@ class CommitteesController < ApplicationController
         format.html { redirect_to committee_url(@committee), notice: "Committee updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
       end
     end
 	end
@@ -55,7 +53,7 @@ class CommitteesController < ApplicationController
 
 	def committee_params
 		params.require(:committee_processor).permit(
-			:name, :start_of_term, :end_of_term, :active
+			:name
 		)
 	end
 end

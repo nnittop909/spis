@@ -19,7 +19,6 @@ module Ordinances
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Sponsor saved." }
 	      else
 	        format.html { render :new, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -37,7 +36,6 @@ module Ordinances
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Sponsor updated." }
 	      else
 	        format.html { render :edit, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -53,7 +51,7 @@ module Ordinances
 
 		def sponsorship_params
 			params.require(:sponsorship).permit(
-				:role, :polymorphic_sponsor
+				:role, :sponsor_id, :sponsor_type
 			)
 		end
 	end

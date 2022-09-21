@@ -1,12 +1,17 @@
-<div class="row justify-content-md-center">
-  <div class="col-md-6 col-sm-12">
-    <div class="card">
-      <div class="card-header">
-        <h6 class="m-0 font-weight-bold text-primary">Create Position</h6>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">New Position</h4>
       </div>
-      <div class="card-body">
-        <%= render 'settings/positions/form' %>
+      <div class="col-md-6">
+        <%= link_to settings_path do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
       </div>
     </div>
+  </div>
+  <div class="card-body">
+    <%= render "settings/positions/form" %>
   </div>
 </div>

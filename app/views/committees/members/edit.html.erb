@@ -1,5 +1,17 @@
-<%= render "layouts/shared/remote_modal", title: "Update Member" do %>
-
-  <%= render "committees/members/form", member: @member, committee: @committee %>
-
-<% end %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">Update Committee Members</h4>
+      </div>
+      <div class="col-md-6">
+        <%= link_to committee_members_path(committee_id: @committee.id, committee_membership_id: @committee.current_membership.id) do %>
+          <h4 class="float-right fa fa-times pt-1"></h4>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render "committees/members/form", member: @member, committee: @committee %>
+  </div>
+</div>

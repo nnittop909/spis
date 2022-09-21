@@ -5,8 +5,10 @@ class Term < ApplicationRecord
 
   enum appointment_status: [:appointive, :elective]
 
-  validate :overlapping_terms, on: :create
-  validates :position_id, presence: true
+  before_save :set_interim_if_appointed
+  before_validation  :set_political_party
+  validate :overlapping_terms
+  validates :start_of_term, :end_of_term, :position_id, :appointment_status, presence: true
 
   def to_s
     in_year_range
@@ -53,6 +55,20 @@ class Term < ApplicationRecord
       if overlapped_terms.present?
         errors.add(:base, term_overlap_validator.error_message)
       end
+    end
+  end
+
+  def set_interim_if_appointed
+    if appointment_status == "appointive"
+      self.interim = true
+    else
+      self.interim = false
+    end
+  end
+
+  def set_political_party
+    if political_party_id.blank?
+      self.political_party_id = PoliticalParty.find_by(code: "IND").id
     end
   end
 end

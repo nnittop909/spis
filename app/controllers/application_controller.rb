@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+
 	# include Pundit
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
   before_action :authenticate_user!, :configure_permitted_parameters
@@ -20,6 +21,12 @@ class ApplicationController < ActionController::Base
 
   def action?(*action)
     action.include?(params[:action])
+  end
+
+  def respond_modal_with(*args, &blk)
+    options = args.extract_options!
+    options[:responder] = ModalResponder
+    respond_with *args, options, &blk
   end
 
   private

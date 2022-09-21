@@ -19,7 +19,6 @@ module Ordinances
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Author saved." }
 	      else
 	        format.html { render :new, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -37,7 +36,6 @@ module Ordinances
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Author updated." }
 	      else
 	        format.html { render :edit, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -53,7 +51,7 @@ module Ordinances
 
 		def authorship_params
 			params.require(:authorship).permit(
-				:role, :polymorphic_author
+				:role, :author_id, :author_type
 			)
 		end
 	end

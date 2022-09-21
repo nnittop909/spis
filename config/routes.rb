@@ -29,14 +29,14 @@ Rails.application.routes.draw do
   end
 
   resources :resolutions do
-    resources :documents, module: :resolutions
+    resources :documents, only: [:create, :destroy], module: :resolutions
     resources :sponsors, module: :resolutions
     resources :authors, module: :resolutions
     resources :stages, module: :resolutions
   end
 
   resources :ordinances do
-    resources :documents, only: [:new, :create, :destroy], module: :ordinances
+    resources :documents, only: [:create, :destroy], module: :ordinances
     resources :sponsors, module: :ordinances
     resources :authors, module: :ordinances
     resources :stages, module: :ordinances
@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     resources :committee_reports, only: [:new, :create, :destroy], module: :sp_sessions
     resources :resolutions, only: [:new, :create, :destroy], module: :sp_sessions
     resources :ordinances, only: [:new, :create, :destroy], module: :sp_sessions
+    resources :committees, only: [:new, :create, :destroy], module: :sp_sessions
   end
   resources :hearings do
     resources :documents, only: [:new, :create, :destroy], module: :hearings

@@ -1,4 +1,5 @@
 class MembersController < ApplicationController
+	respond_to :html, :json, :flash
 	
 	def index
 		if params[:search].present?
@@ -21,13 +22,10 @@ class MembersController < ApplicationController
 
 	def create
 		@member = MemberProcessor.new(member_params)
-		respond_to do |format|
-      if @member.process!
-        format.html { redirect_to members_url, notice: "Member saved." }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
-      end
+    if @member.process!
+    	redirect_to member_url(@member), notice: 'Member saved!'
+    else
+    	render :new
     end
 	end
 
@@ -39,13 +37,10 @@ class MembersController < ApplicationController
 	def update
 		@member = Member.find(params[:id])
 		@member_processor = MemberProcessor.new(member_params.merge("id" => @member.id))
-		respond_to do |format|
-      if @member_processor.update!
-        format.html { redirect_to member_url(@member), notice: "Member updated." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
-      end
+		if @member_processor.update!
+      redirect_to member_url(@member), notice: 'Member updated!'
+    else
+    	render :edit
     end
 	end
 

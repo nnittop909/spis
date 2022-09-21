@@ -1,3 +1,17 @@
-<%= render "layouts/shared/remote_modal_lg", title: "New Ordinance" do %>
-  <%= render "ordinances/form", ordinance: @ordinance %>
-<% end %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">New Ordinance</h4>
+      </div>
+      <div class="col-md-6">
+        <%= link_to ordinances_path do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render "ordinances/form", ordinance: @ordinance %>
+  </div>
+</div>

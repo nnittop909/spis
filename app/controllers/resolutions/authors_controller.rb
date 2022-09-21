@@ -19,7 +19,6 @@ module Resolutions
 	        format.html { redirect_to resolution_url(id: @resolution.id), notice: "Author saved." }
 	      else
 	        format.html { render :new, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -37,7 +36,6 @@ module Resolutions
 	        format.html { redirect_to resolution_url(id: @resolution.id), notice: "Author updated." }
 	      else
 	        format.html { render :edit, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end

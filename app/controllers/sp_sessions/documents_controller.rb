@@ -1,11 +1,6 @@
 module SpSessions
 	class DocumentsController < ApplicationController
 
-		def new
-			@sp_session = SpSession.find(params[:sp_session_id])
-			@document = @sp_session.documents.new
-		end
-
 		def create
 			@sp_session = SpSession.find(params[:sp_session_id])
 			@document = @sp_session.documents.create(document_params)

@@ -9,9 +9,11 @@ class TermOverlapValidator
 
 	def overlapped_terms
 		terms = []
-		termable_terms.each do |term|
-			if overlapped?(term) == true
-				terms << term
+		if termable_terms.present?
+			termable_terms.each do |term|
+				if overlapped?(term) == true
+					terms << term
+				end
 			end
 		end
 		terms.uniq

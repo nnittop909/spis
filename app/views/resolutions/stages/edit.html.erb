@@ -1,3 +1,17 @@
-<%= render "layouts/shared/remote_modal", title: "Edit Stage" do %>
-  <%= render "resolutions/stages/form", resolution: @resolution, stage: @stage %>
-<% end %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">Update Resolution Stage</h4>
+      </div>
+      <div class="col-md-6">
+        <%= link_to resolution_path(@resolution) do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render "resolutions/stages/form", resolution: @resolution, stage: @stage %>
+  </div>
+</div>

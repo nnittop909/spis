@@ -1,10 +1,17 @@
-<%= simple_form_for @authorship, html: { autocomplete: "off"}, url: @authorship.persisted? ? resolution_author_path(resolution_id: @ordinance.id, id: @authorship.id) : resolution_authors_path(resolution_id: @resolution.id), method: @authorship.persisted? ? :patch : :post, data: { turbo: true } do |f| %>
+<%= simple_form_for @authorship, html: { autocomplete: "off"}, url: @authorship.persisted? ? resolution_author_path(resolution_id: @ordinance.id, id: @authorship.id) : resolution_authors_path(resolution_id: @resolution.id), method: @authorship.persisted? ? :patch : :post do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <%= f.input :author_id, label: 'Author', collection: @authorship.polymorphic_member_authors.map{|a| [a.full_name, a.id]} %>
-  <%= f.input :author_type, input_html: { value: "Author"}, as: :hidden %>
+  <%= f.input :author_id, label: 'Author', collection: Member.all.map{|m| [m.name, m.id]}, input_html: {id: "authorSelect"} %>
   <%= f.input :role, collection: Authorship.roles.keys.to_a.map{ |a| [a.titleize, a]} %>
+  <%= f.input :author_type, input_html: { value: "Member"}, as: :hidden %>
 
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
+
+<script type="text/javascript">
+  $( "#authorSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+</script>

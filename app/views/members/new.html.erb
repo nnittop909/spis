@@ -1,3 +1,17 @@
-<%= render "layouts/shared/remote_modal", title: "New Member" do %>
-  <%= render "members/form", member: @member %>
-<% end %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">New Member</h4>
+      </div>
+      <div class="col-md-6">
+        <%= link_to members_path do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render "members/form", member: @member %>
+  </div>
+</div>

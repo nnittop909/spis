@@ -13,7 +13,6 @@ module Settings
 		        format.html { redirect_to settings_url, notice: "Merging success!." }
 		      else
 		        format.html { render :new, status: :unprocessable_entity }
-		        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 		      end
 		    end
 			end

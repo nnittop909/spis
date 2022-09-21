@@ -1,3 +1,17 @@
-<%= render "layouts/shared/remote_modal", title: "Update Stage" do %>
-  <%= render "ordinances/stages/form", ordinance: @ordinance, stage: @stage %>
-<% end %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">Update Ordinance Stage</h4>
+      </div>
+      <div class="col-md-6">
+        <%= link_to ordinance_path(@ordinance) do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render "ordinances/stages/form", ordinance: @ordinance, stage: @stage %>
+  </div>
+</div>

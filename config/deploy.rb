@@ -46,7 +46,6 @@ task :deploy do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     command %{#{fetch(:rails)} db:seed}
-    command %{#{fetch(:rails)} assets:clobber}
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
   end

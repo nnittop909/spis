@@ -7,12 +7,16 @@ class SpSession < ApplicationRecord
   
 	has_many :attendances, as: :eventable
 	has_many :attendees, through: :attendances
+	
 	has_many :committee_events, as: :eventable
-	has_many :concerned_committees, through: :committee_events, class_name: "Committee"
+	has_many :concerned_committees, through: :committee_events, source: :committee
+
 	has_many :eventable_ordinances, as: :eventable
-	has_many :considered_ordinances, through: :eventable_ordinances, class_name: "Ordinance"
+	has_many :considered_ordinances, through: :eventable_ordinances, source: :ordinance
+
 	has_many :eventable_resolutions, as: :eventable
-	has_many :considered_resolutions, through: :eventable_resolutions, class_name: "Resolution"
+	has_many :considered_resolutions, through: :eventable_resolutions, source: :resolution
+
 	has_many :committee_reports
 	has_many :documents, as: :documentable
 

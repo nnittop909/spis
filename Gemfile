@@ -4,23 +4,30 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.2"
 
 gem "rails", "~> 7.0.2", ">= 7.0.2.4"
+gem "sassc-rails"
 gem "jquery-rails"
-gem 'bootstrap', '~> 5.1.3'
-gem 'font-awesome-rails'
-gem "sprockets-rails", :require => 'sprockets/railtie'
+gem 'jquery-ui-rails'
+gem 'rails-jquery-autocomplete'
+# gem 'bootstrap', '~> 5.1.3'
+gem 'bootstrap', '4.6.1'
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
-gem "importmap-rails"
-gem "turbo-rails"
-gem "stimulus-rails"
+# gem "importmap-rails"
+# gem "turbo-rails"
+# gem "stimulus-rails"
+gem 'coffee-rails'
+gem 'turbolinks', '~> 5'
 gem "jbuilder"
-gem "sassc-rails"
+gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'font-awesome-sass', '~> 5.12.0'
 gem 'bootstrap-datepicker-rails'
 gem 'flatpickr'
 gem 'pg_search'
 gem 'kaminari'
 gem 'devise'
 gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 gem 'select2-rails'
 gem 'pundit'
 gem 'prawn'

@@ -31,7 +31,7 @@ module Settings
 		private
 
 		def political_party_params
-			params.require(:political_party).permit(:name)
+			params.require(:political_party).permit(:name, :code)
 		end
 	end
 end

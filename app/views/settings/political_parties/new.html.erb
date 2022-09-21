@@ -1,3 +1,17 @@
-<%= turbo_stream.update "remote_modal_body" do %>
-  <%= render partial: "members/form", locals: { member: @member.persisted? ? @member_processor : @member } %>
-<% end %>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">New Party</h4>
+      </div>
+      <div class="col-md-6">
+        <%= link_to settings_path do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render "settings/political_parties/form", political_party: @political_party %>
+  </div>
+</div>

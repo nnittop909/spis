@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h4 class="">Concerned Committee</h4>
+      </div>
+      <div class="col-md-6">
+        <%= link_to sp_session_path(@sp_session) do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render "sp_sessions/committees/form", sp_session: @sp_session, committee: @committee %>
+  </div>
+</div>

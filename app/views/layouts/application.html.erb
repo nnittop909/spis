@@ -6,13 +6,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body id="page-top">
     <div id="wrapper">
-      <%= turbo_frame_tag "remote_modal", target: "_top" %>
+      <div id="modal-holder"></div>
       <%=render 'layouts/shared/sidebar' %>
       <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">

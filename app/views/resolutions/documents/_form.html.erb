@@ -1,7 +1,0 @@
-<%= simple_form_for @document, html: { autocomplete: "off"}, url: resolution_documents_path(resolution_id: @resolution.id), data: { turbo: true } do |f| %>
-  <%= f.error_notification %>
-
-  <%= f.input :document_file, as: :file, input_html: {multipart: true} %>
-
-  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
-<% end %>

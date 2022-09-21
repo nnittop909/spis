@@ -1,12 +1,38 @@
-<%= simple_form_for @term, html: { autocomplete: "off"}, url: @term.persisted? ? member_term_path(id: @term.id, member_id: @member.id) : member_terms_path(member_id: @member.id), data: { turbo: true } do |f| %>
+<%= simple_form_for @term, html: { autocomplete: "off" }, url: @term.persisted? ? member_term_path(id: @term.id, member_id: @member.id) : member_terms_path(member_id: @member.id) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <%= f.input :start_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950, default: { month: 7, day: 1 } %>
-  <%= f.input :end_of_term, as: :date, :order => [:month, :day, :year], start_year: Date.current.year + 5, end_year: 1950, default: { year: Date.current.year + 3, month: 6, day: 30 } %>
-  <%= f.input :position_id, collection: Position.all.map{|t| [t, t.id]} %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :start_of_term, as: :string, label: "Start of term", placeholder: "Select date...", input_html: { class: "datepickFrom", value: @term.persisted? ? @term.start_of_term.present? ? @term.start_of_term.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :end_of_term, as: :string, label: "End of term", placeholder: "Select date...", input_html: { class: "datepickTo", value: @term.persisted? ? @term.end_of_term.present? ? @term.end_of_term.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") } %>
+    </div>
+  </div>
+  <%= f.input :position_id, collection: Position.for_members.map{|t| [t, t.id]} %>
   <%= f.input :appointment_status, collection: Term.appointment_statuses.keys.to_a.map{|t| [t.titleize, t]} %>
   <%= f.input :political_party_id, collection: PoliticalParty.all.map{|t| [t, t.id]} %>
-  <%= f.input :interim, as: :boolean %>
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+    <% if @term.persisted? %>
+      var persistedDateFrom = new Date(<%= @term.start_of_term.year %>, <%= @term.start_of_term.month - 1 %>, <%= @term.start_of_term.day %>);
+      var persistedDateTo = new Date(<%= @term.end_of_term.year %>, <%= @term.end_of_term.month - 1 %>, <%= @term.end_of_term.day %>);
+    <% end %>
+    var date_from = <%= @term.persisted? ? 'persistedDateFrom' : 'new Date(y, 6, 1)' %>;
+    var date_to = <%= @term.persisted? ? 'persistedDateTo' : 'new Date(y+3, 5, 30)' %>;
+
+    $('.datepickFrom').flatpickr({
+      dateFormat: "F j, Y",
+      defaultDate: date_from
+    });
+
+    $('.datepickTo').flatpickr({
+      dateFormat: "F j, Y",
+      defaultDate: date_to
+    });
+  });
+</script>

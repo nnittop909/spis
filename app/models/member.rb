@@ -34,6 +34,8 @@ class Member < ApplicationRecord
     size_range: 0.1..3.megabytes 
   }
 
+  validates :first_name, :last_name, :middle_name, presence: true
+
   before_save :set_full_name, :set_default_avatar
 
   def to_s

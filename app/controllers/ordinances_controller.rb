@@ -20,7 +20,6 @@ class OrdinancesController < ApplicationController
         format.html { redirect_to ordinance_url(@ordinance), notice: "Ordinance saved." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
       end
     end
 	end
@@ -36,7 +35,6 @@ class OrdinancesController < ApplicationController
         format.html { redirect_to ordinance_url(@ordinance), notice: "Ordinance updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
       end
     end
 	end

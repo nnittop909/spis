@@ -48,17 +48,17 @@ class MemberProcessor
 	private
 
 	def create_member
-		Member.create!(
+		Member.create(
 			first_name:                   first_name,
 			middle_name:                  middle_name,
 			last_name:                    last_name,
-			last_name:                    name_suffix,
+			name_suffix:                  name_suffix,
 			birthdate:                    birthdate,
 			address:                      address,
 			contact_number:               contact_number,
-			educational_attainment_id:    educational_attainment_id,
+			educational_attainment_id:    set_educational_attainment,
 			civil_status:                 civil_status,
-			civil_service_eligibility_id: civil_service_eligibility_id,
+			civil_service_eligibility_id: set_eligibility,
 			other_info:                   other_info,
 			tin_number:                   tin_number,
 			gsis_number:                  gsis_number
@@ -66,7 +66,7 @@ class MemberProcessor
 	end
 
 	def update_member
-		@member.update!(
+		@member.update(
 			first_name:                   first_name,
 			middle_name:                  middle_name,
 			last_name:                    last_name,
@@ -81,5 +81,29 @@ class MemberProcessor
 			tin_number:                   tin_number,
 			gsis_number:                  gsis_number
 		)
+	end
+
+	def set_eligibility
+		if civil_service_eligibility_id.present?
+			civil_service_eligibility_id
+		else
+			CivilServiceEligibility.find_by(name: "None").id
+		end
+	end
+
+	def set_educational_attainment
+		if educational_attainment_id.present?
+			educational_attainment_id
+		else
+			EducationalAttainment.find_by(name: "N/A").id
+		end
+	end
+
+	def set_civil_status
+		if civil_status.present?
+			civil_status
+		else
+			"single"
+		end
 	end
 end

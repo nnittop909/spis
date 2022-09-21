@@ -1,30 +1,48 @@
 <div class="row">
-  <div class="col-md-6">
-    <%=form_tag committee_members_path(committee_id: committee.id), method: :get, data: { controller: "filter-form", "filter-form-target": "filterForm", action: "ajax:success->filter-form#onPostSuccess" } do %>
-      <div class="input-group mb-4 w-25">
-        <%= select_tag :committee_membership_id, options_for_select(committee.committee_memberships.order(start_of_term: :desc).map{|s| [s.term, s.id]}, params[:committee_membership_id]), class: "form-control", prompt: "Select Term", data: { action: "change->filter-form#formSubmit" } %>
-        <!-- <span class="input-group-append">
-          <%#= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary", title: "Filter", data: {"filter-form-target": "submitForm"}) do %>
-            <i class="fas fa-filter fa-sm">Filter</i>
-          <%# end %>
-        </span> -->
+  <div class="col-md-2 col-sm-12">
+    <%=form_tag committee_members_path(committee_id: committee.id), method: :get do %>
+      <div class="input-group mb-4">
+        <%= select_tag :committee_membership_id, options_for_select(committee.committee_memberships.order(start_of_term: :desc).map{|s| [s.term, s.id]}, params[:committee_membership_id]), class: "form-control", prompt: "Select Term", onchange: 'this.form.submit();' %>
       </div>
     <% end %>
   </div>
-  <div class="col-md-6">
-    <%= link_to "Add Committee Member", new_committee_member_path(committee), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+  <div class="col-md-10 col-sm-12">
+    <%= simple_form_for @member, html: { autocomplete: "off"}, url: @member.persisted? ? committee_member_path(id: @member.id, committee_id: @committee.id) : committee_members_path(committee_id: @committee.id) do |f| %>
+      <%= f.error_notification %>
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <%= f.input :member_id, label: false, collection: Member.all.order(:first_name).map{|m| [m.name, m.id] }, input_html: {id: "memberSelect"}, prompt: "Select Member" %>
+          <%= f.input :committee_membership_id, input_html: {value: params[:committee_membership_id]}, as: :hidden %>
+          <%= f.input :committee_id, input_html: {value: @committee.id}, as: :hidden %>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <%= f.input :role, label: false, collection: CommitteeMember.roles.keys.to_a.map{|a| [a.titleize, a]}, prompt: "Select Role" %>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <%= f.submit "Add Member", class: "btn btn-outline-success", data: { disable_with: "Processing..." } %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 <table class="table">
 	<tbody>
     <% members.each do |member| %>
     	<tr>
-            <td><%= member.name %></td>
-            <td><%= member.role.titleize %></td>
-        	<td class="text-right">
-                <%= link_to "Edit", edit_committee_member_path(committee_id: committee.id, id: member.id), data: { turbo_frame: "remote_modal", turbo: true }%> | 
-                <%= button_to "Delete", committee_member_path(committee_id: committee.id, id: member.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %></td>
+        <td><%= member.name %></td>
+        <td><%= member.role.titleize %></td>
+      	<td class="text-right">
+          <%= link_to "Edit", edit_committee_member_path(committee_id: committee.id, id: member.id)%> | 
+          <%= button_to "Delete", committee_member_path(committee_id: committee.id, id: member.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+        </td>
     	</tr>
     <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+  $( "#memberSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+</script>
