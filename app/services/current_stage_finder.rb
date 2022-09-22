@@ -17,47 +17,63 @@ class CurrentStageFinder
 	end
 
 	def date_approved
-		if @stage == "approved"
-			if current.date.present?
-				current.date.strftime("%B %e, %Y")
-			else
-				"Date not set"
+		if current.nil?
+			"Date not set."
+		else
+			if @stage == "approved"
+				if current.date.present?
+					current.date.strftime("%B %e, %Y")
+				else
+					"Date not set"
+				end
 			end
 		end
 	end
 
 	def date_approved_or_enacted
-		if @stage == "approved" || @stage == "approved_on_third_reading"
-			if current.date.present?
-				current.date.strftime("%B %e, %Y")
-			else
-				"Date not set"
-			end
+		if current.nil?
+			"Date not set."
 		else
-			if current.effectivity_date.present?
-				current.effectivity_date.strftime("%B %e, %Y")
+			if @stage == "approved" || @stage == "approved_on_third_reading"
+				if current.date.present?
+					current.date.strftime("%B %e, %Y")
+				else
+					"Date not set"
+				end
 			else
-				"Date not set"
+				if current.effectivity_date.present?
+					current.effectivity_date.strftime("%B %e, %Y")
+				else
+					"Date not set"
+				end
 			end
 		end
 	end
 
 	def date_enacted
-		if @stage == ("vetoed" || "approved_on_third_reading")
-			if current.effectivity_date.present?
-				current.effectivity_date.strftime("%B %e, %Y")
-			else
-				"Date not set"
+		if current.nil?
+			"Date not set."
+		else
+			if @stage == ("vetoed" || "approved_on_third_reading")
+				if current.effectivity_date.present?
+					current.effectivity_date.strftime("%B %e, %Y")
+				else
+					"Date not set"
+				end
 			end
 		end
 	end
 
 	def date_adopted
-		if @stage == ("vetoed" || "approved_on_third_reading")
-			if current.effectivity_date.present?
-				current.effectivity_date.strftime("%B %e, %Y")
-			else
-				"Date not set"
+		if current.nil?
+			"Date not set."
+		else
+			if @stage == ("vetoed" || "approved_on_third_reading")
+				if current.effectivity_date.present?
+					current.effectivity_date.strftime("%B %e, %Y")
+				else
+					"Date not set"
+				end
 			end
 		end
 	end
