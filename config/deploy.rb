@@ -52,5 +52,5 @@ task :deploy do
 end
 
 task :launch do
-  invoke :'puma:phased_restart'
+  invoke :'puma:restart'
 end
