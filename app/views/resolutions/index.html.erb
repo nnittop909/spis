@@ -29,7 +29,7 @@
 	        	<tr>
 	        		<td>Number</td>
 	        		<td>Title</td>
-	        		<td>Date Approved/Enacted</td>
+	        		<td>Date Approved</td>
 	        	</tr>
 	        </thead>
 	        <tbody>
@@ -42,7 +42,7 @@
 		        		</td>
 		        		<td class="col-md-8"><%= link_to resolution.title, resolution_path(resolution) %></td>
 		        		<td>
-		        			<%= resolution.date_approved_or_adopted %>
+		        			<%= resolution.date_approved %>
 		        		</td>
 		        	</tr>
 		        <% end %>

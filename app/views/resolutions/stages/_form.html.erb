@@ -1,11 +1,11 @@
-<%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? resolution_stage_path(resolution_id: @resolution.id, id: @stage.id) : resolution_stages_path(resolution_id: @resolution.id), data: { turbo: true } do |f| %>
+<%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? resolution_stage_path(resolution_id: @resolution.id, id: @stage.id) : resolution_stages_path(resolution_id: @resolution.id), method: @stage.persisted? ? :patch : :post do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :stage_id, collection: Stage.all.map{|s| [s.name, s.id]}, input_html: {data: { action: "input->toggle#changed", target: "toggle.element" }} %>
+  <%= f.input :stage_id, collection: Stage.for_resolutions.map{|s| [s.name, s.id]}, input_html: {id: "stageSelect"} %>
   <label class="dateLabel">Date</label>
   <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.date.present? ? @stage.date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
   <div class="effDate">
-    <%= f.input :effectivity_date, as: :string, label: "Date Enacted", placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
+    <%= f.input :effectivity_date, as: :string, label: "Date Adopted", placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
   </div>
 
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
@@ -15,7 +15,7 @@
   $(function() {
     $('.effDate').hide(); 
     $('.stageSelect').change(function(){
-      if($('.stageSelect').val() == '5' || $('.stageSelect').val() == '7') {
+      if($('.stageSelect').val() == '9') {
         $('.effDate').show(); 
         $('.dateLabel').text('Date Approved')
       } else {

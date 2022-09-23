@@ -3,21 +3,22 @@
 		<div class="row">
 			<div class="col-md-4">
 				<h2 class="font-weight-bold text-primary">Resolution # <%= @resolution.number %></h2>
-		    <small class="badge bg-info"><%= @resolution.current_stage.titleize if @resolution.stages.present? %></small>
+		    <span class="badge bg-info"><%= @resolution.current_stage.titleize if @resolution.stages.present? %></span>
+		    <span class="badge bg-info"><%= @resolution.date_approved if @resolution.stages.present? %></span>
 			</div>
 			<div class="col-md-8">
 				<ul class="nav nav-pills justify-content-end">
 					<li class="nav-item px-2">
-				    <%= link_to 'Update Stage', new_resolution_stage_path(@resolution), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				    <%= link_to 'Update Stage', new_resolution_stage_path(@resolution), class: "btn btn-secondary btn-sm" %>
 				  </li>
 				  <li class="nav-item px-2">
-				    <%= link_to 'Add Author', new_resolution_author_path(@resolution), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				    <%= link_to 'Add Author', new_resolution_author_path(@resolution), class: "btn btn-secondary btn-sm" %>
 				  </li>
 				  <li class="nav-item px-2">
-				    <%= link_to 'Add Sponsor', new_resolution_sponsor_path(@resolution), class: "btn btn-secondary btn-sm", data: { turbo_frame: "remote_modal", turbo: true } %>
+				    <%= link_to 'Add Sponsor', new_resolution_sponsor_path(@resolution), class: "btn btn-secondary btn-sm" %>
 				  </li>
 				  <li class="nav-item px-2">
-				  	<%= link_to "Update Details", edit_resolution_path(@resolution), class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+				  	<%= link_to "Update Details", edit_resolution_path(@resolution), class: "btn btn-primary btn-sm float-right" %>
 				  </li>
 				</ul>
 				
@@ -28,20 +29,20 @@
 		<table class="table">
 			<tbody>
 		  	<tr>
-		      <td class="col-md-4">Title</td>
+		      <td class="col-md-2">Title</td>
 		  		<td><%= @resolution.title %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Date Calendared</td>
+		      <td class="col-md-2">Date Calendared</td>
 		  		<td><%= @resolution.date.strftime("%B %e, %Y") if @resolution.date.present? %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Authors</td>
+		      <td class="col-md-2">Authors</td>
 		  		<td>
 		  			<% @authors.each do |author| %>
 	  					<%= author.name_in_honorifics %>
 			  			<span class="float-right">
-			  				<%= link_to "Edit", edit_resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), data: { turbo_frame: "remote_modal", turbo: true }, class: 'd-inline' %> | 
+			  				<%= link_to "Edit", edit_resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), class: 'd-inline' %> | 
 			  				<%= button_to "Delete", resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
 			  			</span>
 			  			<hr>
@@ -49,11 +50,24 @@
 		  		</td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Remarks</td>
+		      <td class="col-md-2">Sponsors</td>
+		  		<td>
+		  			<% @sponsors.each do |sponsor| %>
+	  					<%= sponsor.name %>
+			  			<span class="float-right">
+			  				<%= link_to "Edit", edit_resolution_author_path(resolution_id: @resolution.id, id: @resolution.sponsorships.where(sponsor_id: sponsor.id).last.id), class: 'd-inline' %> | 
+			  				<%= button_to "Delete", resolution_author_path(resolution_id: @resolution.id, id: @resolution.sponsorships.where(sponsor_id: sponsor.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+			  			</span>
+			  			<hr>
+			  		<% end %>		  				
+		  		</td>
+		  	</tr>
+		  	<tr>
+		      <td class="col-md-2">Remarks</td>
 		  		<td><%= @resolution.remarks %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4" rowspan="<%= @resolution.documents.count %>">Attached Documents</td>
+		      <td class="col-md-2" rowspan="<%= @resolution.documents.count %>">Attached Documents</td>
 		      <td>
 		      	<%= simple_form_for @resolution.documents.new, url: resolution_documents_path(resolution_id: @resolution.id), html: {multipart: true }, method: :post do |f| %>
 		          <%= f.input :document_file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>

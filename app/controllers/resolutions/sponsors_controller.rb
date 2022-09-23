@@ -3,7 +3,7 @@ module Resolutions
 
 		def index
 			@resolution = Resolution.find(params[:resolution_id])
-			@sponsors = @resolution.committees.all.sort_by(&:start_of_sponsorship)
+			@sponsors = @resolution.sponsors.all
 		end
 
 		def new
@@ -13,7 +13,7 @@ module Resolutions
 
 		def create
 			@resolution = Resolution.find(params[:resolution_id])
-			@sponsorship = @resolution.sponsorships.create(sponsorship_params)
+			@sponsorship = @resolution.sponsorships.create!(sponsorship_params)
 			respond_to do |format|
 	      if @sponsorship.save
 	        format.html { redirect_to resolution_url(id: @resolution.id), notice: "Sponsor saved." }

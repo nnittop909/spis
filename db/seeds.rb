@@ -17,6 +17,8 @@ Stage.find_or_create_by(name: "Approved on Third Reading", phase: 2, alias_name:
 Stage.find_or_create_by(name: "Vetoed by the LCE", phase: 3, alias_name: "vetoed")
 Stage.find_or_create_by(name: "Approved by the LCE", phase: 3, alias_name: "approved")
 Stage.find_or_create_by(name: "Ammended", phase: 4, alias_name: "ammended")
+Stage.find_or_create_by(name: "Approved on Second Reading", phase: 1, alias_name: "approved_on_second_reading")
+Stage.find_or_create_by(name: "Active File/File Away", phase: 1, alias_name: "active_file")
 
 Category.find_or_create_by(name: "Appropriation")
 Category.find_or_create_by(name: "General")

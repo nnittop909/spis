@@ -19,8 +19,7 @@ class Resolution < ApplicationRecord
   has_many :stages, through: :stagings
   has_many :documents, as: :documentable
 
-  enum current_stage: [:first_reading, :second_reading, :disapproved_on_third_reading, 
-    :for_deliberation, :approved_on_third_reading, :vetoed, :approved, :ammended]
+  enum current_stage: [:first_reading, :approved, :active_file]
 
   def authors
     member_authors + committee_authors
@@ -30,11 +29,16 @@ class Resolution < ApplicationRecord
     member_sponsors + committee_sponsors
   end
 
-  def date_approved_or_adopted
-    CurrentStageFinder.new(stageable: self).date_approved_or_enacted
+  def date_approved
+    CurrentStageFinder.new(stageable: self).date_approved
+  end
+
+  def date_adopted
+    CurrentStageFinder.new(stageable: self).date_dopted
   end
 
   def parsed_number
     NumberParser.new(number: number).parse!
   end
+
 end

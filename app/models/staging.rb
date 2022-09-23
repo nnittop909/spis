@@ -8,7 +8,7 @@ class Staging < ApplicationRecord
   after_create :update_current_stage
 
   private
-  def set_current_stage
+  def set_stage
     case stage_id
     when 1
       "first_reading"
@@ -26,10 +26,14 @@ class Staging < ApplicationRecord
       "approved"
     when 8
       "ammended"
+    when 9
+      "approved"
+    when 10
+      "active_file"
     end
   end
 
   def update_current_stage
-    stageable.update!(current_stage: set_current_stage)
+    stageable.update!(current_stage: set_stage)
   end
 end

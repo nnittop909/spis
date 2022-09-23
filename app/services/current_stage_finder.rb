@@ -6,10 +6,10 @@ class CurrentStageFinder
 		@stage = @stageable.current_stage
 	end
 
-	def current
+	def staging
 		stagings = []
 		@stageable.stagings.each do |s|
-			if s.stage.alias_name == @stage
+			if s.stage.approved?
 				stagings << s
 			end
 		end
@@ -17,62 +17,52 @@ class CurrentStageFinder
 	end
 
 	def date_approved
-		if current.nil?
-			"Date not set."
+		if staging.nil?
+			"Please update stage"
 		else
-			if @stage == "approved"
-				if current.date.present?
-					current.date.strftime("%B %e, %Y")
-				else
-					"Date not set"
-				end
-			end
-		end
-	end
-
-	def date_approved_or_enacted
-		if current.nil?
-			"Date not set."
-		else
-			if @stage == "approved" || @stage == "approved_on_third_reading"
-				if current.date.present?
-					current.date.strftime("%B %e, %Y")
-				else
-					"Date not set"
+			if @stageable.class.name == "Resolution"
+				if @stage == "approved"
+					if staging.date.present?
+						staging.date.strftime("%B %e, %Y")
+					else
+						""
+					end
 				end
 			else
-				if current.effectivity_date.present?
-					current.effectivity_date.strftime("%B %e, %Y")
-				else
-					"Date not set"
+				if @stage == "approved" || @stage == "approved_on_third_reading"
+					if staging.date.present?
+						staging.date.strftime("%B %e, %Y")
+					else
+						""
+					end
 				end
 			end
 		end
 	end
 
-	def date_enacted
-		if current.nil?
-			"Date not set."
+	def date_enacted #Ordinance
+		if staging.nil?
+			"Please update stage."
 		else
-			if @stage == ("vetoed" || "approved_on_third_reading")
-				if current.effectivity_date.present?
-					current.effectivity_date.strftime("%B %e, %Y")
+			if @stage == "vetoed" || @stage == "approved_on_third_reading"
+				if staging.effectivity_date.present?
+					staging.effectivity_date.strftime("%B %e, %Y")
 				else
-					"Date not set"
+					""
 				end
 			end
 		end
 	end
 
-	def date_adopted
-		if current.nil?
+	def date_adopted #Resolution
+		if staging.nil?
 			"Date not set."
 		else
-			if @stage == ("vetoed" || "approved_on_third_reading")
-				if current.effectivity_date.present?
-					current.effectivity_date.strftime("%B %e, %Y")
+			if @stage == "approved_on_second_reading"
+				if staging.effectivity_date.present?
+					staging.effectivity_date.strftime("%B %e, %Y")
 				else
-					"Date not set"
+					staging.date.strftime("%B %e, %Y")
 				end
 			end
 		end
