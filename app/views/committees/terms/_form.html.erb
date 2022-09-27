@@ -5,10 +5,10 @@
   <%= f.input :name, label: "Committee Name", input_html: {value: @term.persisted? ? @term.name : @committee.name} %>
   <div class="row">
     <div class="col-md-6">
-      <%= f.input :start_of_term, as: :string, label: "Start of term", placeholder: "Select date...", input_html: { class: "datepickFrom", value: @term.persisted? ? @term.start_of_term.present? ? @term.start_of_term.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") } %>
+      <%= f.input :start_of_term, as: :string, label: "Start of term", placeholder: "Select date...", input_html: { class: "datepickFrom"} %>
     </div>
     <div class="col-md-6">
-      <%= f.input :end_of_term, as: :string, label: "End of term", placeholder: "Select date...", input_html: { class: "datepickTo", value: @term.persisted? ? @term.end_of_term.present? ? @term.end_of_term.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") : Date.today.strftime("%B %e, %Y") } %>
+      <%= f.input :end_of_term, as: :string, label: "End of term", placeholder: "Select date...", input_html: { class: "datepickTo"} %>
     </div>
   </div>
 
@@ -18,22 +18,20 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-    <% if @term.persisted? %>
-      var persistedDateFrom = new Date(<%= @term.start_of_term.year %>, <%= @term.start_of_term.month - 1 %>, <%= @term.start_of_term.day %>);
-      var persistedDateTo = new Date(<%= @term.end_of_term.year %>, <%= @term.end_of_term.month - 1 %>, <%= @term.end_of_term.day %>);
-    <% end %>
-    var date_from = <%= @term.persisted? ? 'persistedDateFrom' : 'new Date(y, 6, 1)' %>;
-    var date_to = <%= @term.persisted? ? 'persistedDateTo' : 'new Date(y+3, 5, 30)' %>;
-
+    var dateFrom = new Date(<%= @term.persisted? ? @term.start_of_term.present? ? @term.start_of_term.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, 6, 1") : Date.today.strftime("%Y, 6, 1") %>);
+    var dateTo = new Date(<%= @term.persisted? ? @term.end_of_term.present? ? @term.end_of_term.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y+3, 5, 30") : Date.today.strftime("%Y+3, 5, 30") %>);
+    
     $('.datepickFrom').flatpickr({
-      dateFormat: "F j, Y",
-      defaultDate: date_from
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d",
+      defaultDate: dateFrom
     });
-
     $('.datepickTo').flatpickr({
-      dateFormat: "F j, Y",
-      defaultDate: date_to
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d",
+      defaultDate: dateTo
     });
   });
 </script>

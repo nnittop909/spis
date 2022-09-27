@@ -3,7 +3,7 @@
 
   <%= f.input :stage_id, collection: Stage.all.map{|s| [s.name, s.id]}, input_html: {class: 'stageSelect'} %>
   <label class="dateLabel">Date</label>
-  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.date.present? ? @stage.date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
+  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker"} %>
   <div class="effDate">
     <%= f.input :effectivity_date, as: :string, label: "Date Enacted", placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
   </div>
@@ -27,8 +27,12 @@
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
+    var defDate = new Date(<%= @ordinance.persisted? ? @ordinance.date.present? ? @ordinance.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
     $('.datepicker').flatpickr({
-      dateFormat: "F j, Y"
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d",
+      defaultDate: defDate
     });
   });
 </script>
