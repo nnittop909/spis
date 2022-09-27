@@ -1,5 +1,5 @@
 $( document ).on('turbolinks:load', function() {
-	var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+	var date = new Date(), y = date.getFullYear();
 	var date_from = new Date(y, 6, 30);
 	var date_to = new Date(y, 7, 1);
 	

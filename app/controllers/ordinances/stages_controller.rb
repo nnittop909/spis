@@ -3,6 +3,7 @@ module Ordinances
 
 		def index
 			@ordinance = Ordinance.find(params[:ordinance_id])
+			@stages = @ordinance.stagings.order(:date)
 		end
 
 		def new
@@ -18,7 +19,6 @@ module Ordinances
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Stage saved." }
 	      else
 	        format.html { render :new, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end
@@ -36,7 +36,6 @@ module Ordinances
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Stage updated." }
 	      else
 	        format.html { render :edit, status: :unprocessable_entity }
-	        format.turbo_stream { render :form_update, status: :unprocessable_entity }
 	      end
 	    end
 		end

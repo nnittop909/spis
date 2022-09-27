@@ -9,7 +9,7 @@
 			<div class="col-md-8">
 				<ul class="nav nav-pills justify-content-end">
 					<li class="nav-item px-2">
-				    <%= link_to 'Update Stage', new_resolution_stage_path(@resolution), class: "btn btn-secondary btn-sm" %>
+				    <%= link_to 'Update Status', new_resolution_stage_path(@resolution), class: "btn btn-secondary btn-sm" %>
 				  </li>
 				  <li class="nav-item px-2">
 				    <%= link_to 'Add Author', new_resolution_author_path(@resolution), class: "btn btn-secondary btn-sm" %>
@@ -21,7 +21,7 @@
 				  	<%= link_to "Update Details", edit_resolution_path(@resolution), class: "btn btn-primary btn-sm float-right" %>
 				  </li>
 				</ul>
-				
+				<%= link_to "Status Logs", resolution_stages_path(resolution_id: @resolution.id), class: 'float-right mr-3 mt-3' %>
 			</div>
 		</div>
 	</div>

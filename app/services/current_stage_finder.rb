@@ -29,7 +29,7 @@ class CurrentStageFinder
 					end
 				end
 			else
-				if @stage == "approved" || @stage == "approved_on_third_reading"
+				if @stage == "approved" || @stage == "approved_on_third_reading" || @stage == "vetoed"
 					if staging.date.present?
 						staging.date.strftime("%B %e, %Y")
 					else
@@ -66,5 +66,9 @@ class CurrentStageFinder
 				end
 			end
 		end
+	end
+
+	def status
+		staging.stage.name
 	end
 end

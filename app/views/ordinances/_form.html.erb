@@ -3,15 +3,19 @@
   <%= f.input :number %>
   <%= f.input :title, as: :text, input_html: {rows: 5} %>
   <%= f.input :category_id, collection: Category.all.map{ |a| [a, a.id]} %>
-  <%= f.input :date, as: :string, label: "Date", placeholder: "Select date...", input_html: { class: "datepicker", value: @ordinance.persisted? ? @ordinance.date.present? ? @ordinance.date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
+  <%= f.input :date, as: :string, label: "Date", placeholder: "Select date...", input_html: { class: "datepicker" } %>
   <%= f.input :remarks, as: :text %>
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
 
 <script type="text/javascript">
   $(document).ready(function() {
+    var defDate = new Date(<%= @ordinance.persisted? ? @ordinance.date.present? ? @ordinance.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
     $('.datepicker').flatpickr({
-      dateFormat: "F j, Y"
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d",
+      defaultDate: defDate
     });
   });
 </script>

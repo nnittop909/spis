@@ -1,0 +1,48 @@
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<div class="row">
+			<div class="col-md-6 col-sm-11">
+				<h2 class="font-weight-bold text-primary">Stage/Status Logs</h2>
+			</div>
+			<div class="col-md-6 col-sm-1">
+				<%= link_to resolution_path(@resolution) do %>
+          <h5 class="float-right fa fa-times pt-1"></h5>
+        <% end %>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<h3>Resolution #<%= @resolution.number %></h3>
+		<div class="table-responsive">
+      <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+      	<table class="table">
+	      	<thead>
+	        	<tr>
+	        		<td>Date</td>
+	        		<td>Status</td>
+	        		<td></td>
+	        	</tr>
+	        </thead>
+	        <tbody>
+	        	<% @stages.each do |staging| %>
+		        	<tr>
+		        		<td>
+		        			<%= staging.date.strftime("%B %e, %Y") %>
+		        		</td>
+		        		<td>
+		        			<%= staging.stage.name %>
+		        		</td>
+		        		<td>
+		        			<span class="float-right">
+					  				<%= link_to "Edit", edit_resolution_stage_path(resolution_id: @resolution.id, id: staging.id), class: 'd-inline' %> | 
+					  				<%= button_to "Delete", resolution_stage_path(resolution_id: @resolution.id, id: staging.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+					  			</span>
+		        		</td>
+		        	</tr>
+		        <% end %>
+	        </tbody>
+	      </table>
+      </div>
+    </div>
+	</div>
+</div>

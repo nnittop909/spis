@@ -29,7 +29,7 @@
 	        	<tr>
 	        		<td>Number</td>
 	        		<td>Title</td>
-	        		<td>Date Approved/Enacted</td>
+	        		<td>Date Approved</td>
 	        	</tr>
 	        </thead>
 	        <tbody>
@@ -41,7 +41,7 @@
 		        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
 		        		</td>
 		        		<td class="col-md-8"><%= link_to ordinance.title, ordinance_path(ordinance) %></td>
-		        		<td><%= ordinance.date_approved_or_enacted %></td>
+		        		<td><%= ordinance.date_approved %></td>
 		        	</tr>
 		        <% end %>
 	        </tbody>

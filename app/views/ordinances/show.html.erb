@@ -4,6 +4,7 @@
 			<div class="col-md-4">
 				<h2 class="font-weight-bold text-primary">Ordinance # <%= @ordinance.number %></h2>
 		    <small class="badge bg-info"><%= @ordinance.current_stage.titleize if @ordinance.stages.present? %></small>
+		    <span class="badge bg-info"><%= @ordinance.date_approved if @ordinance.stages.present? %></span>
 			</div>
 			<div class="col-md-8">
 				<ul class="nav nav-pills justify-content-end">
@@ -20,7 +21,7 @@
 				  	<%= link_to "Update Details", edit_ordinance_path(@ordinance), class: "btn btn-primary btn-sm float-right" %>
 				  </li>
 				</ul>
-				
+				<%= link_to "Status Logs", ordinance_stages_path(ordinance_id: @ordinance.id), class: 'float-right mr-3 mt-3' %>
 			</div>
 		</div>
 	</div>
@@ -61,14 +62,9 @@
 		  		</td>
 		  	</tr>
 		  	<tr>
-		  		<td class="col-md-4">Stages</td>
+		  		<td class="col-md-4">Stage/Status</td>
 		  		<td>
-		  			<% if @ordinance.stagings.present? %>
-		  				<% @ordinance.stagings.each do |staging| %>
-		  					<%= staging.stage.name %> - <%= staging.date.strftime("%B %e, %Y") %>
-		  					<br>
-		  				<% end %>
-		  			<% end %>
+		  			<% @ordinance.status if @ordinance.stagings.present? %>
 		  		</td>
 		  	</tr>
 		  	<tr>

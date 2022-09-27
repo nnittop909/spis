@@ -32,8 +32,12 @@ class Ordinance < ApplicationRecord
     member_sponsors + committee_sponsors
   end
 
-  def date_approved_or_enacted
-    CurrentStageFinder.new(stageable: self).date_approved_or_enacted
+  def date_approved
+    CurrentStageFinder.new(stageable: self).date_approved
+  end
+
+  def status
+    CurrentStageFinder.new(stageable: self).status
   end
 
   def parsed_number

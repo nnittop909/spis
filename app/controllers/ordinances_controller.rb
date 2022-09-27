@@ -43,6 +43,7 @@ class OrdinancesController < ApplicationController
 		@ordinance = Ordinance.find(params[:id])
 		@authors = @ordinance.authors
 		@sponsors = @ordinance.sponsors
+		@stagings = @ordinance.stagings
 	end
 
 	private

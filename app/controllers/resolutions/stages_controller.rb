@@ -3,6 +3,7 @@ module Resolutions
 
 		def index
 			@resolution = Resolution.find(params[:resolution_id])
+			@stages = @resolution.stagings.order(:date)
 		end
 
 		def new
