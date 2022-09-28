@@ -17,7 +17,7 @@ class Resolution < ApplicationRecord
 
   has_many :stagings, as: :stageable
   has_many :stages, through: :stagings
-  has_one :document, as: :documentable
+  has_one :document, as: :documentable, dependent: :destroy
 
   enum current_stage: [:first_reading, :approved, :active_file]
 
