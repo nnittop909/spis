@@ -19,7 +19,7 @@ class Ordinance < ApplicationRecord
 
   has_many :stagings, as: :stageable
   has_many :stages, through: :stagings
-  has_one :document, as: :documentable
+  has_one :document, as: :documentable, dependent: :destroy
 
   enum current_stage: [:first_reading, :second_reading, :disapproved_on_third_reading, 
     :for_deliberation, :approved_on_third_reading, :vetoed, :approved, :ammended]

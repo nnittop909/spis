@@ -13,7 +13,7 @@ module Imports
             ordinance = Ordinance.where(number: parsed_filename(file_name)).last
             if ordinance.present?
               ordinance.create_document(
-                name: parsed_filename(file_name),
+                name: "#{parsed_filename(file_name)}.pdf",
                 document_file: file
               )
             end
