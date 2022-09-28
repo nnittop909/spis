@@ -10,16 +10,20 @@ module Imports
           if file.present?
             file_name = file.original_filename.to_s.split(".").first
             original_file_name = file.original_filename.to_s.split("-").join("-")
-            ordinance = Ordinance.where(number: file_name).last
+            ordinance = Ordinance.where(number: parsed_filename(file_name)).last
             if ordinance.present?
               ordinance.create_document(
-                name: file.original_filename.to_s,
+                name: parsed_filename(file_name),
                 document_file: file
               )
             end
           end
         end
       end
+    end
+
+    def parsed_filename(file_name)
+      FilenameParser.new(filename: file_name).parse!
     end
   end
 end
