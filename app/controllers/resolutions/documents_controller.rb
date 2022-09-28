@@ -3,7 +3,7 @@ module Resolutions
 
 		def create
 			@resolution = Resolution.find(params[:resolution_id])
-			@document = @resolution.documents.create(document_params)
+			@document = @resolution.create_document(document_params)
 			if @document.save
 				redirect_to resolution_url(@resolution), notice: "Document saved successfully uploaded."
 			end
@@ -11,7 +11,7 @@ module Resolutions
 
 		def destroy
 			@resolution = Resolution.find(params[:resolution_id])
-			@document = @resolution.documents.find(params[:id])
+			@document = @resolution.document
 			@document.destroy
 			redirect_to resolution_url(@resolution), notice: "Document deleted!"
 		end

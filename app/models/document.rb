@@ -8,7 +8,7 @@ class Document < ApplicationRecord
     ["application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "application/pdf", "application/msword", "application/vnd.ms-excel", 
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
-    size_range: 0.1..20.megabytes 
+    size_range: 0.1..200.megabytes 
   }
 
   private

@@ -7,14 +7,14 @@ class NumberParser
 
 	def parse!
 		array = @number.split("-")
-    processed = array.map{|a| a == array[1] ? second_num_part : a}
-    processed.map{|a| a == array[0] ? number.split("-").first.to_i : a}.join
+    first_number = array[0].gsub(/[^0-9,.]/, "")
+    second_number = second_num_part(array)
+    [first_number, second_number].join("-")
 	end
 
-	def second_num_part
-    target_chars = @number.split("-").second
-    char_size = target_chars.size
-    case char_size
+	def second_num_part(array)
+    target_chars = array[1].to_i.to_s
+    case target_chars.size
     when 1
       "000#{target_chars}"
     when 2

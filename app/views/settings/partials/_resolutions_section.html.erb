@@ -23,7 +23,7 @@
 <% end %>
 <hr class="my-4">
 <h5>Resolution Documents Upload</h5>
-<%= simple_form_for @resolution_document, url: :settings_importers_resolution_documents do |f| %>
+<%= simple_form_for @resolution_document, url: :settings_importers_resolution_documents, html: {multipart: true} do |f| %>
   <div class="row">
     <div class="col-md-6">
       <%= f.input :files, as: :file, label: false, input_html: { multipart: true, multiple: true } %>

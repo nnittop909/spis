@@ -17,7 +17,7 @@ class Resolution < ApplicationRecord
 
   has_many :stagings, as: :stageable
   has_many :stages, through: :stagings
-  has_many :documents, as: :documentable
+  has_one :document, as: :documentable
 
   enum current_stage: [:first_reading, :approved, :active_file]
 
@@ -35,6 +35,10 @@ class Resolution < ApplicationRecord
 
   def date_adopted
     CurrentStageFinder.new(stageable: self).date_dopted
+  end
+
+  def status
+    CurrentStageFinder.new(stageable: self).status
   end
 
   def parsed_number

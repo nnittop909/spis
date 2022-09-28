@@ -12,9 +12,10 @@ module Imports
             original_file_name = file.original_filename.to_s.split("-").join("-")
             ordinance = Ordinance.where(number: file_name).last
             if ordinance.present?
-              ordinance.documents.where(name: file.original_filename.to_s).first_or_create! do |d|
-                d.document_file = file
-              end
+              ordinance.create_document(
+                name: file.original_filename.to_s,
+                document_file: file
+              )
             end
           end
         end
