@@ -38,7 +38,7 @@
 <%= simple_form_for @ordinance_document, url: :settings_importers_ordinance_documents do |f| %>
   <div class="row">
     <div class="col-md-6">
-      <%= f.input :files, as: :file, label: false, input_html: { multipart: true }, multiple: true %>
+      <%= f.input :files, as: :file, label: false, input_html: { multipart: true, multiple: true } %>
     </div>
     <div class="col-md-6">
       <%= f.submit "Upload", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>

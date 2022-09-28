@@ -5,7 +5,7 @@ require 'mina/bundler'
 require 'mina/puma'
 
 set :application_name, 'spis'
-set :domain, '10.0.0.66'
+set :domain, '10.0.0.68'
 set :deploy_to, '/home/deploy/spis'
 set :repository, 'git@github.com:nnittop909/spis.git'
 set :branch, 'main'
