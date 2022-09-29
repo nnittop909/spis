@@ -3,6 +3,8 @@ class ResolutionsController < ApplicationController
 	def index
 		if params[:search].present?
 			@results = Resolution.search(params[:search]).all.sort_by(&:parsed_number).reverse
+		elsif params[:year].present?
+			@results = StageableByYear.new(year: params[:year], stageable_type: "Resolution").query!
 		else
 			@results = Resolution.all.sort_by(&:parsed_number).reverse
 		end

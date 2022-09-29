@@ -20,6 +20,15 @@
 				<%= link_to "New Resolution", new_resolution_path, class: "btn btn-primary btn-sm text-right pull-right float-right" %>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<%=form_tag resolutions_path, method: :get do %>
+				  <div class="input-group mb-4 w-25">
+				    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Year", onchange: 'this.form.submit();' %>
+				  </div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -36,11 +45,11 @@
 	        	<% @resolutions.each do |resolution| %>
 		        	<tr>
 		        		<td>
-		        			<%= resolution.number %>
+		        			<%= highlight(resolution.number, params[:search]) %>
 		        			<br>
 		        			<small class="badge bg-info"><%= resolution.current_stage.titleize if resolution.current_stage.present? %></small>
 		        		</td>
-		        		<td class="col-md-8"><%= link_to resolution.title, resolution_path(resolution) %></td>
+		        		<td class="col-md-8"><%= link_to highlight(resolution.title, params[:search]), resolution_path(resolution) %></td>
 		        		<td>
 		        			<%= resolution.date_approved %>
 		        		</td>

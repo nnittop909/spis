@@ -42,7 +42,7 @@
 	        <tbody>
 	        	<% @members.each do |member| %>
 		        	<tr>
-		        		<td><%= link_to member.name, member_path(member) %></td>
+		        		<td><%= link_to highlight(member.name, params[:search]), member_path(member) %></td>
 		        		<td>
 		        			<%= params[:year].present? ? TermFinder.new(termable: member, year: params[:year]).by_term_party : member.current_party %>
 		        		</td>

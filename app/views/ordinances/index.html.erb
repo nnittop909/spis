@@ -45,11 +45,11 @@
 	        	<% @ordinances.each do |ordinance| %>
 		        	<tr>
 		        		<td>
-		        			<%= ordinance.number %>
+		        			<%= highlight(ordinance.number, params[:search]) %>
 		        			<br>
 		        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
 		        		</td>
-		        		<td class="col-md-8"><%= link_to ordinance.title, ordinance_path(ordinance) %></td>
+		        		<td class="col-md-8"><%= link_to highlight(ordinance.title, params[:search]), ordinance_path(ordinance) %></td>
 		        		<td><%= ordinance.date_approved %></td>
 		        	</tr>
 		        <% end %>

@@ -34,7 +34,7 @@
 	        <tbody>
 	        	<% @committees.each do |committee| %>
 		        	<tr>
-		        		<td><%= link_to committee.name, committee_path(committee) %></td>
+		        		<td><%= link_to highlight(committee.name, params[:search]), committee_path(committee) %></td>
 		        		<td></td>
 		        	</tr>
 		        <% end %>
