@@ -20,6 +20,15 @@
 				<%= link_to "New Ordinance", new_ordinance_path, class: "btn btn-primary btn-sm float-right" %>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<%=form_tag ordinances_path, method: :get do %>
+				  <div class="input-group mb-4 w-25">
+				    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Year", onchange: 'this.form.submit();' %>
+				  </div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">

@@ -3,6 +3,8 @@ class OrdinancesController < ApplicationController
 	def index
 		if params[:search].present?
 			@results = Ordinance.search(params[:search]).all.sort_by(&:parsed_number).reverse
+		elsif params[:year].present?
+			@results = StageableByYear.new(year: params[:year], stageable_type: "Ordinance").query!
 		else
 			@results = Ordinance.all.sort_by(&:parsed_number).reverse
 		end

@@ -15,7 +15,7 @@ class Resolution < ApplicationRecord
   has_many :member_sponsors, through: :sponsorships, source: :sponsor, source_type: "Member"
   has_many :committee_sponsors, through: :sponsorships, source: :sponsor, source_type: "Committee"
 
-  has_many :stagings, as: :stageable
+  has_many :stagings, as: :stageable, dependent: :destroy
   has_many :stages, through: :stagings
   has_one :document, as: :documentable, dependent: :destroy
 
