@@ -11,7 +11,7 @@ module Imports
       (2..ordinances_spreadsheet.last_row).each do |i|
         row = Hash[[header, ordinances_spreadsheet.row(i)].transpose]
         ActiveRecord::Base.transaction do 
-          ordinance = Ordinance.where(code: row['ORD_CODE']).where(number: row['NUMBER']).first_or_create! do |o|
+          ordinance = Ordinance.where(code: row['ORD_CODE']).where(number: parse_number(row)).first_or_create! do |o|
             o.title         = row['TITLE']
             o.date          = row['DATE_CALENDARED']
             o.remarks       = row['REMARKS']
@@ -67,6 +67,10 @@ module Imports
         )
       end
 
+    end
+
+    def parse_number(row)
+      NumberParser.new(number: row['NUMBER']).parse_for_importing_ordinance!
     end
 
     def set_stage(row)

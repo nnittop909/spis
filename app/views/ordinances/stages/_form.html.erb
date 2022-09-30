@@ -1,7 +1,7 @@
 <%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? ordinance_stage_path(ordinance_id: @ordinance.id, id: @stage.id) : ordinance_stages_path(ordinance_id: @ordinance.id) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :stage_id, collection: Stage.all.map{|s| [s.name, s.id]}, input_html: {class: 'stageSelect'} %>
+  <%= f.input :stage_id, collection: Stage.for_ordinances.map{|s| [s.name, s.id]}, input_html: {class: 'stageSelect'} %>
   <label class="dateLabel">Date</label>
   <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker"} %>
   <div class="effDate">

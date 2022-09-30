@@ -9,21 +9,17 @@ module Imports
         files.each do |file|
           if file.present?
             file_name = file.original_filename.to_s.split(".").first
-            original_file_name = file.original_filename.to_s.split("-").join("-")
-            ordinance = Ordinance.where(number: parsed_filename(file_name)).last
+            parsed_file_name = FilenameParser.new(filename: file_name).parse!
+            ordinance = Ordinance.find_by(number: parsed_file__name)
             if ordinance.present?
-              ordinance.create_document(
-                name: "#{parsed_filename(file_name)}.pdf",
-                document_file: file
-              )
+              document = ordinance.documents.where(name: "#{parsed_file_name}.pdf").first_or_create! do |d|
+                d.document_file = file
+              end
+              document.update(name: "PO-#{parsed_file_name}.pdf")
             end
           end
         end
       end
-    end
-
-    def parsed_filename(file_name)
-      FilenameParser.new(filename: file_name).parse!
     end
   end
 end

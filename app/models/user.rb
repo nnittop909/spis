@@ -9,7 +9,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum role: [:admin, :employee, :developer]
+  enum role: [:admin, :regular, :developer]
 
   has_one_attached :avatar
 

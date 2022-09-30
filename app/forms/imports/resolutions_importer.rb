@@ -39,7 +39,7 @@ module Imports
     end
 
     def parse_number(row)
-    	row['NUMBER'].split("-").join("-")
+      NumberParser.new(number: row['NUMBER']).parse_for_importing_resolution!
     end
 
     def set_stage(row)

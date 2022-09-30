@@ -14,6 +14,6 @@ class Document < ApplicationRecord
   private
 
   def update_name!
-    self.update!(name: document_file.filename) if name.blank?
+    self.update!(name: document_file.filename) if name.blank? && document_file.present?
   end
 end

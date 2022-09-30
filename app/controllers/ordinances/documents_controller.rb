@@ -3,7 +3,7 @@ module Ordinances
 
 		def create
 			@ordinance = Ordinance.find(params[:ordinance_id])
-			@document = @ordinance.create_document(document_params)
+			@document = @ordinance.documents.create(document_params)
 			if @document.save
 				redirect_to ordinance_url(@ordinance), notice: "Document successfully uploaded."
 			else
@@ -13,7 +13,7 @@ module Ordinances
 
 		def destroy
 			@ordinance = Ordinance.find(params[:ordinance_id])
-			@document = @ordinance.document
+			@document = @ordinance.documents.find(params[:id])
 			@document.destroy
 			redirect_to ordinance_url(@ordinance), notice: 'Document deleted!'
 		end

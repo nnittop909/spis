@@ -7,7 +7,7 @@
 			<div class="col-md-6 col-sm-12">
 				<%=form_tag resolutions_path, method: :get, class: "" do %>
 				  <div class="input-group">
-				    <%= text_field_tag :search, params[:search], class: "form-control border-0 small", placeholder: "Search for resolutions..." %>
+				    <%= text_field_tag :search, params[:search], class: "form-control border-0 small", placeholder: "Search for resolution number or title..." %>
 				    <span class="input-group-append">
 				      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
 				        <i class="fas fa-search fa-sm"></i>
