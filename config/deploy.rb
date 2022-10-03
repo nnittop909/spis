@@ -5,7 +5,7 @@ require 'mina/bundler'
 require 'mina/puma'
 
 set :application_name, 'spis'
-set :domain, '10.0.0.68'
+set :domain, '10.0.0.55'
 set :deploy_to, '/home/deploy/spis'
 set :repository, 'git@github.com:nnittop909/spis.git'
 set :branch, 'main'
@@ -46,13 +46,13 @@ task :deploy do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     command %{#{fetch(:rails)} db:seed}
-    command %{#{fetch(:rails)} assets:clobber}
+    # command %{#{fetch(:rails)} assets:clobber}
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
-    command %{sudo service puma restart}
+    # command %{sudo service puma restart}
   end
 end
 
 task :launch do
-  invoke :'puma:restart'
+  command %{sudo service puma restart}
 end
