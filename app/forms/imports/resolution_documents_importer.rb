@@ -15,7 +15,7 @@ module Imports
               document = resolution.documents.where(name: parsed_file_name).first_or_create! do |d|
                 d.document_file = file
               end
-              document.update(name: "PR-#{parsed_file_name}")
+              document.update(name: "RES-#{parsed_file_name}")
             end
           end
         end
