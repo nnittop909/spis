@@ -10,7 +10,7 @@ module Imports
           if file.present?
             file_name = file.original_filename.to_s.split(".").first
             parsed_file_name = FilenameParser.new(filename: file_name).parse!
-            ordinance = Ordinance.find_by(number: parsed_file__name)
+            ordinance = Ordinance.find_by(number: parsed_file_name)
             if ordinance.present?
               document = ordinance.documents.where(name: "#{parsed_file_name}.pdf").first_or_create! do |d|
                 d.document_file = file

@@ -54,5 +54,5 @@ task :deploy do
 end
 
 task :launch do
-  command %{sudo service puma restart}
+  command %{service puma restart}
 end

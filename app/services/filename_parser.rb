@@ -1,9 +1,8 @@
 class FilenameParser
 
-	attr_reader :filename, :documentable
+	attr_reader :filename
 	def initialize(args={})
     @filename = args[:filename]
-    @documentable = args[:documentable]
 	end
 
 	def parse!
