@@ -7,21 +7,23 @@
 		    <span class="badge bg-info"><%= @ordinance.date_approved if @ordinance.stages.present? %></span>
 			</div>
 			<div class="col-md-8">
-				<ul class="nav nav-pills justify-content-end">
-					<li class="nav-item px-2">
-				    <%= link_to 'Update Stage', new_ordinance_stage_path(@ordinance), class: "btn btn-secondary btn-sm" %>
-				  </li>
-				  <li class="nav-item px-2">
-				    <%= link_to 'Add Author', new_ordinance_author_path(@ordinance), class: "btn btn-secondary btn-sm" %>
-				  </li>
-				  <li class="nav-item px-2">
-				    <%= link_to 'Add Sponsor', new_ordinance_sponsor_path(@ordinance), class: "btn btn-secondary btn-sm" %>
-				  </li>
-				  <li class="nav-item px-2">
-				  	<%= link_to "Update Details", edit_ordinance_path(@ordinance), class: "btn btn-primary btn-sm float-right" %>
-				  </li>
-				</ul>
-				<%= link_to "Status Logs", ordinance_stages_path(ordinance_id: @ordinance.id), class: 'float-right mr-3 mt-3' %>
+				<% if current_user_admin? %>
+					<ul class="nav nav-pills justify-content-end">
+						<li class="nav-item px-2">
+					    <%= link_to 'Update Stage', new_ordinance_stage_path(@ordinance), class: "btn btn-secondary btn-sm" %>
+					  </li>
+					  <li class="nav-item px-2">
+					    <%= link_to 'Add Author', new_ordinance_author_path(@ordinance), class: "btn btn-secondary btn-sm" %>
+					  </li>
+					  <li class="nav-item px-2">
+					    <%= link_to 'Add Sponsor', new_ordinance_sponsor_path(@ordinance), class: "btn btn-secondary btn-sm" %>
+					  </li>
+					  <li class="nav-item px-2">
+					  	<%= link_to "Update Details", edit_ordinance_path(@ordinance), class: "btn btn-primary btn-sm float-right" %>
+					  </li>
+					</ul>
+					<%= link_to "Status Logs", ordinance_stages_path(ordinance_id: @ordinance.id), class: 'float-right mr-3 mt-3' %>
+				<% end %>
 			</div>
 		</div>
 	</div>
@@ -42,8 +44,10 @@
 		  			<% @sponsors.each do |sponsor| %>
 		  					<%= sponsor.name %>
 				  			<span class="float-right">
-				  				<%= link_to "Edit", edit_ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), class: "d-inline" %> | 
-				  				<%= button_to "Delete", ordinance_sponsor_path(ordinance_id: @ordinance.id, id: sponsor.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+				  				<% if current_user_admin? %>
+					  				<%= link_to "Edit", edit_ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), class: "d-inline" %> | 
+					  				<%= button_to "Delete", ordinance_sponsor_path(ordinance_id: @ordinance.id, id: sponsor.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+					  			<% end %>
 				  			</span>
 			  		<% end %>
 		  		</td>
@@ -54,8 +58,10 @@
 		  			<% @authors.each do |author| %>
 	  					<%= author.name_in_honorifics %>
 			  			<span class="float-right">
-			  				<%= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), class: 'd-inline' %> | 
-			  				<%= button_to "Delete", ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+			  				<% if current_user_admin? %>
+				  				<%= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), class: 'd-inline' %> | 
+				  				<%= button_to "Delete", ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+				  			<% end %>
 			  			</span>
 			  			<hr>
 			  		<% end %>
@@ -76,13 +82,13 @@
 		      <td>
 		      	<%= simple_form_for @ordinance.documents.new, url: ordinance_documents_path(ordinance_id: @ordinance.id), html: {multipart: true }, method: :post do |f| %>
 		          <%= f.input :document_file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
-		        <% end %>
+		        <% end if current_user_admin? %>
 		  			<% if @ordinance.documents.present?  %>
 		  				<% @ordinance.documents.each do |document| %>
 		  					<% if document.document_file.attached? %>
 				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" %>
 				  				<span class="float-right">
-				  					<%= button_to "Delete", ordinance_document_path(ordinance_id: @ordinance.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+				  					<%= button_to "Delete", ordinance_document_path(ordinance_id: @ordinance.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if current_user_admin? %>
 				  				</span> <br>
 				  			<% end %>
 			  			<% end %>

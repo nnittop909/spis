@@ -1,4 +1,4 @@
-<%= link_to "Add Term", new_committee_term_path(committee), class: "btn btn-primary btn-sm float-right" %>
+<%= link_to "Add Term", new_committee_term_path(committee), class: "btn btn-primary btn-sm float-right" if current_user_admin? %>
 <table class="table">
 	<tbody>
     <% terms.each do |term| %>
@@ -6,8 +6,12 @@
             <td><%= term.name %></td>
             <td><%= term.in_date_range %></td>
     		<td class="text-right">
+                <% if current_user_admin? %>
                 <%= link_to "Edit", edit_committee_term_path(committee_id: committee.id, id: term.id), class: "d-inline" %> | 
-                <%= button_to "Delete", committee_term_path(committee_id: committee.id, id: term.id), method: :delete, data: { confirm: "Are you sure?" }, form: { class: 'd-inline'}, class: 'btn btn-link' %></td>
+                <%= button_to "Delete", committee_term_path(committee_id: committee.id, id: term.id), method: :delete, data: { confirm: "Are you sure?" }, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+                <% end %>
+                </td>
+
     	</tr>
     <% end %>
   </tbody>

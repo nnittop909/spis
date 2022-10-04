@@ -3,7 +3,8 @@ module Committees
 
 		def index
 			@committee = Committee.find(params[:committee_id])
-			@resolutions = @committee.sponsored_resolutions.order(number: :asc).page(params[:page]).per(30)
+			@results = @member.sponsored_resolutions.sort_by(&:parsed_number).reverse
+			@resolutions = Kaminari.paginate_array(@results).page(params[:page]).per(30)
 		end
 	end
 end

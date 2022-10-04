@@ -43,6 +43,4 @@ class Ordinance < ApplicationRecord
   def parsed_number
     NumberParser.new(number: number).parse!
   end
-
-  
 end

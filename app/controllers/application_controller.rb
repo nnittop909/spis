@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
   before_action :authenticate_user!, :configure_permitted_parameters
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
-  helper_method :current_office, :current_sp_term
+  helper_method :current_office, :current_sp_term, :current_user_admin?
+
+  def current_user_admin?
+    current_user.admin? || current_user.developer?
+  end
 
   def current_office
   	current_user.office

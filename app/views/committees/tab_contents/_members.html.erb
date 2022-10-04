@@ -22,7 +22,7 @@
           <%= f.submit "Add Member", class: "btn btn-outline-success", data: { disable_with: "Processing..." } %>
         </div>
       </div>
-    <% end %>
+    <% end if current_user_admin? %>
   </div>
 </div>
 <table class="table">
@@ -32,8 +32,10 @@
         <td><%= member.name %></td>
         <td><%= member.role.titleize %></td>
       	<td class="text-right">
-          <%= link_to "Edit", edit_committee_member_path(committee_id: committee.id, id: member.id)%> | 
-          <%= button_to "Delete", committee_member_path(committee_id: committee.id, id: member.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+          <% if current_user_admin? %>
+            <%= link_to "Edit", edit_committee_member_path(committee_id: committee.id, id: member.id)%> | 
+            <%= button_to "Delete", committee_member_path(committee_id: committee.id, id: member.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+          <% end %>
         </td>
     	</tr>
     <% end %>

@@ -1,14 +1,15 @@
+<p class="text-muted mb-1">Records Count: <%= @results.count %></p>
 <table class="table">
 	<tbody>
     <% ordinances.each do |ordinance| %>
     	<tr>
-            <td class="col-md-2"><%= ordinance.number %></td>
-            <td><%= ordinance.title %></td>
-    		<td><% ordinance.documents.each do |document| %>
-                <%= link_to ordinance.name, coverpage_downloadable_path(downloadable_id: downloadable.id, id: downloadable.id), data: {modal: true} %>
-                <%= link_to "Download", rails_blob_path(@ordinance.file.blob, disposition: "attachment"), class: "btn btn-sm btn-primary" %>  
-                <% end %>   
-            </td>
+        <td class="col-md-2"><%= ordinance.number %></td>
+        <td><%= ordinance.title %></td>
+    		<td>
+          <% ordinance.documents.each do |document| %>
+            <%= link_to ordinance.name, ordinance_path(id: ordinance.id) %> 
+          <% end %>
+        </td>
     	</tr>
     <% end %>
   </tbody>

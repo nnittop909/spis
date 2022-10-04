@@ -1,4 +1,4 @@
-class MemberPolicy < ApplicationPolicy
+class OrdinancePolicy < ApplicationPolicy
 
   attr_reader :user, :record
 
