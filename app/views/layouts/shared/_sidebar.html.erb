@@ -19,7 +19,7 @@
   </div>
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <%= nav_link("members", members_path, "fa-user", "Members") %>
+  <%= nav_link("members", members_path(year: Date.today.year), "fa-user", "Members") %>
   <%= nav_link("committees", committees_path, "fa-users", "Committees") %>
   <%= nav_link("ordinances", ordinances_path, "fa-file", "Ordinances") %>
   <%= nav_link("resolutions", resolutions_path, "fa-file", "Resolutions") %>

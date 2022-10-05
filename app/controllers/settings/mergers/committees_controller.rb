@@ -10,7 +10,7 @@ module Settings
 				@committee_merger = Merges::CommitteeMerger.new(committee_params)
 				respond_to do |format|
 		      if @committee_merger.merge!
-		        format.html { redirect_to settings_url, notice: "Merging success!." }
+		        format.html { redirect_to settings_url, notice: "Merge success!." }
 		      else
 		        format.html { render :new, status: :unprocessable_entity }
 		      end

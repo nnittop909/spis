@@ -7,7 +7,7 @@
 			<div class="col-md-6 col-sm-12">
 				<%=form_tag resolutions_path, method: :get, class: "" do %>
 				  <div class="input-group">
-				    <%= text_field_tag :search, params[:search], class: "form-control border-0 small", placeholder: "Search for resolution number or title..." %>
+				    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for resolution number or title..." %>
 				    <span class="input-group-append">
 				      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
 				        <i class="fas fa-search fa-sm"></i>
@@ -20,6 +20,9 @@
 				<%= link_to "New Resolution", new_resolution_path, class: "btn btn-primary btn-sm text-right pull-right float-right" if current_user_admin? %>
 			</div>
 		</div>
+		
+	</div>
+	<div class="card-body">
 		<div class="row">
 			<div class="col-md-12">
 				<%=form_tag resolutions_path, method: :get do %>
@@ -27,11 +30,9 @@
 				    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Year", onchange: 'this.form.submit();' %>
 				  </div>
 				<% end %>
-				<small class="text-muted"><%= @results.count %> Records</small>
+				<p class="text-muted my-2">Records Count: <%= @results.count %></p>
 			</div>
 		</div>
-	</div>
-	<div class="card-body">
 		<div class="table-responsive">
       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
       	<table class="table">

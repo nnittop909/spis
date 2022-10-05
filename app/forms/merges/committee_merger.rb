@@ -69,7 +69,7 @@ module Merges
 		def similar_merging_ids
 			if merge_from_id.present? && merge_to_id.present?
 				if merge_from_id == merge_to_id
-					errors.add(:base, "Unable to merge similar committees.")
+					errors.add(:base, "Unable to merge the same committee.")
 				end
 			end
 		end

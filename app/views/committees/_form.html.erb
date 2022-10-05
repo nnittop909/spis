@@ -1,4 +1,4 @@
-<%= simple_form_for committee, html: { autocomplete: "off"}, url: @committee.persisted? ? committee_path(@committee) : committees_path, method: @committee.persisted? ? :patch : :post do |f| %>
+<%= simple_form_for @committee, html: { autocomplete: "off"}, url: @committee.persisted? ? committee_path(@committee) : committees_path, method: @committee.persisted? ? :patch : :post do |f| %>
   <%= f.error_notification %>
   <%= f.input :name %>
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>

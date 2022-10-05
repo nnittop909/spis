@@ -10,13 +10,13 @@ class CommitteesController < ApplicationController
 	end
 
 	def new
-		@committee = CommitteeProcessor.new
+		@committee = Committee.new
 	end
 
 	def create
-		@committee = CommitteeProcessor.new(committee_params)
+		@committee = Committee.create(committee_params)
 		respond_to do |format|
-      if @committee.process!
+      if @committee.save
         format.html { redirect_to committees_url, notice: "Committee created." }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -26,14 +26,12 @@ class CommitteesController < ApplicationController
 
 	def edit
 		@committee = Committee.find(params[:id])
-		@committee_processor = CommitteeProcessor.new("id" => @committee.id)
 	end
 
 	def update
 		@committee = Committee.find(params[:id])
-		@committee_processor = CommitteeProcessor.new(committee_params.merge("id" => @committee.id))
 		respond_to do |format|
-      if @committee_processor.update!
+      if @committee.update(committee_params)
         format.html { redirect_to committee_url(@committee), notice: "Committee updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +50,7 @@ class CommitteesController < ApplicationController
 	private
 
 	def committee_params
-		params.require(:committee_processor).permit(
+		params.require(:committee).permit(
 			:name
 		)
 	end
