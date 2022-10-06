@@ -12,13 +12,13 @@ class ResolutionsController < ApplicationController
 	end
 
 	def new
-		@resolution = Resolution.new
+		@resolution = ResolutionProcessor.new
 	end
 
 	def create
-		@resolution = Resolution.create!(resolution_params)
-		if @resolution.save
-			redirect_to resolutions_url, notice: "Resolution created!"
+		@resolution = ResolutionProcessor.new(create_params)
+		if @resolution.process!
+			redirect_to resolutions_url, notice: "Resolution saved!"
 		else
 			render :new
 		end
@@ -46,8 +46,25 @@ class ResolutionsController < ApplicationController
 	private
 	def resolution_params
 		params.require(:resolution).permit(
-			:number, :title, :date, :remarks,
-			:category_id, author_ids: [], documents: []
+			:number, 
+			:title, 
+			:date, 
+			:remarks,
+			:category_id
+		)
+	end
+
+	def create_params
+		params.require(:resolution_processor).permit(
+			:number, 
+			:title, 
+			:date, 
+			:remarks,
+			:category_id, 
+			:date_approved,
+			:effectivity_date,
+			:same_as_date_approved,
+			:stage_id
 		)
 	end
 end

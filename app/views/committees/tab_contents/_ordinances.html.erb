@@ -4,12 +4,7 @@
     <% ordinances.each do |ordinance| %>
     	<tr>
         <td class="col-md-2"><%= ordinance.number %></td>
-        <td><%= ordinance.title %></td>
-    		<td>
-          <% ordinance.documents.each do |document| %>
-            <%= link_to ordinance.name, ordinance_path(id: ordinance.id) %> 
-          <% end %>
-        </td>
+        <td><%= link_to ordinance.title, ordinance_path(id: ordinance.id) %></td>
     	</tr>
     <% end %>
   </tbody>

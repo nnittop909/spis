@@ -1,4 +1,4 @@
-class OrdinanceProcessor
+class ResolutionProcessor
 	include ActiveRecord::AttributeAssignment
 	include ActiveModel::Model
 	attr_accessor :number, :title, :date, :remarks,
@@ -10,16 +10,16 @@ class OrdinanceProcessor
 	def process!
 		if valid?
 			ActiveRecord::Base.transaction do
-				ordinance = create_ordinance
-				create_stage(ordinance)
+				resolution = create_resolution
+				create_stage(resolution)
 			end
 		end
 	end
 
 	private
 
-	def create_ordinance
-		Ordinance.create!(
+	def create_resolution
+		Resolution.create!(
 			number:      number,
 			title:       title,
 			remarks:     remarks,
@@ -28,8 +28,8 @@ class OrdinanceProcessor
 		)
 	end
 
-	def create_stage(ordinance)
-		ordinance.stagings.create(
+	def create_stage(resolution)
+		resolution.stagings.create(
 			date:             date_approved,
 			effectivity_date: set_effectivity_date,
 			stage_id:         stage_id

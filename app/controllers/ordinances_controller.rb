@@ -12,14 +12,14 @@ class OrdinancesController < ApplicationController
 	end
 
 	def new
-		@ordinance = Ordinance.new
+		@ordinance = OrdinanceProcessor.new
 	end
 
 	def create
-		@ordinance = Ordinance.create(ordinance_params)
+		@ordinance = OrdinanceProcessor.new(create_params)
 		respond_to do |format|
-      if @ordinance.save
-        format.html { redirect_to ordinance_url(@ordinance), notice: "Ordinance saved." }
+      if @ordinance.process!
+        format.html { redirect_to ordinances_url, notice: "Ordinance saved." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -56,6 +56,20 @@ class OrdinancesController < ApplicationController
 			:date, 
 			:remarks, 
 			:category_id
+		)
+	end
+
+	def create_params
+		params.require(:ordinance_processor).permit(
+			:number, 
+			:title, 
+			:date, 
+			:remarks, 
+			:category_id,
+			:date_approved,
+			:effectivity_date,
+			:same_as_date_approved,
+			:stage_id
 		)
 	end
 end
