@@ -51,7 +51,8 @@ module Ordinances
 
 		def stage_params
 			params.require(:staging).permit(
-				:date, :effectivity_date, :stage_id
+				:date, :effectivity_date, :stage_id,
+				:same_as_date_approved
 			)
 		end
 	end

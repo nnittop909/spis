@@ -5,8 +5,9 @@
   <label class="dateLabel">Date</label>
   <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker"} %>
   <div class="effDate">
-    <%= f.input :effectivity_date, as: :string, label: "Date Enacted", placeholder: "Select date...", input_html: { class: "datepicker", value: @stage.persisted? ? @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") : Time.now.strftime("%B %e, %Y") } %>
+    <%= f.input :effectivity_date, as: :string, label: "Date Enacted", placeholder: "Select date...", input_html: { class: "dateEnacted" } %>
   </div>
+  <%= f.input :same_as_date_approved, as: :boolean, input_html: {class: "pb-0 sameAsApproved"} %>
 
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
 <% end %>
@@ -22,17 +23,34 @@
         $('.effDate').hide(); 
         $('.dateLabel').text('Date')
       } 
-    });
+    }).change();
   });
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
     var defDate = new Date(<%= @stage.persisted? ? @stage.date.present? ? @stage.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
+    var enactDate = new Date(<%= @stage.persisted? ? @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
     $('.datepicker').flatpickr({
       altInput: true,
       altFormat: "F j, Y",
       dateFormat: "Y-m-d",
       defaultDate: defDate
+    });
+    $('.dateEnacted').flatpickr({
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d",
+      defaultDate: enactDate
+    });
+  });
+
+  $(function() {
+    $('.sameAsApproved').change(function(){
+      if ($(this).is(':checked')) {
+        $('.effDate').hide();
+      } else {
+        $('.effDate').show();
+      }
     });
   });
 </script>

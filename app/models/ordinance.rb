@@ -36,6 +36,10 @@ class Ordinance < ApplicationRecord
     CurrentStageFinder.new(stageable: self).date_approved
   end
 
+  def date_enacted
+    CurrentStageFinder.new(stageable: self).date_enacted
+  end
+
   def status
     CurrentStageFinder.new(stageable: self).status
   end

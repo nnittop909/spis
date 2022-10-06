@@ -5,9 +5,19 @@ class Staging < ApplicationRecord
   belongs_to :stage
   belongs_to :stageable, polymorphic: true
 
+  attribute :same_as_date_approved, :boolean
+
   after_create :update_current_stage
+  before_save :set_effectivity_date
 
   private
+
+  def set_effectivity_date
+    if same_as_date_approved? == true
+      self.effectivity_date = self.date
+    end
+  end
+
   def set_stage
     case stage_id
     when 1

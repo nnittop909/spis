@@ -44,11 +44,11 @@ class CurrentStageFinder
 		if staging.nil?
 			"Please update stage."
 		else
-			if @stage == "vetoed" || @stage == "approved_on_third_reading"
+			if @stage == "approved" || @stage == "vetoed" || @stage == "approved_on_third_reading"
 				if staging.effectivity_date.present?
 					staging.effectivity_date.strftime("%B %e, %Y")
 				else
-					""
+					staging.date.strftime("%B %e, %Y")
 				end
 			end
 		end

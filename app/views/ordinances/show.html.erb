@@ -39,6 +39,10 @@
 		  		<td><%= @ordinance.date.strftime("%B %e, %Y") if @ordinance.date.present? %></td>
 		  	</tr>
 		  	<tr>
+		      <td class="col-md-4">Date Enacted</td>
+		  		<td><%= @ordinance.date_enacted if @ordinance.date_enacted.present? %></td>
+		  	</tr>
+		  	<tr>
 		      <td class="col-md-4">Sponsors</td>
 		  		<td>
 		  			<% @sponsors.each do |sponsor| %>
