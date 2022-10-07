@@ -14,7 +14,14 @@
   <div class="card-body">
     <%= simple_form_for @resolution, html: { autocomplete: "off"}, url: resolutions_path, method: :post do |f| %>
       <%= f.error_notification %>
-      <%= f.input :number %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :number %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :date, as: :string, label: "Date Received", placeholder: "Select date...", input_html: { class: "datepicker" } %>
+        </div>
+      </div>
       <%= f.input :title, as: :text, input_html: {} %>
       <div class="row">
         <div class="col-md-6">
