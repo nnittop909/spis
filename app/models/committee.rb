@@ -41,7 +41,7 @@ class Committee < ApplicationRecord
 	end
 
 	def signature
-    [id, self.class.name].join(",")
+    [id, self.class.name].join(", ")
   end
 
 end

@@ -51,7 +51,7 @@ class CommitteesController < ApplicationController
 
 	def committee_params
 		params.require(:committee).permit(
-			:name
+			:current_name
 		)
 	end
 end
