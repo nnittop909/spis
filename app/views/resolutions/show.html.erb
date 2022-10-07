@@ -39,10 +39,6 @@
 		  		<td><%= @resolution.date.strftime("%B %e, %Y") if @resolution.date.present? %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-2">Date Adopted</td>
-		  		<td><%= @resolution.date_adopted if @resolution.date_adopted.present? %></td>
-		  	</tr>
-		  	<tr>
 		      <td class="col-md-2">Authors</td>
 		  		<td>
 		  			<% @authors.each do |author| %>

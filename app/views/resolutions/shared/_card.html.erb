@@ -1,0 +1,13 @@
+<div class="card my-2">
+	<div class="card-body min-padding">
+		<h2 class="font-weight-bold text-primary">
+			Resolution # <%= @resolution.number %>
+		</h2>
+    <span class="badge bg-info">
+    	<%= @resolution.current_stage.titleize if @resolution.current_stage.present? %>
+    </span>
+    <span class="badge bg-info">
+    	<%= @resolution.date_approved if @resolution.stages.present? %>
+    </span>
+	</div>
+</div>
