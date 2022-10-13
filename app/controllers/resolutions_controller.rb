@@ -5,6 +5,8 @@ class ResolutionsController < ApplicationController
 			@results = Resolution.search(params[:search]).all.sort_by(&:parsed_number).reverse
 		elsif params[:year].present?
 			@results = StageableByYear.new(year: params[:year], stageable_type: "Resolution").query!
+		elsif params[:category_name].present?
+			@results = Resolution.categorize(params[:category_name]).all.sort_by(&:parsed_number).reverse
 		else
 			@results = Resolution.all.sort_by(&:parsed_number).reverse
 		end

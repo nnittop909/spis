@@ -5,6 +5,8 @@ class OrdinancesController < ApplicationController
 			@results = Ordinance.search(params[:search]).all.sort_by(&:parsed_number).reverse
 		elsif params[:year].present?
 			@results = StageableByYear.new(year: params[:year], stageable_type: "Ordinance").query!
+		elsif params[:category_name].present?
+			@results = Ordinance.categorize(params[:category_name]).all.sort_by(&:parsed_number).reverse
 		else
 			@results = Ordinance.all.sort_by(&:parsed_number).reverse
 		end

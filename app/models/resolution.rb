@@ -21,6 +21,15 @@ class Resolution < ApplicationRecord
 
   enum current_stage: [:first_reading, :approved, :active_file]
 
+  def self.categorize(category_name)
+    if category_name == ""
+      all
+    else
+      category_id = Category.find_by(name: category_name).id
+      all.where(category_id: category_id)
+    end
+  end
+
   def authors
     member_authors + committee_authors
   end

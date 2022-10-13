@@ -23,15 +23,22 @@
 	</div>
 	<div class="card-body">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-3">
 				<%=form_tag ordinances_path, method: :get do %>
-				  <div class="input-group w-25">
+				  <div class="input-group">
 				    <%= select_tag :year, options_for_select([*1960.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Year", onchange: 'this.form.submit();' %>
 				  </div>
 				<% end %>
-				<p class="text-muted my-2">Records Count: <%= @results.count %></p>
+			</div>
+			<div class="col-md-3">
+				<%=form_tag ordinances_path, method: :get do %>
+				  <div class="input-group">
+				    <%= select_tag :category_name, options_for_select(["General", "Appropriation", "Re-alignment"], params[:category_name]), class: "form-control", prompt: "Select Category", onchange: 'this.form.submit();' %>
+				  </div>
+				<% end %>
 			</div>
 		</div>
+		<p class="text-muted my-2">Records Count: <%= @results.count %></p>
 		<div class="table-responsive">
       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
       	<table class="table">
