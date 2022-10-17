@@ -21,8 +21,7 @@ class MembersController < ApplicationController
 	end
 
 	def create
-		@member = MemberProcessor.new(member_params)
-    if @member.process!
+    if @member = MemberProcessor.new(member_params).process!
     	redirect_to member_url(@member), notice: 'Member saved!'
     else
     	render :new

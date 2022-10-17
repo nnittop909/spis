@@ -1,0 +1,57 @@
+<%= simple_form_for @salary_adjustment, html: { autocomplete: "off" }, url: @salary_adjustment.persisted? ? member_salary_adjustment_path(id: @salary_adjustment.id, member_id: @member.id) : member_salary_adjustments_path(member_id: @member.id) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <div class="row justify-content-between">
+    <div class="col-md-4">
+      <%= f.input :dated_at, as: :string, label: "Dated at", placeholder: "Select date...", input_html: { class: "dated_at" } %>
+    </div>
+    <div class="col-md-4">
+      <%= f.input :effectivity_date, as: :string, placeholder: "Select date...", input_html: { class: "datepicker" } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.input :monthly_salary, label: "Actual monthly basic salary", input_html: {id: "mSalary", oninput: 'calculateAdjustedSalary()'}, as: :currency %>
+    </div>
+    <div class="col-md-4">
+      <%= f.input :adjustment, label: "Monthly salary adjustment", input_html: {id: "adjustment", oninput: 'calculateAdjustedSalary()'}, as: :currency %>
+    </div>
+    <div class="col-md-4">
+      <%= f.input :adjusted_salary, label: "Adjusted monthly salary", input_html: {id: "aSalary"}, as: :currency, readonly: true %>
+    </div>
+  </div>
+  <%= f.input :term_id, collection: @member.terms.map {|t| [t.in_year_range, t.id]} %>
+  <%= f.input :member_id, as: :hidden, input_html: {value: @member.id} %>
+
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var datedAt = new Date(<%= @salary_adjustment.persisted? ? @salary_adjustment.dated_at.present? ? @salary_adjustment.dated_at.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, 0, 1") : Date.today.strftime("%Y, 0, 1") %>);
+    $('.dated_at').flatpickr({
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d",
+      defaultDate: datedAt
+    });
+    $('.datepicker').flatpickr({
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d"
+    });
+  });
+</script>
+
+<script type="text/javascript">
+  function calculateAdjustedSalary() {
+  var moSal = document.getElementById('mSalary').value;
+  var adjmnt = document.getElementById('adjustment').value;
+
+  var aSal = document.getElementById('aSalary');
+  var total = parseFloat(moSal) + parseFloat(adjmnt);
+  if(total != null && !isNaN(total) && total != 0) {
+    aSal.value = total;
+  }
+}
+</script>

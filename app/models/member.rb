@@ -8,6 +8,8 @@ class Member < ApplicationRecord
 	has_many :terms, as: :termable
 	has_many :positions, through: :terms
 	has_many :political_parties, through: :terms
+	has_many :salary_adjustments
+	has_many :step_increments
 	has_one :community_tax, dependent: :destroy
 
 	has_many :committee_members, dependent: :destroy
@@ -23,6 +25,7 @@ class Member < ApplicationRecord
 	has_many :sponsored_resolutions, through: :sponsorships, source: :sponsorable, source_type: "Resolution"
 
 	has_one_attached :avatar
+	has_one_attached :service_oath
 
 	belongs_to :civil_service_eligibility
 	belongs_to :educational_attainment
@@ -87,11 +90,26 @@ class Member < ApplicationRecord
   end
 
   def with_consecutive_terms?
-  	TermFinder.new(termable: self).with_consecutive_terms?
+  	ConsecutiveTermFinder.new(termable: self).with_consecutive_terms?
   end
 
   def consecutive_terms
-  	TermFinder.new(termable: self).consecutive_terms
+  	ConsecutiveTermFinder.new(termable: self).consecutive_terms
+  end
+
+  def salary_adjustable_terms
+
+  	ConsecutiveTermFinder.new(termable: self).second_term 
+  end
+
+  def terms_as_board_member
+    board_member_position_ids = positions.as_board_member.pluck(:id)
+    terms.where(position_id: board_member_position_ids)
+  end
+
+  def consecutive_terms_as_board_member
+    board_member_position_ids = positions.as_board_member.pluck(:id)
+    terms.where(id: consecutive_terms.pluck(:id)).where(position_id: board_member_position_ids)
   end
 
   def fullname

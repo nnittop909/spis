@@ -6,6 +6,7 @@
 //= require jquery3
 //= require jquery_ujs
 //= require jquery-ui
+//= require autonumeric
 //= require autocomplete-rails
 //= require chosen-jquery
 //= require popper

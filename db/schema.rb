@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_014137) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_14_081410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -279,6 +279,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_014137) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "alias_name"
   end
 
   create_table "resolutions", force: :cascade do |t|
@@ -292,6 +293,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_014137) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_resolutions_on_category_id"
+  end
+
+  create_table "salary_adjustments", force: :cascade do |t|
+    t.date "dated_at"
+    t.date "effectivity_date"
+    t.decimal "monthly_salary", precision: 8, scale: 2
+    t.decimal "adjustment", precision: 8, scale: 2
+    t.decimal "adjusted_salary", precision: 8, scale: 2
+    t.bigint "member_id", null: false
+    t.bigint "term_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_salary_adjustments_on_member_id"
+    t.index ["term_id"], name: "index_salary_adjustments_on_term_id"
   end
 
   create_table "sp_sessions", force: :cascade do |t|
@@ -350,6 +365,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_014137) do
     t.datetime "updated_at", null: false
     t.index ["stage_id"], name: "index_stagings_on_stage_id"
     t.index ["stageable_type", "stageable_id"], name: "index_stagings_on_stageable"
+  end
+
+  create_table "step_increments", force: :cascade do |t|
+    t.date "dated_at"
+    t.date "effectivity_date"
+    t.decimal "salary_prior_to_adjustment", precision: 8, scale: 2
+    t.decimal "salary_adjustment", precision: 8, scale: 2
+    t.decimal "adjusted_salary", precision: 8, scale: 2
+    t.bigint "member_id", null: false
+    t.bigint "term_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_step_increments_on_member_id"
+    t.index ["term_id"], name: "index_step_increments_on_term_id"
   end
 
   create_table "terms", force: :cascade do |t|
@@ -414,8 +443,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_014137) do
   add_foreign_key "members", "educational_attainments"
   add_foreign_key "ordinances", "categories"
   add_foreign_key "resolutions", "categories"
+  add_foreign_key "salary_adjustments", "members"
+  add_foreign_key "salary_adjustments", "terms"
   add_foreign_key "sp_terms", "offices"
   add_foreign_key "stagings", "stages"
+  add_foreign_key "step_increments", "members"
+  add_foreign_key "step_increments", "terms"
   add_foreign_key "terms", "political_parties"
   add_foreign_key "terms", "positions"
   add_foreign_key "vetoed_items", "stagings"

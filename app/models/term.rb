@@ -3,10 +3,13 @@ class Term < ApplicationRecord
   belongs_to :political_party
   belongs_to :position
 
+  has_one :salary_adjustment
+  has_one :step_increment
+  
   enum appointment_status: [:appointive, :elective]
 
   before_save :set_interim_if_appointed
-  before_validation  :set_political_party
+  before_validation :set_political_party
   # validate :overlapping_terms
   # validates :start_of_term, :end_of_term, :position_id, :appointment_status, presence: true
 

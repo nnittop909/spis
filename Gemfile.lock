@@ -110,6 +110,7 @@ GEM
       railties (>= 3.0)
       sassc-rails (>= 2.1.2)
     chronic (0.10.2)
+    cleavejs (0.1.0)
     client_side_validations (21.0.0)
       js_regex (~> 3.7)
       rails (>= 5.2, < 7.1)
@@ -368,6 +369,7 @@ DEPENDENCIES
   caxlsx_rails
   chosen-rails
   chronic
+  cleavejs
   client_side_validations
   client_side_validations-simple_form
   cocoon

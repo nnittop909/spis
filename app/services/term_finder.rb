@@ -111,39 +111,6 @@ class TermFinder
 		end
 	end
 
-	def with_consecutive_terms?
-		return false
-		if @termable.terms.present?
-			if @termable.terms.count > 1
-				terms_in_years = []
-				@termable.terms.order(:start_of_term).pluck(:start_of_term).each do |date|
-					terms_in_years << date.year 
-				end
-				terms_in_years
-				terms_in_years.chuck_while {|y, z| y + 3 == z}.to_a.select {|y| y.count > 1}.present?
-			end
-		end
-	end
-
-	def consecutive_terms
-		if @termable.terms.present?
-			if @termable.terms.count > 1
-				terms_in_years = []
-				@termable.terms.order(:start_of_term).pluck(:start_of_term).each do |date|
-					terms_in_years << date.year 
-				end
-				terms_in_years
-				years_array = terms_in_years.chuck_while {|y, z| y + 3 == z}.to_a.select {|y| y.count > 1}
-				if years_array.present? 
-					year = years_array.last
-					"#{year.first - year.last + 3}"
-				else
-
-				end
-			end
-		end
-	end
-
 	def included?(term)
 		if term.start_of_term.present? && term.end_of_term.present?
 			(term.start_of_term..term.end_of_term).include?(date)

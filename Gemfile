@@ -8,13 +8,10 @@ gem "sassc-rails"
 gem "jquery-rails"
 gem 'jquery-ui-rails'
 gem 'rails-jquery-autocomplete'
-# gem 'bootstrap', '~> 5.1.3'
+gem 'cleavejs'
 gem 'bootstrap', '4.6.1'
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
-# gem "importmap-rails"
-# gem "turbo-rails"
-# gem "stimulus-rails"
 gem 'coffee-rails'
 gem 'turbolinks', '~> 5'
 gem "jbuilder"

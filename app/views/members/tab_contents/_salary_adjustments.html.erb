@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-md-6">
+    <h4>Salary Adjustments</h4>
+  </div>
+  <div class="col-md-6">
+    <%= link_to "New Step Increment", new_member_step_increment_path(member), class: "btn btn-primary btn-sm float-right mx-1" if current_user_admin? %>
+    <%= link_to "New Salary Adjustment", new_member_salary_adjustment_path(member), class: "btn btn-primary btn-sm float-right mx-1" if current_user_admin? %>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Dated At</th>
+      <th>Effectivity</th>
+      <th class="text-right">Basic Salary</th>
+      <th class="text-right">Adjustment</th>
+      <th class="text-right">Adjusted Salary</th>
+      <th></th>
+    </tr>
+  </thead>
+	<tbody>
+    <% @salary_adjustments.each do |salary_adjustment| %>
+    	<tr>
+        <td><%= salary_adjustment.term.in_year_range %></td>
+        <td><%= salary_adjustment.dated_at.strftime("%B %e, %Y") %></td>
+        <td><%= salary_adjustment.effectivity_date.strftime("%B %e, %Y") %></td>
+        <td class="text-right"><%= number_to_currency salary_adjustment.monthly_salary %></td>
+        <td class="text-right"><%= number_to_currency salary_adjustment.adjustment %></td>
+        <td class="text-right"><%= number_to_currency salary_adjustment.adjusted_salary %></td>
+    		<td class="text-right">
+          <% if current_user_admin? %>
+            <%= link_to "Edit", edit_member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id) %> | 
+            <%= link_to "Delete", member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>
+        </td>
+    	</tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<div class="row">
+  <div class="col-md-6">
+    <h4>Step Increment</h4>
+  </div>
+  <div class="col-md-6">
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Dated At</th>
+      <th>Effectivity</th>
+      <th class="text-right">Basic Salary</th>
+      <th class="text-right">Adjustment</th>
+      <th class="text-right">Adjusted Salary</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @step_increments.each do |increment| %>
+      <tr>
+        <td><%= increment.term.in_year_range %></td>
+        <td><%= increment.dated_at.strftime("%B %e, %Y") %></td>
+        <td><%= increment.effectivity_date.strftime("%B %e, %Y") %></td>
+        <td class="text-right"><%= number_to_currency increment.salary_prior_to_adjustment %></td>
+        <td class="text-right"><%= number_to_currency increment.salary_adjustment %></td>
+        <td class="text-right"><%= number_to_currency increment.adjusted_salary %></td>
+        <td class="text-right">
+          <% if current_user_admin? %>
+            <%= link_to "Edit", edit_member_step_increment_path(member_id: member.id, id: increment.id) %> | 
+            <%= link_to "Delete", member_step_increment_path(member_id: member.id, id: increment.id), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

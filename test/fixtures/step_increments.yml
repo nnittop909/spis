@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dated_at: 2022-10-14
+  effectivity_date: 2022-10-14
+  salary_prior_to_adjustment: 9.99
+  salary_adjustment: 9.99
+  adjusted_salary: 9.99
+  member: one
+  term: one
+
+two:
+  dated_at: 2022-10-14
+  effectivity_date: 2022-10-14
+  salary_prior_to_adjustment: 9.99
+  salary_adjustment: 9.99
+  adjusted_salary: 9.99
+  member: two
+  term: two
