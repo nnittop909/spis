@@ -37,6 +37,13 @@ class Member < ApplicationRecord
     size_range: 0.1..3.megabytes 
   }
 
+  validates :service_oath, blob: { content_type: 
+    ["application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/pdf", "application/msword", "application/vnd.ms-excel", 
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
+    size_range: 0.1..20.megabytes 
+  }
+
   validates :first_name, :last_name, :middle_name, presence: true
 
   before_save :set_full_name, :set_default_avatar

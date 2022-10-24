@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :resolutions, module: :members
     resources :salary_adjustments, module: :members
     resources :step_increments, module: :members
+    resources :service_oaths, module: :members
   end
 
   resources :resolutions do

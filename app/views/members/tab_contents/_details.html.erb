@@ -17,5 +17,19 @@
       <td class="col-md-4">Appointment Status</td>
   		<td><%= member.current_appointment_status %></td>
   	</tr>
+    <tr>
+      <td class="col-md-4">Attached Service Oath</td>
+      <td>
+        <%= simple_form_for member, url: member_service_oaths_path(member_id: @member.id), html: {multipart: true }, method: :post do |f| %>
+          <%= f.input :service_oath, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
+        <% end if current_user_admin? %>
+        <% if @member.service_oath.attached?  %>
+          <%= link_to @member.service_oath.filename, rails_blob_path(@member.service_oath, disposition: "inline"), target: "_blank" %>
+          <span class="float-right">
+            <%= button_to "Delete", member_service_oath_path(member_id: @member.id, id: @member.service_oath.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if current_user_admin? %>
+          </span>
+        <% end %>
+      </td>
+    </tr>
   </tbody>
 </table>

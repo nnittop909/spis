@@ -10,8 +10,8 @@ class Term < ApplicationRecord
 
   before_save :set_interim_if_appointed
   before_validation :set_political_party
-  # validate :overlapping_terms
-  # validates :start_of_term, :end_of_term, :position_id, :appointment_status, presence: true
+  validate :overlapping_terms
+  validates :start_of_term, :end_of_term, :position_id, :appointment_status, presence: true
 
   def to_s
     in_year_range
