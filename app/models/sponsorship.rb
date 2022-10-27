@@ -24,7 +24,7 @@ class Sponsorship < ApplicationRecord
 
   private
   def duplicated_sponsors
-    if authorable.sponsorships.where(sponsor_id: sponsor_id).present?
+    if sponsorable.sponsorships.where(sponsor_id: sponsor_id).present?
       errors.add(:sponsor_id, "already exists, please change!")
     end
   end
