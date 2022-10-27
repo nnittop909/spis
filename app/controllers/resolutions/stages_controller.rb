@@ -17,7 +17,7 @@ module Resolutions
 
 		def create
 			@resolution = Resolution.find(params[:resolution_id])
-			@stage = @resolution.stagings.create(stage_params)
+			@stage = @resolution.stagings.new(stage_params)
 			respond_to do |format|
 	      if @stage.save
 	        format.html { redirect_to resolution_url(id: @resolution.id), notice: 'Stage saved.' }

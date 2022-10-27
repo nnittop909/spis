@@ -17,7 +17,7 @@ module Resolutions
 
 		def create
 			@resolution = Resolution.find(params[:resolution_id])
-			@sponsorship = @resolution.sponsorships.create(sponsorship_params)
+			@sponsorship = @resolution.sponsorships.new(sponsorship_params)
 			respond_to do |format|
 	      if @sponsorship.save
 	        format.html { redirect_to resolution_url(id: @resolution.id), notice: 'Sponsor saved.' }

@@ -15,7 +15,7 @@ module Committees
 
 		def create
 			@committee = Committee.find(params[:committee_id])
-			@member = @committee.committee_members.create(member_params)
+			@member = @committee.committee_members.new(member_params)
 			respond_to do |format|
 	      if @member.save
 	        format.html { redirect_to committee_members_url(id: @committee.id, committee_membership_id: @committee.current_membership.id), notice: "Committee member added." }

@@ -29,7 +29,7 @@ class TermOverlapValidator
 
 	def error_message
 		if overlapped_terms.present?
-      "Term conflict identified: #{overlapped_terms_in_date_range}."
+      "Dates conflict with #{overlapped_terms_in_date_range}."
     end
 	end
 

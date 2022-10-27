@@ -18,7 +18,7 @@ module Members
 
 		def create
 			@member = Member.find(params[:member_id])
-			@term = @member.terms.create(term_params)
+			@term = @member.terms.new(term_params)
 			respond_to do |format|
 	      if @term.save
 	        format.html { redirect_to member_terms_url(id: @member.id), notice: 'Term created!' }

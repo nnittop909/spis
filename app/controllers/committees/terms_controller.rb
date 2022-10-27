@@ -17,7 +17,7 @@ module Committees
 
 		def create
 			@committee = Committee.find(params[:committee_id])
-			@term = @committee.committee_memberships.create(term_params)
+			@term = @committee.committee_memberships.new(term_params)
 			respond_to do |format|
 	      if @term.save
 	        format.html { redirect_to committee_terms_url(id: @committee.id), notice: 'Term created!' }

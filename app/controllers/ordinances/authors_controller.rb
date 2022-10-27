@@ -17,7 +17,7 @@ module Ordinances
 
 		def create
 			@ordinance = Ordinance.find(params[:ordinance_id])
-			@authorship = @ordinance.authorships.create(authorship_params)
+			@authorship = @ordinance.authorships.new(authorship_params)
 			respond_to do |format|
 	      if @authorship.save
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Author created." }
@@ -44,7 +44,7 @@ module Ordinances
 			@ordinance = Ordinance.find(params[:ordinance_id])
 			@authorship = @ordinance.authorships.find(params[:id])
 			respond_to do |format|
-	      if @authorship.save
+	      if @authorship.update(authorship_params)
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Author updated." }
 	        format.json { render :show, status: :updated, location: ordinance_url(id: @ordinance.id) }
         	format.js

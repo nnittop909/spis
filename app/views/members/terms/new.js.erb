@@ -1,8 +1,8 @@
 $("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'new', remote: true) %>");
 $("#remote-modal").modal();
 $(document).ready( function() {
-  var dateFrom = new Date(<%= Date.today.strftime("%Y, 6, 1") %>);
-  var dateTo = new Date(<%= Date.today.strftime("%Y+3, 5, 30") %>);
+  var dateFrom = new Date(<%= @term.start_of_term.present? ? @term.start_of_term.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, 6, 1") %>);
+  var dateTo = new Date(<%= @term.end_of_term.present? ? @term.end_of_term.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y+3, 5, 30") %>);
   $('.datepickFrom').flatpickr({
     altInput: true,
     altFormat: "F j, Y",

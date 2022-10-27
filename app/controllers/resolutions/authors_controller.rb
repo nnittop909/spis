@@ -17,7 +17,7 @@ module Resolutions
 
 		def create
 			@resolution = Resolution.find(params[:resolution_id])
-			@authorship = @resolution.authorships.create(authorship_params)
+			@authorship = @resolution.authorships.new(authorship_params)
 			respond_to do |format|
 	      if @authorship.save
 	        format.html { redirect_to resolution_url(id: @resolution.id), notice: 'Author saved.' }

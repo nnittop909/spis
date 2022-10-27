@@ -19,7 +19,7 @@ module Members
 
 		def create
 			@member = Member.find(params[:member_id])
-			@salary_adjustment = @member.salary_adjustments.create(salary_adjustment_params)
+			@salary_adjustment = @member.salary_adjustments.new(salary_adjustment_params)
 			respond_to do |format|
 	      if @salary_adjustment.save
 	        format.html { redirect_to member_salary_adjustments_url(member_id: @member.id), notice: 'Salary Adjustment created!' }

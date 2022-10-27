@@ -4,7 +4,7 @@ class Authorship < ApplicationRecord
 
   enum role: [:author, :co_author]
   validates :role, :author_id, presence: true
-
+  validate :duplicated_authors
   delegate :name, :name_in_honorifics, to: :author, prefix: true
 
   def polymorphic_member_authors
@@ -23,4 +23,10 @@ class Authorship < ApplicationRecord
     self.author = GlobalID::Locator.locate_signed(value, for: :polymorphic_select)
   end
 
+  private
+  def duplicated_authors
+    if authorable.authorships.where(author_id: author_id).present?
+      errors.add(:author_id, "already exists, please change!")
+    end
+  end
 end

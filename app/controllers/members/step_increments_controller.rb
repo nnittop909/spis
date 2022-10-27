@@ -19,7 +19,7 @@ module Members
 
 		def create
 			@member = Member.find(params[:member_id])
-			@step_increment = @member.step_increments.create(step_increment_params)
+			@step_increment = @member.step_increments.new(step_increment_params)
 			respond_to do |format|
 	      if @step_increment.save
 	        format.html { redirect_to member_salary_adjustments_url(member_id: @member.id), notice: 'Step Increment created!' }

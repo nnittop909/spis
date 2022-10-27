@@ -4,6 +4,7 @@ class Sponsorship < ApplicationRecord
 
   enum role: [:principal, :regular]
   validates :role, :sponsor_id, presence: true
+  validate :duplicated_sponsors
 
   def polymorphic_member_sponsors
     Member.order(:first_name).all
@@ -19,5 +20,12 @@ class Sponsorship < ApplicationRecord
 
   def polymorphic_sponsor=(value)
     self.author = GlobalID::Locator.locate_signed(value, for: :polymorphic_select)
+  end
+
+  private
+  def duplicated_sponsors
+    if authorable.sponsorships.where(sponsor_id: sponsor_id).present?
+      errors.add(:sponsor_id, "already exists, please change!")
+    end
   end
 end

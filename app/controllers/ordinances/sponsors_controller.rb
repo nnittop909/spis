@@ -17,7 +17,7 @@ module Ordinances
 
 		def create
 			@ordinance = Ordinance.find(params[:ordinance_id])
-			@sponsorship = @ordinance.sponsorships.create(sponsorship_params)
+			@sponsorship = @ordinance.sponsorships.new(sponsorship_params)
 			respond_to do |format|
 	      if @sponsorship.save
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Sponsor created." }
@@ -44,7 +44,7 @@ module Ordinances
 			@ordinance = Ordinance.find(params[:ordinance_id])
 			@sponsorship = @ordinance.sponsorships.find(params[:id])
 			respond_to do |format|
-	      if @sponsorship.save
+	      if @sponsorship.update(sponsorship_params)
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Sponsor updated." }
 	        format.json { render :show, status: :updated, location: ordinance_url(id: @ordinance.id) }
         	format.js

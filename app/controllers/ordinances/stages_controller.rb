@@ -17,7 +17,7 @@ module Ordinances
 
 		def create
 			@ordinance = Ordinance.find(params[:ordinance_id])
-			@stage = @ordinance.stagings.create(stage_params)
+			@stage = @ordinance.stagings.new(stage_params)
 			respond_to do |format|
 	      if @stage.save
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Stage created." }
