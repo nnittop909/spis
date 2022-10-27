@@ -1,60 +1,50 @@
-<%= simple_form_for member, validate: true, html: { autocomplete: "off" }, url: @member.persisted? ? member_path(id: @member.id) : members_path, method: @member.persisted? ? :patch : :post do |f| %>
-    <%= f.error_notification %>
-    <div class="row">
-      <div class="col-md-3">
-        <%= f.input :first_name, validate: { presence: true } %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :middle_name, validate: { presence: true } %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :last_name, validate: { presence: true } %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :name_suffix %>
-      </div>
+<div class="modal-body">
+  <%= f.error_notification %>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.input :first_name, validate: { presence: true } %>
     </div>
-    <div class="row">
-      <div class="col-md-3">
-        <%= f.input :birthdate, as: :string, label: "Birthdate", placeholder: "Select date...", input_html: { class: "datepicker" } %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :civil_status, collection: Member.civil_statuses.keys.to_a.map{ |a| [a.titleize, a]} %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :contact_number %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :address %>
-      </div>
+    <div class="col-md-3">
+      <%= f.input :middle_name, validate: { presence: true } %>
     </div>
-    <div class="row">
-      <div class="col-md-3">
-        <%= f.input :educational_attainment_id, collection: EducationalAttainment.all.map{ |a| [a, a.id]} %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :civil_service_eligibility_id, collection: CivilServiceEligibility.all.map{ |a| [a, a.id]} %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :tin_number, label: "TIN Number" %>
-      </div>
-      <div class="col-md-3">
-        <%= f.input :gsis_number, label: "GSIS Number" %>
-      </div>
+    <div class="col-md-3">
+      <%= f.input :last_name, validate: { presence: true } %>
     </div>
-    <h4>Other Info</h4>
-    <%= f.input :other_info, as: :text, label: false %>
-    <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
-<% end %>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    var bDate = new Date(<%= @member.persisted? ? @member.birthdate.present? ? @member.birthdate.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
-    $('.datepicker').flatpickr({
-      altInput: true,
-      altFormat: "F j, Y",
-      dateFormat: "Y-m-d",
-      defaultDate: bDate
-    });
-  });
-</script>
+    <div class="col-md-3">
+      <%= f.input :name_suffix %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.input :birthdate, as: :string, label: "Birthdate", placeholder: "Select date...", input_html: { class: "datepicker" } %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :civil_status, collection: Member.civil_statuses.keys.to_a.map{ |a| [a.titleize, a]} %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :contact_number %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :address %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <%= f.input :educational_attainment_id, collection: EducationalAttainment.all.map{ |a| [a, a.id]} %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :civil_service_eligibility_id, collection: CivilServiceEligibility.all.map{ |a| [a, a.id]} %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :tin_number, label: "TIN Number" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :gsis_number, label: "GSIS Number" %>
+    </div>
+  </div>
+  <h4>Other Info</h4>
+  <%= f.input :other_info, as: :text, label: false %>
+</div>
+<div class="modal-footer">
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+</div>

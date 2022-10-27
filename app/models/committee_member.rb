@@ -14,6 +14,14 @@ class CommitteeMember < ApplicationRecord
     member.full_name
   end
 
+  def titleized_role
+    if role == "regular"
+      "Member"
+    else
+      role.titleize
+    end 
+  end
+
   def name
     member.full_name
   end

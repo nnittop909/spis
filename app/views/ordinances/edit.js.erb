@@ -1,0 +1,13 @@
+$("#remote-modal").find(".modal-dialog").addClass("modal-xl")
+$("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'edit', remote: true) %>");
+$("#remote-modal").modal();
+
+$(document).ready(function() {
+  var defDate = new Date(<%= @ordinance.date.present? ? @ordinance.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
+  $('.datepicker').flatpickr({
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+    defaultDate: defDate
+  });
+});

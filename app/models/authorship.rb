@@ -3,6 +3,9 @@ class Authorship < ApplicationRecord
   belongs_to :authorable, polymorphic: true
 
   enum role: [:author, :co_author]
+  validates :role, :author_id, presence: true
+
+  delegate :name, :name_in_honorifics, to: :author, prefix: true
 
   def polymorphic_member_authors
     Member.order(:first_name).all

@@ -11,31 +11,51 @@ module Members
 		def new
 			@member = Member.find(params[:member_id])
 			@salary_adjustment = @member.salary_adjustments.new
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def create
 			@member = Member.find(params[:member_id])
 			@salary_adjustment = @member.salary_adjustments.create(salary_adjustment_params)
-			if @member.save
-				redirect_to member_salary_adjustments_url(id: @member.id), notice: "Salary Adjustment saved."
-	    else
-	    	render :new
+			respond_to do |format|
+	      if @salary_adjustment.save
+	        format.html { redirect_to member_salary_adjustments_url(member_id: @member.id), notice: 'Salary Adjustment created!' }
+	        format.json { render :index, status: :created, location: member_salary_adjustments_url(member_id: @member.id) }
+	        format.js
+	      else
+	        format.html { render :new }
+	        format.json { render json: @salary_adjustment.errors, status: :unprocessable_entity }
+	        format.js { render :new }
+	      end
 	    end
 		end
 
 		def edit
 			@member = Member.find(params[:member_id])
 			@salary_adjustment = SalaryAdjustment.find(params[:id])
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def update
 			@member = Member.find(params[:member_id])
 			@salary_adjustment = SalaryAdjustment.find(params[:id])
-      if @salary_adjustment.update(salary_adjustment_params)
-        redirect_to member_salary_adjustments_url(id: @member.id), notice: "Salary adjustment updated."
-      else
-        render :edit
-      end
+			respond_to do |format|
+	      if @salary_adjustment.update(salary_adjustment_params)
+	        format.html { redirect_to member_salary_adjustments_url(member_id: @member.id), notice: 'Salary Adjustment updated!' }
+	        format.json { render :index, status: :updated, location: member_salary_adjustments_url(member_id: @member.id) }
+	        format.js
+	      else
+	        format.html { render :edit }
+	        format.json { render json: @salary_adjustment.errors, status: :unprocessable_entity }
+	        format.js { render :edit }
+	      end
+	    end
 		end
 
 		def destroy

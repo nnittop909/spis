@@ -3,6 +3,7 @@ class Sponsorship < ApplicationRecord
   belongs_to :sponsorable, polymorphic: true
 
   enum role: [:principal, :regular]
+  validates :role, :sponsor_id, presence: true
 
   def polymorphic_member_sponsors
     Member.order(:first_name).all

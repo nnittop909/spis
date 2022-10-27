@@ -9,6 +9,10 @@ module Ordinances
 		def new
 			@ordinance = Ordinance.find(params[:ordinance_id])
 			@sponsorship = @ordinance.sponsorships.new
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def create
@@ -16,9 +20,13 @@ module Ordinances
 			@sponsorship = @ordinance.sponsorships.create(sponsorship_params)
 			respond_to do |format|
 	      if @sponsorship.save
-	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Sponsor saved." }
+	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Sponsor created." }
+	        format.json { render :show, status: :created, location: ordinance_url(id: @ordinance.id) }
+        	format.js
 	      else
-	        format.html { render :new, status: :unprocessable_entity }
+	        format.html { render :new }
+	        format.json { render json: @sponsorship.errors, status: :unprocessable_entity }
+        	format.js { render :new }
 	      end
 	    end
 		end
@@ -26,23 +34,31 @@ module Ordinances
 		def edit
 			@ordinance = Ordinance.find(params[:ordinance_id])
 			@sponsorship = @ordinance.sponsorships.find(params[:id])
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def update
 			@ordinance = Ordinance.find(params[:ordinance_id])
 			@sponsorship = @ordinance.sponsorships.find(params[:id])
 			respond_to do |format|
-	      if @sponsorship.update(sponsorship_params)
+	      if @sponsorship.save
 	        format.html { redirect_to ordinance_url(id: @ordinance.id), notice: "Sponsor updated." }
+	        format.json { render :show, status: :updated, location: ordinance_url(id: @ordinance.id) }
+        	format.js
 	      else
-	        format.html { render :edit, status: :unprocessable_entity }
+	        format.html { render :edit }
+	        format.json { render json: @sponsorship.errors, status: :unprocessable_entity }
+        	format.js { render :edit }
 	      end
 	    end
 		end
 
 		def destroy
 			@ordinance = Ordinance.find(params[:ordinance_id])
-			@sponsorship = @ordinance.sponsorships.find_by(committee_id: params[:id])
+			@sponsorship = @ordinance.sponsorships.find(params[:id])
 			@sponsorship.destroy
 			redirect_to ordinance_url(id: @ordinance.id), notice: 'Sponsor deleted!'
 		end

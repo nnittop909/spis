@@ -18,28 +18,49 @@ class MembersController < ApplicationController
 
 	def new
 		@member = MemberProcessor.new
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def create
-    if @member = MemberProcessor.new(member_params).process!
-    	redirect_to member_url(@member), notice: 'Member saved!'
-    else
-    	render :new
+		@member = MemberProcessor.new(member_params)
+		respond_to do |format|
+      if @member.process!
+        format.html { redirect_to members_url, notice: 'Member created!' }
+        format.json { render :index, status: :created, location: members_url }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @member.errors, status: :unprocessable_entity }
+        format.js { render :new }
+      end
     end
 	end
 
 	def edit
 		@member = Member.find(params[:id])
-		@member_processor = MemberProcessor.new("id" => @member.id)
+		@processor = MemberProcessor.new("id" => @member.id)
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def update
 		@member = Member.find(params[:id])
-		@member_processor = MemberProcessor.new(member_params.merge("id" => @member.id))
-		if @member_processor.update!
-      redirect_to member_url(@member), notice: 'Member updated!'
-    else
-    	render :edit
+		@processor = MemberProcessor.new(member_params.merge("id" => @member.id))
+		respond_to do |format|
+      if @processor.update!
+        format.html { redirect_to member_url(@member), notice: 'Member updated!' }
+        format.json { render :index, status: :updated, location: member_url(@member) }
+        format.js
+      else
+        format.html { render :edit }
+        format.json { render json: @member.errors, status: :unprocessable_entity }
+        format.js { render :edit }
+      end
     end
 	end
 

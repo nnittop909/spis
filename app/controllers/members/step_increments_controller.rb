@@ -11,31 +11,51 @@ module Members
 		def new
 			@member = Member.find(params[:member_id])
 			@step_increment = @member.step_increments.new
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def create
 			@member = Member.find(params[:member_id])
-			@step_increment = @member.step_increments.create!(step_increment_params)
-			if @member.save
-				redirect_to member_salary_adjustments_url(id: @member.id), notice: "Step increment saved."
-	    else
-	    	render :new
+			@step_increment = @member.step_increments.create(step_increment_params)
+			respond_to do |format|
+	      if @step_increment.save
+	        format.html { redirect_to member_salary_adjustments_url(member_id: @member.id), notice: 'Step Increment created!' }
+	        format.json { render :index, status: :created, location: member_salary_adjustments_url(member_id: @member.id) }
+	        format.js
+	      else
+	        format.html { render :new }
+	        format.json { render json: @step_increment.errors, status: :unprocessable_entity }
+	        format.js { render :new }
+	      end
 	    end
 		end
 
 		def edit
 			@member = Member.find(params[:member_id])
 			@step_increment = StepIncrement.find(params[:id])
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def update
 			@member = Member.find(params[:member_id])
 			@step_increment = StepIncrement.find(params[:id])
-      if @step_increment.update(step_increment_params)
-        redirect_to member_salary_adjustments_url(id: @member.id), notice: "Step increment updated."
-      else
-        render :edit
-      end
+			respond_to do |format|
+	      if @step_increment.update(step_increment_params)
+	        format.html { redirect_to member_salary_adjustments_url(member_id: @member.id), notice: 'Step Increment updated!' }
+	        format.json { render :index, status: :updated, location: member_salary_adjustments_url(member_id: @member.id) }
+	        format.js
+	      else
+	        format.html { render :edit }
+	        format.json { render json: @step_increment.errors, status: :unprocessable_entity }
+	        format.js { render :edit }
+	      end
+	    end
 		end
 
 		def destroy

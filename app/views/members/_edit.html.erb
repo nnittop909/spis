@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h5 class="modal-title">Update Member</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @processor, validate: true, html: { autocomplete: "off" }, remote: remote, url: member_path(id: @member.id), method: :patch do |f| %>
+  <%= render 'form', f: f %>
+<% end %>

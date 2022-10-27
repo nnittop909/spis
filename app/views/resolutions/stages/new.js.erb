@@ -1,0 +1,19 @@
+$("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'new', resolution: @resolution, stage: @stage, remote: true) %>");
+$("#remote-modal").modal();
+
+$(document).ready(function() {
+  var defDate = new Date(<%= Date.today.strftime("%Y, %m-1, %d") %>);
+  var enactDate = new Date(<%= Date.today.strftime("%Y, %m-1, %d") %>);
+  $('.datepicker').flatpickr({
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+    defaultDate: defDate
+  });
+  $('.dateEnacted').flatpickr({
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+    defaultDate: enactDate
+  });
+});

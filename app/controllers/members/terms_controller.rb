@@ -10,31 +10,51 @@ module Members
 		def new
 			@member = Member.find(params[:member_id])
 			@term = @member.terms.new
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def create
 			@member = Member.find(params[:member_id])
-			@term = @member.terms.create!(term_params)
-			if @member.save
-				redirect_to member_terms_url(id: @member.id), notice: "Term saved."
-	    else
-	    	render :new
+			@term = @member.terms.create(term_params)
+			respond_to do |format|
+	      if @term.save
+	        format.html { redirect_to member_terms_url(id: @member.id), notice: 'Term created!' }
+	        format.json { render :index, status: :created, location: member_terms_url(id: @member.id) }
+	        format.js
+	      else
+	        format.html { render :new }
+	        format.json { render json: @term.errors, status: :unprocessable_entity }
+	        format.js { render :new }
+	      end
 	    end
 		end
 
 		def edit
 			@member = Member.find(params[:member_id])
 			@term = Term.find(params[:id])
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def update
 			@member = Member.find(params[:member_id])
 			@term = Term.find(params[:id])
-      if @term.update(term_params)
-        redirect_to member_terms_url(id: @member.id), notice: "Term updated."
-      else
-        render :edit
-      end
+			respond_to do |format|
+	      if @term.update(term_params)
+	        format.html { redirect_to member_terms_url(id: @member.id), notice: 'Term updated!' }
+	        format.json { render :index, status: :updated, location: member_terms_url(id: @member.id) }
+	        format.js
+	      else
+	        format.html { render :edit }
+	        format.json { render json: @term.errors, status: :unprocessable_entity }
+	        format.js { render :edit }
+	      end
+	    end
 		end
 
 		def destroy

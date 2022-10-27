@@ -15,30 +15,46 @@ class OrdinancesController < ApplicationController
 
 	def new
 		@ordinance = OrdinanceProcessor.new
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def create
 		@ordinance = OrdinanceProcessor.new(create_params)
 		respond_to do |format|
       if @ordinance.process!
-        format.html { redirect_to ordinances_url, notice: "Ordinance saved." }
+        format.html { redirect_to ordinances_url, notice: 'Ordinance created!' }
+        format.json { render :index, status: :created, location: ordinances_url }
+        format.js
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new }
+        format.json { render json: @ordinance.errors, status: :unprocessable_entity }
+        format.js { render :new }
       end
     end
 	end
 
 	def edit
 		@ordinance = Ordinance.find(params[:id])
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def update
 		@ordinance = Ordinance.find(params[:id])
 		respond_to do |format|
       if @ordinance.update(ordinance_params)
-        format.html { redirect_to ordinance_url(@ordinance), notice: "Ordinance updated." }
+        format.html { redirect_to ordinance_url(@ordinance), notice: 'Ordinance updated!' }
+        format.json { render :show, status: :updated, location: ordinance_url(@ordinance) }
+        format.js
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit }
+        format.json { render json: @ordinance.errors, status: :unprocessable_entity }
+        format.js { render :edit }
       end
     end
 	end
@@ -46,6 +62,8 @@ class OrdinancesController < ApplicationController
 	def show
 		@ordinance = Ordinance.find(params[:id])
 		@authors = @ordinance.authors
+		@principal_authors = @authors.select{|a| @ordinance.authorships.where(author_id: a.id).last.role == "author"}
+		@co_authors = @authors.select{|a| @ordinance.authorships.where(author_id: a.id).last.role == "co_author"}
 		@sponsors = @ordinance.sponsors
 		@stagings = @ordinance.stagings
 	end

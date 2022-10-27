@@ -15,33 +15,55 @@ class ResolutionsController < ApplicationController
 
 	def new
 		@resolution = ResolutionProcessor.new
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def create
 		@resolution = ResolutionProcessor.new(create_params)
-		if @resolution.process!
-			redirect_to resolutions_url, notice: "Resolution saved!"
-		else
-			render :new
-		end
+		respond_to do |format|
+      if @resolution.process!
+        format.html { redirect_to resolutions_url, notice: 'Resolution created!' }
+        format.json { render :index, status: :created, location: resolutions_url }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @resolution.errors, status: :unprocessable_entity }
+        format.js { render :new }
+      end
+    end
 	end
 
 	def edit
 		@resolution = Resolution.find(params[:id])
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def update
 		@resolution = Resolution.find(params[:id])
-		if @resolution.update(resolution_params)
-			redirect_to resolution_url(@resolution), notice: "Resolution updated!"
-		else
-			render :edit
-		end
+		respond_to do |format|
+      if @resolution.update(resolution_params)
+        format.html { redirect_to resolution_url(@resolution), notice: "Resolution updated!" }
+        format.json { render :show, status: :updated, location: resolution_url(@resolution) }
+        format.js
+      else
+        format.html { render :edit }
+        format.json { render json: @resolution.errors, status: :unprocessable_entity }
+        format.js { render :edit }
+      end
+    end
 	end
 
 	def show
 		@resolution = Resolution.find(params[:id])
 		@authors = @resolution.authors
+		@principal_authors = @authors.select{|a| @resolution.authorships.where(author_id: a.id).last.role == "author"}
+		@co_authors = @authors.select{|a| @resolution.authorships.where(author_id: a.id).last.role == "co_author"}
 		@sponsors = @resolution.sponsors
 	end
 

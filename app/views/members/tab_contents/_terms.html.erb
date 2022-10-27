@@ -1,4 +1,4 @@
-<%= link_to "New Term", new_member_term_path(member), class: "btn btn-primary btn-sm float-right" if current_user_admin? %>
+<%= link_to "New Term", new_member_term_path(member), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
 <table class="table">
 	<tbody>
     <% terms.each do |term| %>
@@ -9,7 +9,7 @@
         <td><%= term.appointment_status.try(:titleize) %></td>
     		<td class="text-right">
           <% if current_user_admin? %>
-            <%= link_to "Edit", edit_member_term_path(member_id: member.id, id: term.id) %> | 
+            <%= link_to "Edit", edit_member_term_path(member_id: member.id, id: term.id), remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
             <%= link_to "Delete", member_term_path(member_id: member.id, id: term.id), method: :delete, data: {confirm: "Are you sure?"} %>
           <% end %>
         </td>

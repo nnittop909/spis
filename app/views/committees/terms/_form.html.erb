@@ -1,4 +1,4 @@
-<%= simple_form_for term, html: { autocomplete: "off" }, url: @term.persisted? ? committee_term_path(id: @term.id, committee_id: committee.id) : committee_terms_path(committee_id: committee.id), method: @term.persisted? ? :patch : :post do |f| %>
+<div class="modal-body">
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -12,26 +12,8 @@
     </div>
   </div>
 
-  <%= f.input :committee_id, input_html: {value: committee.id}, as: :hidden %>
+  <%= f.input :committee_id, input_html: {value: @committee.id}, as: :hidden %>
+</div>
+<div class="modal-footer">
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing...", turbo: true } %>
-<% end %>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    var dateFrom = new Date(<%= @term.persisted? ? @term.start_of_term.present? ? @term.start_of_term.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, 6, 1") : Date.today.strftime("%Y, 6, 1") %>);
-    var dateTo = new Date(<%= @term.persisted? ? @term.end_of_term.present? ? @term.end_of_term.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y+3, 5, 30") : Date.today.strftime("%Y+3, 5, 30") %>);
-    
-    $('.datepickFrom').flatpickr({
-      altInput: true,
-      altFormat: "F j, Y",
-      dateFormat: "Y-m-d",
-      defaultDate: dateFrom
-    });
-    $('.datepickTo').flatpickr({
-      altInput: true,
-      altFormat: "F j, Y",
-      dateFormat: "Y-m-d",
-      defaultDate: dateTo
-    });
-  });
-</script>
+</div>

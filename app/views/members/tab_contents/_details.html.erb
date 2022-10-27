@@ -1,4 +1,4 @@
-<%= link_to "Update Member Details", edit_member_path(member), class: "btn btn-primary btn-sm float-right" if current_user_admin? %>
+<%= link_to "Update Member Details", edit_member_path(member), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
 <table class="table">
 	<tbody>
   	<tr>

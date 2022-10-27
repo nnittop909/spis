@@ -1,57 +1,51 @@
-<%= simple_form_for @stage, html: { autocomplete: "off"}, url: @stage.persisted? ? resolution_stage_path(resolution_id: @resolution.id, id: @stage.id) : resolution_stages_path(resolution_id: @resolution.id), method: @stage.persisted? ? :patch : :post do |f| %>
+<div class="modal-body">
   <%= f.error_notification %>
 
-  <%= f.input :stage_id, collection: Stage.for_resolutions.map{|s| [s.name, s.id]}, input_html: {id: "stageSelect"} %>
-  <%= f.input :date, as: :string, placeholder: "Select date...", input_html: { class: "datepicker" } %>
+  <%= f.input :stage_id, collection: Stage.for_resolutions.map{|s| [s.name, s.id]}, input_html: {class: "stageSelect"} %>
+  <label class="dateLabel"></label>
+  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker" } %>
   <div class="effDate">
     <%= f.input :effectivity_date, as: :string, label: "Date Adopted", placeholder: "Select date...", input_html: { class: "dateEnacted" } %>
   </div>
-  <%= f.input :same_as_date_approved, as: :boolean, input_html: {class: "pb-0 sameAsApproved"} %>
-
+  <div class="sameCheck">
+    <%= f.input :same_as_date_approved, as: :boolean, input_html: {class: "pb-0 sameAsApproved"} %>
+  </div>
+</div>
+<div class="modal-footer">
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
-<% end %>
+</div>
 
 <script type="text/javascript">
+
   $(function() {
+
+    $('.datepicker, .dateEnacted').on('change', function(){
+      if($('.datepicker').val() == $('.dateEnacted').val()) {
+        $('.sameAsApproved').prop('checked', true);
+      }
+    }).change();
+    
+    $('.sameCheck').hide();
     $('.effDate').hide(); 
     $('.stageSelect').change(function(){
-      if($('.stageSelect').val() == '9' {
+      if($('.stageSelect').val() == '9') {
         $('.effDate').show(); 
-        $('.dateLabel').text('Date Approved')
+        $('.dateLabel').text('Date Approved');
       } else {
-        $('.effDate').hide(); 
-        $('.dateLabel').text('Date')
+        $('.effDate').hide();  
+        $('.dateLabel').text('Date Received')
       } 
     }).change();
   });
-</script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    var defDate = new Date(<%= @stage.persisted? ? @stage.date.present? ? @stage.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
-    var enactDate = new Date(<%= @stage.persisted? ? @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
-    $('.datepicker').flatpickr({
-      altInput: true,
-      altFormat: "F j, Y",
-      dateFormat: "Y-m-d",
-      defaultDate: defDate
-    });
-    $('.dateEnacted').flatpickr({
-      altInput: true,
-      altFormat: "F j, Y",
-      dateFormat: "Y-m-d",
-      defaultDate: enactDate
-    });
-  });
+  $('.sameAsApproved').change(function(){
+    if ($(this).is(':checked')) {
+      $('.effDate').hide();
+    } else {
+      $('.effDate').show();
+    }
+  }).change();
 
-  $(function() {
-    $('.sameAsApproved').change(function(){
-      if ($(this).is(':checked')) {
-        $('.effDate').hide();
-      } else {
-        $('.effDate').show();
-      }
-    });
-  });
+  
 </script>
 

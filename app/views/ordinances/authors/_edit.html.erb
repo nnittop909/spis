@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h5 class="modal-title">Update Ordinance Author</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @authorship, html: { autocomplete: "off"}, remote: remote, url: ordinance_author_path(ordinance_id: @ordinance.id, id: @authorship.id), method: :patch do |f| %>
+  <%= render 'form', f: f %>
+<% end %>

@@ -22,7 +22,7 @@ class Ordinance < ApplicationRecord
   has_many :documents, as: :documentable, dependent: :destroy
 
   enum current_stage: [:first_reading, :second_reading, :disapproved_on_third_reading, 
-    :for_deliberation, :approved_on_third_reading, :vetoed, :approved, :ammended]
+    :for_deliberation, :approved_on_third_reading, :vetoed, :approved, :deemed_approved, :ammended]
 
   def self.categorize(category_name)
     if category_name == ""

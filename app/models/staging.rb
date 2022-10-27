@@ -7,7 +7,7 @@ class Staging < ApplicationRecord
 
   attribute :same_as_date_approved, :boolean
 
-  after_create :update_current_stage
+  after_save :update_current_stage, :update_remarks_if_deemed_approved
   before_save :set_effectivity_date
 
   private
@@ -40,10 +40,18 @@ class Staging < ApplicationRecord
       "approved"
     when 10
       "active_file"
+    when 11
+      "deemed_approved"
     end
   end
 
   def update_current_stage
     stageable.update!(current_stage: set_stage)
+  end
+
+  def update_remarks_if_deemed_approved
+    if stage.deemed_approved?
+      stageable.update!(remarks: "Deemed approved per Section 54 of LGC(RA-7160)")
+    end
   end
 end

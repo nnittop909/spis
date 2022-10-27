@@ -9,6 +9,10 @@ module Committees
 		def new
 			@committee = Committee.find(params[:committee_id])
 			@term = @committee.committee_memberships.new
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def create
@@ -16,9 +20,13 @@ module Committees
 			@term = @committee.committee_memberships.create(term_params)
 			respond_to do |format|
 	      if @term.save
-	        format.html { redirect_to committee_terms_url(id: @committee.id), notice: "Term created." }
+	        format.html { redirect_to committee_terms_url(id: @committee.id), notice: 'Term created!' }
+	        format.json { render :index, status: :created, location: committee_terms_url(id: @committee.id) }
+	        format.js
 	      else
-	        format.html { render :new, status: :unprocessable_entity }
+	        format.html { render :new }
+	        format.json { render json: @term.errors, status: :unprocessable_entity }
+	        format.js { render :new }
 	      end
 	    end
 		end
@@ -26,6 +34,10 @@ module Committees
 		def edit
 			@committee = Committee.find(params[:committee_id])
 			@term = @committee.committee_memberships.find(params[:id])
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def update
@@ -33,9 +45,13 @@ module Committees
 			@term = @committee.committee_memberships.find(params[:id])
 			respond_to do |format|
 	      if @term.update(term_params)
-	        format.html { redirect_to committee_terms_url(id: @committee.id), notice: "Term updated." }
+	        format.html { redirect_to committee_terms_url(id: @committee.id), notice: 'Term updated!' }
+	        format.json { render :index, status: :updated, location: committee_terms_url(id: @committee.id) }
+	        format.js
 	      else
-	        format.html { render :edit, status: :unprocessable_entity }
+	        format.html { render :edit }
+	        format.json { render json: @term.errors, status: :unprocessable_entity }
+	        format.js { render :edit }
 	      end
 	    end
 		end

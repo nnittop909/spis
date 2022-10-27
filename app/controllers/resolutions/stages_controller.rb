@@ -9,6 +9,10 @@ module Resolutions
 		def new
 			@resolution = Resolution.find(params[:resolution_id])
 			@stage = @resolution.stagings.new
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def create
@@ -16,9 +20,13 @@ module Resolutions
 			@stage = @resolution.stagings.create(stage_params)
 			respond_to do |format|
 	      if @stage.save
-	        format.html { redirect_to resolution_url(id: @resolution.id), notice: "Stage saved." }
+	        format.html { redirect_to resolution_url(id: @resolution.id), notice: 'Stage saved.' }
+	        format.json { render :show, status: :created, location: resolutions_url }
+	        format.js
 	      else
-	        format.html { render :new, status: :unprocessable_entity }
+	        format.html { render :new }
+	        format.json { render json: @stage.errors, status: :unprocessable_entity }
+	        format.js { render :new }
 	      end
 	    end
 		end
@@ -26,6 +34,10 @@ module Resolutions
 		def edit
 			@resolution = Resolution.find(params[:resolution_id])
 			@stage = @resolution.stagings.find(params[:id])
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def update
@@ -33,9 +45,13 @@ module Resolutions
 			@stage = @resolution.stagings.find(params[:id])
 			respond_to do |format|
 	      if @stage.update(stage_params)
-	        format.html { redirect_to resolution_url(id: @resolution.id), notice: "Stage updated." }
+	        format.html { redirect_to resolution_url(id: @resolution.id), notice: 'Stage updated.' }
+	        format.json { render :show, status: :updated, location: resolutions_url }
+	        format.js
 	      else
-	        format.html { render :edit, status: :unprocessable_entity }
+	        format.html { render :edit }
+	        format.json { render json: @stage.errors, status: :unprocessable_entity }
+	        format.js { render :edit }
 	      end
 	    end
 		end

@@ -30,7 +30,7 @@
     <% members.each do |member| %>
     	<tr>
         <td><%= member.name %></td>
-        <td><%= member.role.titleize %></td>
+        <td><%= member.titleized_role %></td>
       	<td class="text-right">
           <% if current_user_admin? %>
             <%= link_to "Edit", edit_committee_member_path(committee_id: committee.id, id: member.id)%> | 

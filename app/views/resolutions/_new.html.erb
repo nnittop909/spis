@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h5 class="modal-title">New Resolution</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @resolution, html: { autocomplete: "off"}, remote: remote, url: resolutions_path, method: :post do |f| %>
+  <div class="modal-body">
+    <%= f.error_notification %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :number %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :date, as: :string, label: "Date Received", placeholder: "Select date...", input_html: { class: "datepicker" } %>
+      </div>
+    </div>
+    <%= f.input :title, as: :text, input_html: {rows: 4} %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :category_id, collection: Category.all.map{ |a| [a, a.id]}, selected: 2 %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :stage_id, collection: Stage.for_resolutions.map{|s| [s.name, s.id]}, input_html: {}, selected: 9 %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :date_approved, as: :string, label: "Date Approved", placeholder: "Select date...", input_html: { class: "datepicker dateApproved" } %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :effectivity_date, as: :string, label: "Date Adopted", placeholder: "Select date...", input_html: { class: "datepicker effectDate" } %>
+        <%= f.input :same_as_date_approved, as: :boolean, input_html: {class: "pb-0 sameAsApproved"} %>
+      </div>
+    </div>
+    <%= f.input :remarks, as: :string %>
+  </div>
+  <div class="modal-footer">
+    <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+  </div>
+<% end %>

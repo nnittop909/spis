@@ -17,9 +17,13 @@ class CommitteesController < ApplicationController
 		@committee = Committee.create(committee_params)
 		respond_to do |format|
       if @committee.save
-        format.html { redirect_to committees_url, notice: "Committee created." }
+        format.html { redirect_to committees_url, notice: 'Committee created!' }
+        format.json { render :index, status: :created, location: committees_url }
+        format.js
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new }
+        format.json { render json: @committee.errors, status: :unprocessable_entity }
+        format.js { render :new }
       end
     end
 	end
@@ -32,9 +36,13 @@ class CommitteesController < ApplicationController
 		@committee = Committee.find(params[:id])
 		respond_to do |format|
       if @committee.update(committee_params)
-        format.html { redirect_to committee_url(@committee), notice: "Committee updated." }
+        format.html { redirect_to committee_url(@committee), notice: 'Committee updated!' }
+        format.json { show :index, status: :updated, location: committee_url(@committee) }
+        format.js
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit }
+        format.json { render json: @committee.errors, status: :unprocessable_entity }
+        format.js { render :edit }
       end
     end
 	end

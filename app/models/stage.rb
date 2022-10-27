@@ -8,8 +8,12 @@ class Stage < ApplicationRecord
 		name
 	end
 
+	def deemed_approved?
+		alias_name == "deemed_approved"
+	end
+
 	def approved?
-		alias_name == "approved_on_second_reading" || alias_name == "approved_on_third_reading" || alias_name == "vetoed" || alias_name == "approved"
+		alias_name == "approved_on_second_reading" || alias_name == "approved_on_third_reading" || alias_name == "vetoed" || alias_name == "approved" || alias_name == "deemed_approved"
 	end
 
 	def self.for_resolutions
@@ -17,7 +21,7 @@ class Stage < ApplicationRecord
 	end
 
 	def self.for_ordinances
-		all.where.not(alias_name: ["approved_on_second_reading", "active_file"])
+		all.where.not(alias_name: ["disapproved_on_third_reading", "approved_on_third_reading", "approved_on_second_reading", "active_file"])
 	end
 
 end

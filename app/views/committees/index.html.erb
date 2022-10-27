@@ -17,7 +17,7 @@
 				<% end %>
 			</div>
 			<div class="col-md-3 col-sm-12">
-				<%= link_to "New Committee", new_committee_path, class: "btn btn-primary btn-sm text-right pull-right float-right" if current_user_admin? %>
+				<%= link_to "New Committee", new_committee_path, class: "btn btn-primary btn-sm text-right pull-right float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
 			</div>
 		</div>
 	</div>

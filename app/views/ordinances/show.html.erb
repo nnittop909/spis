@@ -10,16 +10,16 @@
 				<% if current_user_admin? %>
 					<ul class="nav nav-pills justify-content-end">
 						<li class="nav-item px-2">
-					    <%= link_to 'Update Stage', @ordinance.stagings.present? ? edit_ordinance_stage_path(ordinance_id: @ordinance.id, id: @ordinance.stagings.last.id) : new_ordinance_stage_path(@ordinance), class: "btn btn-secondary btn-sm" %>
+					    <%= link_to 'Update Stage', @ordinance.stagings.present? ? edit_ordinance_stage_path(ordinance_id: @ordinance.id, id: @ordinance.stagings.last.id) : new_ordinance_stage_path(@ordinance), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 					  </li>
 					  <li class="nav-item px-2">
-					    <%= link_to 'Add Author', new_ordinance_author_path(@ordinance), class: "btn btn-secondary btn-sm" %>
+					    <%= link_to 'Add Author', new_ordinance_author_path(@ordinance), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 					  </li>
 					  <li class="nav-item px-2">
-					    <%= link_to 'Add Sponsor', new_ordinance_sponsor_path(@ordinance), class: "btn btn-secondary btn-sm" %>
+					    <%= link_to 'Add Sponsor', new_ordinance_sponsor_path(@ordinance), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 					  </li>
 					  <li class="nav-item px-2">
-					  	<%= link_to "Update Details", edit_ordinance_path(@ordinance), class: "btn btn-primary btn-sm float-right" %>
+					  	<%= link_to "Update Details", edit_ordinance_path(@ordinance), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 					  </li>
 					</ul>
 					<%#= link_to "Status Logs", ordinance_stages_path(ordinance_id: @ordinance.id), class: 'float-right mr-3 mt-3' %>
@@ -31,54 +31,70 @@
 		<table class="table">
 			<tbody>
 		  	<tr>
-		      <td class="col-md-4">Title</td>
+		      <td class="col-md-2 text-muted">Title</td>
 		  		<td><%= @ordinance.title %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Date Received</td>
+		      <td class="col-md-2 text-muted">Date Received</td>
 		  		<td><%= @ordinance.date.strftime("%B %e, %Y") if @ordinance.date.present? %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Sponsors</td>
+		      <td class="col-md-2 text-muted">Sponsors</td>
 		  		<td>
 		  			<% @sponsors.each do |sponsor| %>
 		  					<%= sponsor.name %>
 				  			<span class="float-right">
 				  				<% if current_user_admin? %>
-					  				<%= link_to "Edit", edit_ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), class: "d-inline" %> | 
-					  				<%= button_to "Delete", ordinance_sponsor_path(ordinance_id: @ordinance.id, id: sponsor.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+					  				<%= link_to "Edit", edit_ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), class: "d-inline", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
+					  				<%= button_to "Delete", ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
 					  			<% end %>
 				  			</span>
 			  		<% end %>
 		  		</td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Author/s</td>
+		      <td class="col-md-2 text-muted">Author/s</td>
 		  		<td>
-		  			<% @authors.each do |author| %>
-	  					<%= author.name_in_honorifics %>
-			  			<span class="float-right">
-			  				<% if current_user_admin? %>
-				  				<%= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), class: 'd-inline' %> | 
-				  				<%= button_to "Delete", ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
-				  			<% end %>
-			  			</span>
-			  			<hr>
-			  		<% end %>
+		  			<% if @principal_authors.present? %>
+			  			<p class="text-muted mb-1">Principal-Authors</p>
+			  			<% @principal_authors.each do |author| %>
+		  					<span class="ml-2"><%= author.name_in_honorifics %></span>
+				  			<span class="float-right">
+				  				<% if current_user_admin? %>
+					  				<%= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), class: 'd-inline', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
+					  				<%= button_to "Delete", ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+					  			<% end %>
+				  			</span>
+				  			<hr class="my-1">
+				  		<% end %>
+				  	<% end %>
+				  	<% if @co_authors.present? %>
+			  			<p class="text-muted mb-1 mt-3">Co-Authors</p>
+				  		<% @co_authors.each do |author| %>
+		  					<span class="ml-2"><%= author.name_in_honorifics %></span>
+				  			<span class="float-right">
+				  				<% if current_user_admin? %>
+					  				<%= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), class: 'd-inline', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
+					  				<%= button_to "Delete", ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+					  			<% end %>
+				  			</span>
+				  			<hr class="my-1">
+				  		<% end %>
+				  	<% end %>
 		  		</td>
 		  	</tr>
 		  	<tr>
-		  		<td class="col-md-4">Stage/Status</td>
+		  		<td class="col-md-2 text-muted">Stage/Status</td>
 		  		<td>
 		  			<%= @ordinance.status if @ordinance.stagings.present? %>
 		  		</td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Remarks</td>
+		      <td class="col-md-2 text-muted">Remarks</td>
 		  		<td><%= @ordinance.remarks %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4">Attached Documents</td>
+		      <td class="col-md-2 text-muted">Attached Documents</td>
 		      <td>
 		      	<%= simple_form_for @ordinance.documents.new, url: ordinance_documents_path(ordinance_id: @ordinance.id), html: {multipart: true }, method: :post do |f| %>
 		          <%= f.input :document_file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
