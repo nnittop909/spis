@@ -36,6 +36,10 @@ Rails.application.routes.draw do
     resources :sponsors, module: :resolutions
     resources :authors, module: :resolutions
     resources :stages, module: :resolutions
+    namespace :authorships, module: :resolutions do
+      resources :authors, module: :authorships
+      resources :co_authors, module: :authorships
+    end
   end
 
   resources :ordinances do
@@ -43,6 +47,10 @@ Rails.application.routes.draw do
     resources :sponsors, module: :ordinances
     resources :authors, module: :ordinances
     resources :stages, module: :ordinances
+    namespace :authorships, module: :ordinances do
+      resources :authors, module: :authorships
+      resources :co_authors, module: :authorships
+    end
   end
 
   resources :sp_sessions do

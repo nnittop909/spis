@@ -56,6 +56,11 @@ class Member < ApplicationRecord
     full_name
   end
 
+  def reversed_name
+    array = [first_name, middle_name.blank? ? nil : "#{middle_name.first.upcase}.", name_suffix].compact
+    "#{last_name}, #{array.join(" ")}"
+  end
+
   def name_in_honorifics
   	"HON. #{name.upcase}"
   end

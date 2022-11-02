@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h5 class="modal-title">New Resolution Authors</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @authorship, html: { autocomplete: "off"}, remote: remote, url: resolution_authorships_authors_path(resolution_id: @resolution.id), method: :post do |f| %>
+  <div class="modal-body">
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= f.input :member_ids, label: 'Principal Authors', collection: Member.where(id: @authors.pluck(:id)).order(:last_name).map{|m| [m.reversed_name, m.id]}, input_html: {id: "authorsSelect", multiple: true} %>
+    <%= f.input :role, input_html: {value: "author"}, as: :hidden %>
+    <%= f.input :resolution_id, input_html: {value: @resolution.id}, as: :hidden %>
+  </div>
+  <div class="modal-footer">
+    <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+  </div>
+<% end %>

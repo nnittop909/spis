@@ -2,8 +2,8 @@ $("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'ne
 $("#remote-modal").modal();
 
 $(document).ready(function() {
-  var datedAt = new Date(<%= Date.today.strftime("%Y, 0, 1") %>);
-  var eDate = new Date(<%= Date.today.strftime("%Y, 0, 1") %>);
+  var datedAt = new Date(<%= @salary_adjustment.dated_at.present? ? @salary_adjustment.dated_at.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, 0, 1") %>);
+  var eDate = new Date(<%= @salary_adjustment.effectivity_date.present? ? @salary_adjustment.effectivity_date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, 0, 1") %>);
   $('.dated_at').flatpickr({
     altInput: true,
     altFormat: "F j, Y",

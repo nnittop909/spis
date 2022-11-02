@@ -1,0 +1,9 @@
+$("#remote-modal").find(".modal-dialog").addClass("modal-lg")
+$("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'new', remote: true) %>");
+$("#remote-modal").modal();
+
+$('.modal').on('shown.bs.modal', function () {
+  $('#authorsSelect', this).chosen({
+    width: '100%'
+  });
+});

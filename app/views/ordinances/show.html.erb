@@ -13,7 +13,17 @@
 					    <%= link_to 'Update Stage', @ordinance.stagings.present? ? edit_ordinance_stage_path(ordinance_id: @ordinance.id, id: @ordinance.stagings.last.id) : new_ordinance_stage_path(@ordinance), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 					  </li>
 					  <li class="nav-item px-2">
-					    <%= link_to 'Add Author', new_ordinance_author_path(@ordinance), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+					  	<div class="btn-group">
+			          <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			            Add Authors
+			          </button>
+			          <div class="dropdown-menu">
+			          	<%= link_to 'Principal Authors', new_ordinance_authorships_author_path(ordinance_id: @ordinance.id), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+			          	<%= link_to 'Co Authors', new_ordinance_authorships_co_author_path(ordinance_id: @ordinance.id), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+			          	<div class="dropdown-divider"></div>
+			          	<%= link_to 'Single Author', new_ordinance_author_path(@ordinance), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+			          </div>
+			        </div>
 					  </li>
 					  <li class="nav-item px-2">
 					    <%= link_to 'Add Sponsor', new_ordinance_sponsor_path(@ordinance), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
