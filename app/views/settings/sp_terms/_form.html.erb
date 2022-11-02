@@ -1,0 +1,9 @@
+<div class="modal-body">
+  <%= f.error_notification %>
+  <%= f.input :ordinal_number, label: "Number" %>
+  <%= f.input :start_of_term, as: :string, label: "Start of term", placeholder: "Select date...", input_html: { class: "datepickFrom" } %>
+  <%= f.input :end_of_term, as: :string, label: "End of term", placeholder: "Select date...", input_html: { class: "datepickTo" } %>
+</div>
+<div class="modal-footer">
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+</div>

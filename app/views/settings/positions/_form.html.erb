@@ -1,6 +1,7 @@
-<%= simple_form_for @position, html: { autocomplete: "off"}, url: @position.persisted? ? settings_position_path(id: @position.id) : settings_positions_path, method: @position.persisted? ? :patch : :post do |f| %>
+<div class="modal-body">
   <%= f.error_notification %>
   <%= f.input :name %>
-    
+</div>
+<div class="modal-footer">
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
-<% end %>
+</div>

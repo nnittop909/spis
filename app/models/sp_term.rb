@@ -1,6 +1,10 @@
 class SpTerm < ApplicationRecord
   belongs_to :office
 
+  def current?
+    (start_of_term..end_of_term).include?(Date.today)
+  end
+
   def ordinal
     ordinal_number.ordinal
   end

@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
 
 	def index
 		@political_parties = PoliticalParty.all
-		@terms = Term.all
+		@sp_terms = SpTerm.order(ordinal_number: :desc).all
 		@positions = Position.all
 		@members_import = Imports::MembersImporter.new
 		@member_terms_import = Imports::MemberTermsImporter.new

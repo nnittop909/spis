@@ -3,7 +3,13 @@ class Office < ApplicationRecord
 	has_many :sp_terms
 
   def current_term
-    sp_terms.where.not(start_of_term: nil).order(:start_of_term).last
+    terms = []
+    sp_terms.each do |term|
+      if (term.start_of_term..term.end_of_term).include?(Date.today)
+        terms << term
+      end
+    end
+    terms.last
   end
 
   def current_term_in_years

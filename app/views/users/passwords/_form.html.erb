@@ -1,6 +1,7 @@
-<%= simple_form_for user, url: :user_password, html: { autocomplete: "off" }, method: :patch, data: { turbo: true } do |f| %>
+<div class="modal-body">
   <%= f.input :password, label: 'New Password'  %>
   <%= f.input :password_confirmation, label: "Re-Type New Password" %>
-  
-  <%= f.submit "Update", class: 'btn btn-danger float-right' %>
-<% end %>
+</div>
+<div class="modal-footer">
+  <%= f.submit "Update", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+</div>

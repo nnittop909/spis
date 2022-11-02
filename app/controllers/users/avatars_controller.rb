@@ -5,9 +5,9 @@ module Users
 			@user = User.find(params[:user_id])
 			@user.update(avatar_params)
 			if @user.save
-				redirect_to user_settings_url(@user), notice: "Avatar updated!"
+				redirect_to user_url(@user), notice: "Avatar updated!"
 			else
-				redirect_to user_settings_url(@user), alert: "Invalid file type, only accepts images (.jpg, .png, .gif)!"
+				redirect_to user_url(@user), alert: "Invalid file type, only accepts images (.jpg, .png, .gif)!"
 			end
 		end
 

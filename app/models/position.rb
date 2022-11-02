@@ -5,6 +5,8 @@ class Position < ApplicationRecord
 
 	enum alias_name: [:vgov, :bmd1, :bmd2, :pcl, :liga, :sk]
 
+	validates :name, presence: true
+
 	def self.for_members
 		all.where.not(name: "Committee")
 	end

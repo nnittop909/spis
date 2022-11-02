@@ -3,29 +3,48 @@ module Settings
 
 		def new
 			@political_party = PoliticalParty.new
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def create
-			@political_party = PoliticalParty.create(political_party_params)
-			if @political_party.save
-				redirect_to settings_url, notice: 'Political Party created!'
-			else
-				render :new
-			end
+			@political_party = PoliticalParty.new(political_party_params)
+			respond_to do |format|
+	      if @political_party.save
+	        format.html { redirect_to settings_url, notice: 'Party created!' }
+	        format.json { render :index, status: :created, location: settings_url }
+	        format.js
+	      else
+	        format.html { render :new }
+	        format.json { render json: @political_party.errors, status: :unprocessable_entity }
+	        format.js { render :new }
+	      end
+	    end
 		end
 
 		def edit
 			@political_party = PoliticalParty.find(params[:id])
+			respond_to do |format|
+	      format.html
+	      format.js
+	    end
 		end
 
 		def update
 			@political_party = PoliticalParty.find(params[:id])
-			@political_party.update(political_party_params)
-			if @political_party.save
-				redirect_to settings_url, notice: 'Political Party updated!'
-			else
-				render :edit
-			end
+			respond_to do |format|
+	      if @political_party.update(political_party_params)
+	        format.html { redirect_to settings_url, notice: 'Party updated!' }
+	        format.json { render :index, status: :updated, location: settings_url }
+	        format.js
+	      else
+	        format.html { render :edit }
+	        format.json { render json: @political_party.errors, status: :unprocessable_entity }
+	        format.js { render :edit }
+	      end
+	    end
 		end
 
 		private

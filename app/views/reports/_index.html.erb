@@ -1,0 +1,44 @@
+<h2 class="font-weight-bold text-primary">
+	<span class="fa fa-server"></span> Reports
+</h2>
+
+<div class="card mb-2">
+	<div class="card-header">
+		<h5>SP Members</h5>
+	</div>
+	<div class="card-body">
+		<h4>Standing SP Members</h4>
+		<%=form_tag reports_members_path, method: :get do %>
+		  <div class="input-group mb-4 w-25">
+		    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Term" %>
+		  </div>
+		<% end %>
+	</div>
+</div>
+
+<div class="card mb-2">
+	<div class="card-header">
+		<h5>Committees</h5>
+	</div>
+	<div class="card-body">
+
+	</div>
+</div>
+
+<div class="card mb-2">
+	<div class="card-header">
+		<h5>Ordinances</h5>
+	</div>
+	<div class="card-body">
+
+	</div>
+</div>
+
+<div class="card mb-2">
+	<div class="card-header">
+		<h5>Resolutions</h5>
+	</div>
+	<div class="card-body">
+
+	</div>
+</div>

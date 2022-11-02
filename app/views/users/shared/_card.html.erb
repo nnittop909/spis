@@ -1,0 +1,19 @@
+<div class="card mb-2">
+	<div class="card-body py-2">
+		<div class="row">
+			<div class="col-md-2 col-sm-12">
+				<% if user.avatar.attached? %>
+					<%= image_tag(user.avatar, height: 60, width: 60, class: "img-profile rounded-circle float-md-right mt-2") %>
+				<% else %>
+					<%= image_tag('default', height: 60, width: 60, class: "img-profile rounded-circle float-md-right") %>
+				<% end %>
+			</div>
+			<div class="col-md-10">
+				<h4 class="card-title mb-1"><%= user.name %></h4>
+				<p class="text-muted mb-0">
+					<i class="fa fa-tag"> </i> <%= user.role.titleize %>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

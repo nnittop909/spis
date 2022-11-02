@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :settings, only: [:index],          module: :users
-    resources :passwords, only: [:edit, :update], module: :users
+    resources :settings, only: [:index], module: :users
+    resources :avatars, only: [:update], module: :users
+  end
+  namespace :users do
+    resources :passwords, only: [:edit, :update]
   end
 
   resources :committees do
@@ -72,24 +75,32 @@ Rails.application.routes.draw do
   namespace :settings do
     resources :term_settings
     resources :political_parties
-    resources :terms
+    resources :sp_terms
     resources :positions
     namespace :importers do
-      resources :members, only: [:create]
-      resources :committees, only: [:create]
-      resources :ordinances, only: [:create]
-      resources :ordinance_authors, only: [:create]
-      resources :ordinance_sponsors, only: [:create]
-      resources :ordinance_documents, only: [:create]
-      resources :resolutions, only: [:create]
-      resources :resolution_authors, only: [:create]
+      resources :members,              only: [:create]
+      resources :committees,           only: [:create]
+      resources :ordinances,           only: [:create]
+      resources :ordinance_authors,    only: [:create]
+      resources :ordinance_sponsors,   only: [:create]
+      resources :ordinance_documents,  only: [:create]
+      resources :resolutions,          only: [:create]
+      resources :resolution_authors,   only: [:create]
       resources :resolution_documents, only: [:create]
-      resources :memberships, only: [:create]
-      resources :member_terms, only: [:create]
+      resources :memberships,          only: [:create]
+      resources :member_terms,         only: [:create]
     end
     namespace :mergers do
       resources :committees, only: [:new, :create]
       match 'members', to: 'members#merge', via: [:get, :post]
     end
+  end
+
+  resources :reports, only: [:index]
+  namespace :reports do
+    resources :committees,  only: [:index]
+    resources :members,     only: [:index]
+    resources :resolutions, only: [:index]
+    resources :ordinances,  only: [:index]
   end
 end

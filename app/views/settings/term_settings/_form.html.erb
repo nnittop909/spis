@@ -1,9 +1,0 @@
-<%= simple_form_for @term_setting, html: { autocomplete: "off"}, url: @term_setting.persisted? ? settings_term_setting_path(id: @term_setting.id) : settings_term_settings_path do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :start_date %>
-  <%= f.input :end_date %>
-  <%= f.input :number_of_year, input_html: {value: 3} %>
-    
-  <%= link_to 'Cancel', settings_path, class: 'btn btn-outline-secondary' %>
-  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
-<% end %>
