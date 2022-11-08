@@ -1,13 +1,14 @@
 module Ordinances
   class ByDatePdf < Prawn::Document
-    TABLE_WIDTHS = [100, 472]
-    HEADING_WIDTHS = [150,120,70,100, 100]
+    TABLE_WIDTHS = [20, 100, 452]
+    # HEADING_WIDTHS = [150,120,70,100, 100]
     def initialize(ordinances, category, from_date, to_date, view_context)
       super(margin: 20, page_size: [612, 936], page_layout: :portrait)
       @ordinances = ordinances
       @category = category
       @from_date = from_date.present? ? from_date.to_date : oldest_date
       @to_date = to_date.present? ? to_date.to_date : Date.today
+      @table_widths = @ordinances.count > 100 ? [40, 100, 432] : [20, 100, 452]
       @view_context = view_context
       heading
       display_ordinances_table
@@ -25,20 +26,19 @@ module Ordinances
         text "No data.", align: :center
       else
         move_down 4
-        header = [["ORDINANCE #", "TITLE"]]
-        table(header, :cell_style => {size: 9, :padding => [2, 4, 2, 4]}, column_widths: TABLE_WIDTHS) do
+        header = [["", "ORDINANCE #", "TITLE"]]
+        table(header, :cell_style => {size: 9, :padding => [2, 4, 2, 4]}, column_widths: @table_widths) do
           cells.borders = [:top, :right, :bottom, :left]
           row(0).font_style = :bold
           column(1).align = :center
         end
         stroke_horizontal_rule
-        header = ["", ""]
-        ordinances_data = @ordinances.map { |o| ["#{o.number}\nApproved: #{o.date_approved}", o.title]}
-        table_data = [header, *ordinances_data]
-        table(table_data, cell_style: { size: 9, font: "Helvetica", inline_format: true, :padding => [2, 4, 2, 4]}, column_widths: TABLE_WIDTHS) do
+        n = 0
+        ordinances_data = @ordinances.map { |o| [n = n ? n+1 : 1, "#{o.number}\nApproved: #{o.date_approved}", o.title]}
+        table_data = [*ordinances_data]
+        table(table_data, cell_style: { size: 9, font: "Helvetica", inline_format: true, :padding => [2, 4, 2, 4]}, column_widths: @table_widths) do
           cells.borders = [:top, :right, :bottom, :left]
-          row(0).font_style = :bold
-          column(1).align = :justify
+          column(2).align = :justify
         end
       end
     end

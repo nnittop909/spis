@@ -9,10 +9,6 @@ module Ordinances
 		end
 
 		def query!
-			# stageable_ids = Staging
-			# .where(stageable_type: "Ordinance")
-			# .where(date: date_from..date_to)
-			# .pluck(:stageable_id)
 			if @category.present?
 				Ordinance
 				.where(category_id: @category.id)

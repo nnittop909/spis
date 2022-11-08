@@ -10,7 +10,7 @@ module Resolutions
 		end
 
 		def query!
-			sponsorable_ids = sponsorship
+			sponsorable_ids = Sponsorship
 			.where(sponsor_id: sponsor.id)
 			.where(sponsorable_type: "Resolution")
 			.pluck(:sponsorable_id)

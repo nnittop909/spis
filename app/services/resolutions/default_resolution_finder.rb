@@ -9,11 +9,6 @@ module Resolutions
 		end
 
 		def query!
-			# stageable_ids = Staging
-			# .where(stageable_type: "Resolution")
-			# .where(date: date_from..date_to)
-			# .pluck(:stageable_id)
-
 			if @category.present?
 				Resolution
 				.where(category_id: @category.id)
