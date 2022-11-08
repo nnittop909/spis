@@ -7,15 +7,15 @@ class Position < ApplicationRecord
 
 	validates :name, presence: true
 
+	def to_s
+		name
+	end
+
 	def self.for_members
 		all.where.not(name: "Committee")
 	end
 
 	def self.as_board_member
 		bmd1 + bmd2
-	end
-
-	def to_s
-		name
 	end
 end

@@ -1,0 +1,7 @@
+<div class="modal-body">
+  <%= f.error_notification %>
+  <%= f.input :name %>
+</div>
+<div class="modal-footer">
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+</div>

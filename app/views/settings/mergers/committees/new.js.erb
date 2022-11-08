@@ -1,0 +1,11 @@
+$("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'new', remote: true) %>");
+$("#remote-modal").modal();
+
+$( "#committeeMergeFromSelect" ).select2({
+  theme: "bootstrap",
+  width: '100%'
+});
+$( "#committeeMergeToSelect" ).select2({
+  theme: "bootstrap",
+  width: '100%'
+});

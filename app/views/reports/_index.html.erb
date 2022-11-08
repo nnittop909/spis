@@ -1,44 +1,35 @@
 <h2 class="font-weight-bold text-primary">
 	<span class="fa fa-server"></span> Reports
 </h2>
-
-<div class="card mb-2">
-	<div class="card-header">
-		<h5>SP Members</h5>
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<ul class="nav nav-pills">
+		  <li class="nav-item">
+		    <%= link_to 'Members Report', reports_members_path, class: "nav-link #{'active' if current_page?(reports_members_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Committees Report', reports_committees_path, class: "nav-link #{'active' if current_page?(reports_committees_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Ordinances Report', reports_ordinances_path, class: "nav-link #{'active' if current_page?(reports_ordinances_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Resolutions Report', reports_resolutions_path, class: "nav-link #{'active' if current_page?(reports_resolutions_path)}" %>
+		  </li>
+		</ul>
 	</div>
 	<div class="card-body">
-		<h4>Standing SP Members</h4>
-		<%=form_tag reports_members_path, method: :get do %>
-		  <div class="input-group mb-4 w-25">
-		    <%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Term" %>
-		  </div>
-		<% end %>
-	</div>
-</div>
-
-<div class="card mb-2">
-	<div class="card-header">
-		<h5>Committees</h5>
-	</div>
-	<div class="card-body">
-
-	</div>
-</div>
-
-<div class="card mb-2">
-	<div class="card-header">
-		<h5>Ordinances</h5>
-	</div>
-	<div class="card-body">
-
-	</div>
-</div>
-
-<div class="card mb-2">
-	<div class="card-header">
-		<h5>Resolutions</h5>
-	</div>
-	<div class="card-body">
-
+		<% if current_page?(reports_members_path) %>
+	    <%=render 'reports/shared/members' %>
+	  <% end %>
+		<% if current_page?(reports_committees_path) %>
+	    <%=render 'reports/shared/committees' %>
+	  <% end %>
+	  <% if current_page?(reports_ordinances_path) %>
+	    <%=render 'reports/shared/ordinances' %>
+	  <% end %>
+		<% if current_page?(reports_resolutions_path) %>
+	    <%=render 'reports/shared/resolutions' %>
+	  <% end %>
 	</div>
 </div>

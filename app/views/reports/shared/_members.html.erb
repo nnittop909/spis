@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col-md-12">
+		<h4>Standing SP Members</h4>
+		<%= form_tag({:action => "index", controller: "reports/members", format: 'pdf', target: "_blank"}, {:method => :get})  do %>
+			<div class="row">
+				<div class="col-md-6">
+		    	<%= select_tag :year, options_for_select([*1950.to_s..Date.today.year.to_s].reverse, params[:year]), class: "form-control", prompt: "Select Term" %>
+		    </div>
+		    <div class="col-md-6">
+		    	<%= button_tag "Generate Report (PDF)", class: "btn btn-outline-success float-right", data: { disable_with: "Processing...", target: "_blank" } %>
+		    </div>
+		  </div>
+		<% end %>
+	</div>
+</div>

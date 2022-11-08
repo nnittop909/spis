@@ -1,7 +1,0 @@
-<%= simple_form_for @ordinance_category, html: { autocomplete: "off"}, url: @ordinance_category.persisted? ? settings_ordinance_category_path(id: @ordinance_category.id) : settings_ordinance_categories_path do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :name %>
-  
-  <%= link_to 'Cancel', settings_path, class: 'btn btn-outline-secondary' %>
-  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
-<% end %>

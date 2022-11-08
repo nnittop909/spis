@@ -1,6 +1,10 @@
 module Settings
 	class PositionsController < ApplicationController
 
+		def index
+			@positions = Position.all
+		end
+
 		def new
 			@position = Position.new
 			respond_to do |format|
@@ -13,8 +17,8 @@ module Settings
 			@position = Position.new(position_params)
 			respond_to do |format|
 	      if @position.save
-	        format.html { redirect_to settings_url, notice: 'Position created!' }
-	        format.json { render :index, status: :created, location: settings_url }
+	        format.html { redirect_to settings_positions_url, notice: 'Position created!' }
+	        format.json { render :index, status: :created, location: settings_positions_url }
 	        format.js
 	      else
 	        format.html { render :new }
@@ -36,8 +40,8 @@ module Settings
 			@position = Position.find(params[:id])
 			respond_to do |format|
 	      if @position.update(position_params)
-	        format.html { redirect_to settings_url, notice: 'Position updated!' }
-	        format.json { render :index, status: :updated, location: settings_url }
+	        format.html { redirect_to settings_positions_url, notice: 'Position updated!' }
+	        format.json { render :index, status: :updated, location: settings_positions_url }
 	        format.js
 	      else
 	        format.html { render :edit }

@@ -1,0 +1,63 @@
+<%= render "settings/shared/card", office: current_office %>
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<ul class="nav nav-pills">
+		  <li class="nav-item">
+		    <%= link_to 'Info', settings_path, class: "nav-link #{'active' if current_page?(settings_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Positions', settings_positions_path, class: "nav-link #{'active' if current_page?(settings_positions_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Parties', settings_political_parties_path, class: "nav-link #{'active' if current_page?(settings_political_parties_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Ordinance/Resolution Categories', settings_categories_path, class: "nav-link #{'active' if current_page?(settings_categories_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'SP Terms', settings_sp_terms_path, class: "nav-link #{'active' if current_page?(settings_sp_terms_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Committees', settings_committees_path, class: "nav-link #{'active' if current_page?(settings_committees_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'SP Members', settings_members_path, class: "nav-link #{'active' if current_page?(settings_members_path)}" if current_user.developer? %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Ordinances', settings_ordinances_path, class: "nav-link #{'active' if current_page?(settings_ordinances_path)}" if current_user.developer? %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Resolutions', settings_resolutions_path, class: "nav-link #{'active' if current_page?(settings_resolutions_path)}" if current_user.developer? %>
+		  </li>
+		</ul>
+	</div>
+	<div class="card-body">
+		<% if current_page?(user_path(current_user)) %>
+	    <%=render 'settings/shared/details' %>
+	  <% end %>
+		<% if current_page?(settings_positions_path) %>
+	    <%=render 'settings/shared/positions' %>
+	  <% end %>
+	  <% if current_page?(settings_political_parties_path) %>
+	    <%=render 'settings/shared/parties' %>
+	  <% end %>
+	  <% if current_page?(settings_categories_path) %>
+	    <%=render 'settings/shared/categories' %>
+	  <% end %>
+	  <% if current_page?(settings_members_path) %>
+	    <%=render 'settings/shared/members' %>
+	  <% end %>
+	  <% if current_page?(settings_committees_path) %>
+	    <%=render 'settings/shared/committees' %>
+	  <% end %>
+	  <% if current_page?(settings_sp_terms_path) %>
+	    <%=render 'settings/shared/sp_terms' %>
+	  <% end %>
+	  <% if current_page?(settings_ordinances_path) %>
+	    <%=render 'settings/shared/ordinances' %>
+	  <% end %>
+	  <% if current_page?(settings_resolutions_path) %>
+	    <%=render 'settings/shared/resolutions' %>
+	  <% end %>
+	</div>
+</div>

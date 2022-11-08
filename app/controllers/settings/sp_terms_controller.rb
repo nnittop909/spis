@@ -1,6 +1,10 @@
 module Settings
 	class SpTermsController < ApplicationController
 
+		def index
+			@sp_terms = SpTerm.order(ordinal_number: :desc).all
+		end
+
 		def new
 			@office = current_office
 			@sp_term = SpTerm.new
@@ -15,8 +19,8 @@ module Settings
 			@sp_term = @office.sp_terms.new(sp_term_params)
 			respond_to do |format|
 	      if @sp_term.save
-	        format.html { redirect_to settings_url, notice: 'SP Term created!' }
-	        format.json { render :index, status: :created, location: settings_url }
+	        format.html { redirect_to settings_sp_terms_url, notice: 'SP Term created!' }
+	        format.json { render :index, status: :created, location: settings_sp_terms_url }
 	        format.js
 	      else
 	        format.html { render :new }
@@ -41,8 +45,8 @@ module Settings
 			@sp_term.update(sp_term_params)
 			respond_to do |format|
 	      if @sp_term.update(sp_term_params)
-	        format.html { redirect_to settings_url, notice: 'SP Term updated!' }
-	        format.json { render :index, status: :updated, location: settings_url }
+	        format.html { redirect_to settings_sp_terms_url, notice: 'SP Term updated!' }
+	        format.json { render :index, status: :updated, location: settings_sp_terms_url }
 	        format.js
 	      else
 	        format.html { render :edit }

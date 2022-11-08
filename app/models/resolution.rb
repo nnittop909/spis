@@ -38,16 +38,22 @@ class Resolution < ApplicationRecord
     member_sponsors + committee_sponsors
   end
 
-  def date_approved
-    CurrentStageFinder.new(stageable: self).date_approved
+  def current_staging
+    stagings.order(:date).first
   end
 
   def date_adopted
-    CurrentStageFinder.new(stageable: self).date_dopted
+    # CurrentStageFinder.new(stageable: self).date_dopted
+    if current_staging.effectivity_date.present?
+      current_staging.effectivity_date
+    else
+      current_staging.date
+    end
   end
 
   def status
-    CurrentStageFinder.new(stageable: self).status
+    # CurrentStageFinder.new(stageable: self).status
+    stagings.present? ? current_staging.stage.name : ""
   end
 
   def parsed_number

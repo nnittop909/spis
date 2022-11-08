@@ -24,6 +24,16 @@ class Committee < ApplicationRecord
 
 	has_many :committee_reports
 
+	validates :current_name, presence: true
+
+	def to_s
+		current_name
+	end
+
+	def name
+		current_name
+	end
+
 	def current_members
 		current_membership.committee_members
 	end
@@ -32,12 +42,16 @@ class Committee < ApplicationRecord
 		MembershipsFinder.new(termables: committee_memberships, date: Date.today).current
 	end
 
-	def to_s
-		current_name
+	def by_term_chairperson(year)
+		Committees::MembersFinder.new(termable: self, year: year).chairperson
 	end
 
-	def name
-		current_name
+	def by_term_vice_chairperson(year)
+		Committees::MembersFinder.new(termable: self, year: year).vice_chairperson
+	end
+
+	def by_term_members(year)
+		Committees::MembersFinder.new(termable: self, year: year).members
 	end
 
 	def signature

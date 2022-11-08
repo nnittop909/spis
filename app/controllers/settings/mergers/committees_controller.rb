@@ -4,15 +4,23 @@ module Settings
 
 			def new
 				@committee_merger = Merges::CommitteeMerger.new
+				respond_to do |format|
+		      format.html
+		      format.js
+		    end
 			end
 
 			def create
 				@committee_merger = Merges::CommitteeMerger.new(committee_params)
 				respond_to do |format|
 		      if @committee_merger.merge!
-		        format.html { redirect_to settings_url, notice: "Merge success!." }
+		        format.html { redirect_to settings_committees_url, notice: "Merge success!." }
+		        format.json { render :index, status: :created, location: settings_committees_url }
+	        	format.js
 		      else
-		        format.html { render :new, status: :unprocessable_entity }
+		        format.html { render :new }
+		        format.json { render json: @committee_merger.errors, status: :unprocessable_entity }
+		        format.js { render :new }
 		      end
 		    end
 			end

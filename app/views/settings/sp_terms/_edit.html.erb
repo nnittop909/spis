@@ -5,6 +5,6 @@
   </button>
 </div>
 <% remote ||= false %>
-<%= simple_form_for @sp_term, html: { autocomplete: "off"}, remote: remote, url: settings_sp_term_path(id: @term.id), method: :patch do |f| %>
+<%= simple_form_for @sp_term, html: { autocomplete: "off"}, remote: remote, url: settings_sp_term_path(id: @sp_term.id), method: :patch do |f| %>
   <%= render 'form', f: f %>
 <% end %>

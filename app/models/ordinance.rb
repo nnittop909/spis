@@ -41,16 +41,22 @@ class Ordinance < ApplicationRecord
     member_sponsors + committee_sponsors
   end
 
-  def date_approved
-    CurrentStageFinder.new(stageable: self).date_approved
-  end
-
   def date_enacted
-    CurrentStageFinder.new(stageable: self).date_enacted
+    # CurrentStageFinder.new(stageable: self).date_enacted
+    if current_staging.effectivity_date.present?
+      current_staging.effectivity_date
+    else
+      current_staging.date
+    end
   end
 
   def status
-    CurrentStageFinder.new(stageable: self).status
+    # CurrentStageFinder.new(stageable: self).status
+    stagings.present? ? current_staging.stage.name : nil
+  end
+
+  def current_staging
+    stagings.order(:date).first
   end
 
   def parsed_number

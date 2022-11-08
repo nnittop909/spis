@@ -109,8 +109,11 @@ class Member < ApplicationRecord
   	ConsecutiveTermFinder.new(termable: self).consecutive_terms
   end
 
-  def salary_adjustable_terms
+  def consecutive_terms_count
+  	ConsecutiveTermFinder.new(termable: self).count!
+  end
 
+  def salary_adjustable_terms
   	ConsecutiveTermFinder.new(termable: self).second_term 
   end
 

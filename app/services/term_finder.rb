@@ -22,9 +22,9 @@ class TermFinder
 
 	def by_term_position
 		if by_term.interim? == true
-			"#{by_term.position} (Interim)"
+			"#{by_term.position.name} (Interim)"
 		else
-			by_term.position
+			by_term.position.name
 		end
 	end
 

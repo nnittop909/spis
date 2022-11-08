@@ -73,10 +73,14 @@ Rails.application.routes.draw do
   resources :settings, only: [:index]
   
   namespace :settings do
-    resources :term_settings
     resources :political_parties
     resources :sp_terms
     resources :positions
+    resources :categories
+    resources :members, only: [:index]
+    resources :committees, only: [:index]
+    resources :resolutions, only: [:index]
+    resources :ordinances, only: [:index]
     namespace :importers do
       resources :members,              only: [:create]
       resources :committees,           only: [:create]

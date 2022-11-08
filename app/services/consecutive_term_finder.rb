@@ -47,9 +47,19 @@ class ConsecutiveTermFinder
 		consecutive_terms.third
 	end
 
+	def count!
+		if consecutive_terms.count > 1
+			consecutive_terms.count
+		else
+			1
+		end
+	end
+
 	def grouped_terms
 		if @termable.terms.present?
-			@termable.terms.order(:start_of_term)
+			@termable.terms
+			.where.not(start_of_term: nil)
+			.order(:start_of_term)
 			.pluck(:position_id, :start_of_term)
 			.group_by(&:shift)
 			.transform_values(&:flatten)

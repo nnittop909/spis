@@ -1,0 +1,26 @@
+<div class="row">
+	<div class="col-md-6">
+		<h6 class="m-0 font-weight-bold">SP Terms</h6>
+	</div>
+	<div class="col-md-6">
+		<%= link_to "New Term", new_settings_sp_term_path, class: "btn btn-outline-success float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+	</div>
+</div>
+<div class="table-responsive">
+  <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+  	<table class="table">
+      <tbody>
+      	<% @sp_terms.each do |sp_term| %>
+      		<tr>
+      			<td><%= sp_term.ordinal_number %><sup><%= sp_term.ordinal %></sup> Sangguniang Panlalawigan</td>
+      			<td><%= sp_term.in_year_range %></td>
+      			<td><%= sp_term.current? ? "Current Term" : "" %></td>
+      			<td class="text-right">
+      				<%= link_to "Edit", edit_settings_sp_term_path(id: sp_term.id), remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+    				</td>
+      		</tr>
+      	<% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -7,7 +7,7 @@ class Staging < ApplicationRecord
 
   attribute :same_as_date_approved, :boolean
 
-  after_save :update_current_stage, :update_remarks_if_deemed_approved
+  after_save :update_current_stage, :update_stageable_date_approved, :update_remarks_if_deemed_approved
   before_save :set_effectivity_date
 
   private
@@ -43,6 +43,10 @@ class Staging < ApplicationRecord
     when 11
       "deemed_approved"
     end
+  end
+
+  def update_stageable_date_approved
+    stageable.update!(date_approved: date)
   end
 
   def update_current_stage
