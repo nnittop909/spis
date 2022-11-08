@@ -1,7 +1,7 @@
 module Resolutions
   class ByAuthorPdf < Prawn::Document
     TABLE_WIDTHS = [150, 422]
-    HEADING_WIDTHS = [150,120,70,100, 100]
+    HEADING_WIDTHS = [120, 452]
     def initialize(resolutions, category, author, from_date, to_date, view_context)
       super(margin: 20, page_size: [612, 936], page_layout: :portrait)
       @resolutions = resolutions
@@ -19,15 +19,15 @@ module Resolutions
       text dates_in_range, align: :center, size: 11, style: :bold
       move_down 5
       stroke_horizontal_rule
-      table(additional_data, header: true, cell_style: { size: 10, font: "Helvetica", text_color: "00A244", :padding => [1,4,1,4]}, column_widths: HEADING_WIDTHS) do
+      table(additional_data, header: true, cell_style: { size: 10, font: "Helvetica", :padding => [1,4,1,4]}, column_widths: HEADING_WIDTHS) do
         cells.borders = []
       end
       move_down 10
     end
 
     def additional_data
-      [["AUTHOR: ", @author.name_in_honorifics.upcase, "", "", ""]] + 
-      [["RECORDS COUNT: ", @resolutions.count, "", "", ""]]
+      [["AUTHOR: ", @author.name_in_honorifics.upcase]] + 
+      [["RECORDS COUNT: ", @resolutions.count]]
     end
 
     def display_resolutions_table

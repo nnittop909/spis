@@ -11,18 +11,16 @@ module Reports
 				@ordinances = Ordinances::AuthoredOrdinanceFinder.new(
 					author: @author, category: @category, from_date: @from_date, to_date: @to_date
 				).query!
-			end
-
-			if params[:sponsor_id].present?
+			elsif params[:sponsor_id].present?
 				@sponsor = Committee.find(params[:sponsor_id])
 				@ordinances = Ordinances::SponsoredOrdinanceFinder.new(
 					sponsor: @sponsor, category: @category, from_date: @from_date, to_date: @to_date
 				).query!
+			else
+				@ordinances = Ordinances::DefaultOrdinanceFinder.new(
+					from_date: @from_date, to_date: @to_date, category: @category
+				).query!
 			end
-
-			@ordinances = Ordinances::DefaultOrdinanceFinder.new(
-				from_date: @from_date, to_date: @to_date, category: @category
-			).query!
 
 			respond_to do |format|
 	      format.html

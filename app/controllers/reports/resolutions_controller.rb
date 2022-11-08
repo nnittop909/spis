@@ -10,18 +10,16 @@ module Reports
 				@resolutions = Resolutions::AuthoredResolutionFinder.new(
 					author: @author, from_date: @from_date, to_date: @to_date
 				).query!
-			end
-
-			if params[:sponsor_id].present?
+			elsif params[:sponsor_id].present?
 				@sponsor = Committee.find(params[:sponsor_id])
 				@resolutions = Resolutions::SponsoredResolutionFinder.new(
 					sponsor: @sponsor, from_date: @from_date, to_date: @to_date
 				).query!
+			else
+				@resolutions = Resolutions::DefaultResolutionFinder.new(
+					from_date: @from_date, to_date: @to_date
+				).query!
 			end
-
-			@resolutions = Resolutions::DefaultResolutionFinder.new(
-				from_date: @from_date, to_date: @to_date
-			).query!
 
 			respond_to do |format|
 	      format.html

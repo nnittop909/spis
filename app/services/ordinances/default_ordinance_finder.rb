@@ -5,7 +5,7 @@ module Ordinances
 		def initialize(args={})
 			@from_date  = args[:from_date].present? ? args[:from_date] : oldest_date
 			@to_date    = args[:to_date].present? ? args[:to_date] : Date.today
-			@category_id = args[:category].present? ? args[:category].id : ""
+			@category = args[:category]
 		end
 
 		def query!
@@ -13,11 +13,16 @@ module Ordinances
 			# .where(stageable_type: "Ordinance")
 			# .where(date: date_from..date_to)
 			# .pluck(:stageable_id)
-
-			Ordinance
-			.where(category_id: @category_id)
-			.where(date_approved: from_date..to_date)
-			.sort_by(&:parsed_number)
+			if @category.present?
+				Ordinance
+				.where(category_id: @category.id)
+				.where(date_approved: from_date..to_date)
+				.sort_by(&:parsed_number)
+			else
+				Ordinance
+				.where(date_approved: from_date..to_date)
+				.sort_by(&:parsed_number)
+			end
 		end
 
 		def oldest_date
