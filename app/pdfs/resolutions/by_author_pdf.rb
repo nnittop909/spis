@@ -1,5 +1,5 @@
 module Resolutions
-  class BySponsorPdf < Prawn::Document
+  class ByAuthorPdf < Prawn::Document
     TABLE_WIDTHS = [150, 422]
     HEADING_WIDTHS = [150,120,70,100, 100]
     def initialize(resolutions, category, author, from_date, to_date, view_context)
