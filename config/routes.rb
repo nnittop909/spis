@@ -56,6 +56,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :minutes do
+    resources :documents, only: [:create, :destroy], module: :minutes
+  end
+
   resources :sp_sessions do
     resources :documents, only: [:new, :create, :destroy], module: :sp_sessions
     resources :committee_reports, only: [:new, :create, :destroy], module: :sp_sessions
@@ -106,5 +110,6 @@ Rails.application.routes.draw do
     resources :members,     only: [:index]
     resources :resolutions, only: [:index]
     resources :ordinances,  only: [:index]
+    resources :minutes,  only: [:index]
   end
 end

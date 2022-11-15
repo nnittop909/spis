@@ -10,7 +10,7 @@ module Ordinances
 		end
 
 		def query!
-			sponsorable_ids = Sponsorship
+			sponsorable_ids = Sponsorship.principal
 			.where(sponsor_id: sponsor.id)
 			.where(sponsorable_type: "Ordinance")
 			.pluck(:sponsorable_id)

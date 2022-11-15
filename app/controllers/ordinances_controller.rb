@@ -3,12 +3,8 @@ class OrdinancesController < ApplicationController
 	def index
 		if params[:search].present?
 			@results = Ordinance.search(params[:search]).all.sort_by(&:parsed_number).reverse
-		elsif params[:year].present?
-			@results = StageableByYear.new(year: params[:year], stageable_type: "Ordinance").query!
-		elsif params[:category_name].present?
-			@results = Ordinance.categorize(params[:category_name]).all.sort_by(&:parsed_number).reverse
 		else
-			@results = Ordinance.all.sort_by(&:parsed_number).reverse
+			@results = Ordinance.query(query_params(params))
 		end
     @ordinances = Kaminari.paginate_array(@results).page(params[:page]).per(30)
 	end
@@ -69,6 +65,14 @@ class OrdinancesController < ApplicationController
 	end
 
 	private
+	def query_params(params)
+		{ year: params[:year], 
+			from_date: params[:from_date], 
+			to_date: params[:to_date], 
+			category_id: params[:category_id] 
+		}
+	end
+
 	def ordinance_params
 		params.require(:ordinance).permit(
 			:number, 

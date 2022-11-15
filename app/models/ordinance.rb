@@ -23,15 +23,6 @@ class Ordinance < ApplicationRecord
 
   enum current_stage: [:first_reading, :second_reading, :disapproved_on_third_reading, 
     :for_deliberation, :approved_on_third_reading, :vetoed, :approved, :deemed_approved, :ammended]
-
-  def self.categorize(category_name)
-    if category_name == ""
-      all
-    else
-      category_id = Category.find_by(name: category_name).id
-      all.where(category_id: category_id)
-    end
-  end
   
   def authors
     member_authors + committee_authors
@@ -62,4 +53,27 @@ class Ordinance < ApplicationRecord
   def parsed_number
     NumberParser.new(number: number).parse!
   end
+
+  def parse_to_date_range(year)
+    ("01-01-#{year}").to_date..("12-31-#{year}").to_date
+  end
+
+  def self.query(args={})
+    ordinance_finder(args).new(args.merge(ordinances: self)).query
+  end
+
+  private
+  
+  def self.ordinance_finder(args={})
+    default_finder = "OrdinanceFinder::DefaultFinder"
+    if args.present?
+      klass = args.compact.map{ |key, value| value.present? ? key.to_s.titleize : nil }.join.gsub(" ", "")
+    else
+      klass = "DefaultFinder"
+    end
+    ("OrdinanceFinder::#{klass}").constantize
+    rescue NameError => e
+      default_finder.constantize
+  end
+
 end

@@ -10,7 +10,7 @@ module Resolutions
 		end
 
 		def query!
-			authorable_ids = Authorship
+			authorable_ids = Authorship.author
 			.where(author_id: author.id)
 			.where(authorable_type: "Resolution")
 			.pluck(:authorable_id)

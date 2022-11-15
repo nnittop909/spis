@@ -1,0 +1,9 @@
+<div class="modal-body">
+  <%= f.error_notification %>
+  <%= f.input :date, as: :string, label: "Date", placeholder: "Select date...", input_html: { class: "datepicker" } %>
+  <%= f.input :title, as: :text, input_html: {rows: 5} %>
+  <%= f.input :minute_type, collection: Minute.minute_types.keys.map{ |m| [m.titleize, m]} %>
+</div>
+<div class="modal-footer">
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+</div>

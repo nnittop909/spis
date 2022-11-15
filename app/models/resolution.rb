@@ -60,4 +60,22 @@ class Resolution < ApplicationRecord
     NumberParser.new(number: number).parse!
   end
 
+  def self.query(args={})
+    resolution_finder(args).new(args.merge(resolutions: self)).query
+  end
+
+  private
+  
+  def self.resolution_finder(args={})
+    default_finder = "ResolutionFinder::DefaultFinder"
+    if args.present?
+      klass = args.compact.map{ |key, value| value.present? ? key.to_s.titleize : nil }.join.gsub(" ", "")
+    else
+      klass = "DefaultFinder"
+    end
+    ("ResolutionFinder::#{klass}").constantize
+    rescue NameError => e
+      default_finder.constantize
+  end
+
 end

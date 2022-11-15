@@ -5,16 +5,19 @@
 	<div class="card-header py-3">
 		<ul class="nav nav-pills">
 		  <li class="nav-item">
-		    <%= link_to 'Members Report', reports_members_path, class: "nav-link #{'active' if current_page?(reports_members_path)}" %>
+		    <%= link_to 'Members', reports_members_path, class: "nav-link #{'active' if current_page?(reports_members_path)}" %>
 		  </li>
 		  <li class="nav-item">
-		    <%= link_to 'Committees Report', reports_committees_path, class: "nav-link #{'active' if current_page?(reports_committees_path)}" %>
+		    <%= link_to 'Committees', reports_committees_path, class: "nav-link #{'active' if current_page?(reports_committees_path)}" %>
 		  </li>
 		  <li class="nav-item">
-		    <%= link_to 'Ordinances Report', reports_ordinances_path, class: "nav-link #{'active' if current_page?(reports_ordinances_path)}" %>
+		    <%= link_to 'Ordinances', reports_ordinances_path, class: "nav-link #{'active' if current_page?(reports_ordinances_path)}" %>
 		  </li>
 		  <li class="nav-item">
-		    <%= link_to 'Resolutions Report', reports_resolutions_path, class: "nav-link #{'active' if current_page?(reports_resolutions_path)}" %>
+		    <%= link_to 'Resolutions', reports_resolutions_path, class: "nav-link #{'active' if current_page?(reports_resolutions_path)}" %>
+		  </li>
+		  <li class="nav-item">
+		    <%= link_to 'Minutes', reports_minutes_path, class: "nav-link #{'active' if current_page?(reports_minutes_path)}" %>
 		  </li>
 		</ul>
 	</div>
@@ -30,6 +33,9 @@
 	  <% end %>
 		<% if current_page?(reports_resolutions_path) %>
 	    <%=render 'reports/shared/resolutions' %>
+	  <% end %>
+	  <% if current_page?(reports_minutes_path) %>
+	    <%=render 'reports/shared/minutes' %>
 	  <% end %>
 	</div>
 </div>
