@@ -33,7 +33,7 @@
   <hr class="sidebar-divider">
 
   <!-- Heading -->
-  <%= nav_link("settings", settings_path, "fa-cog", "Management") %>
+  <%= nav_link("settings", settings_path, "fa-cog", "Management") if current_user_admin? %>
 
   
   <!-- Divider -->
