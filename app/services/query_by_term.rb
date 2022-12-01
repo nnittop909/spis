@@ -6,25 +6,13 @@ class QueryByTerm
 	end
 
 	def query!
-		terms = []
 		members = []
-		Term.order(:position_id).all.each do |term|
-			if included?(term) == true
-				terms << term
-			end
-		end
+		terms = Term.order(:position_id).where("start_of_term < ? AND end_of_term > ?", date, date)
+		
 		terms.each do |term|
 			members << term.termable
 		end
 		members
-	end
-
-	def included?(term)
-		if term.start_of_term.present? && term.end_of_term.present?
-			(term.start_of_term..term.end_of_term).include?(date)
-		else
-			false
-		end
 	end
 
 	def date

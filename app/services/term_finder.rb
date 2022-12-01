@@ -7,13 +7,7 @@ class TermFinder
 	end
 
 	def by_term
-		terms = []
-		@termable.terms.each do |term|
-			if included?(term) == true
-				terms << term
-			end
-		end
-		terms.last
+		@termable.terms.where("start_of_term < ? AND end_of_term > ?", date, date).last
 	end
 
 	def by_term_in_years
@@ -108,14 +102,6 @@ class TermFinder
 			end
 		else
 			"Please set term"
-		end
-	end
-
-	def included?(term)
-		if term.start_of_term.present? && term.end_of_term.present?
-			(term.start_of_term..term.end_of_term).include?(date)
-		else
-			false
 		end
 	end
 
