@@ -1,6 +1,6 @@
 <div class="card-body">
   <%= f.error_notification %>
-  <%= f.input :role, collection: User.roles.keys.to_a.map{|r| [r.titleize, r]}, as: :radio_buttons, checked: @user.role %>
+  <%= f.input :role, input_html: {value: @user.role}, as: :hidden %>
   <%= f.input :email %>
   <%= f.input :username %>
   <%= f.input :first_name %>

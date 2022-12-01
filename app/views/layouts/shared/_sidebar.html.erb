@@ -28,14 +28,14 @@
   <%#= nav_link("hearings", hearings_path, "fa-bullhorn", "Hearings") %>
   <%= nav_link("reports", reports_members_path, "fa-server", "Reports") %>
 
-
+<% if current_user.admin? || current_user.developer? %>
   <!-- Divider -->
   <hr class="sidebar-divider">
 
   <!-- Heading -->
-  <%= nav_link("settings", settings_path, "fa-cog", "Management") if current_user_admin? %>
+  <%= nav_link("settings", settings_path, "fa-cog", "Management") %>
 
-  
+<% end %>
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
 

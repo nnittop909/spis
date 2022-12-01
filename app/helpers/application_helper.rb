@@ -1,7 +1,7 @@
 module ApplicationHelper
 
 	def nav_link(controller, link, icon, text)
-	  class_name = params[:controller] == controller ? 'nav-item active' : 'nav-item'
+	  class_name = params[:controller].include?(controller) ? 'nav-item active' : 'nav-item'
 	  icon_class = 'fas fa-fw ' + icon
 
 	  content_tag(:li, :class => class_name) do

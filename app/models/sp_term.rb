@@ -9,13 +9,14 @@ class SpTerm < ApplicationRecord
 
   def self.term_at(year)
     date_to = ("#{year}-#{Date.today.month}-#{Date.today.day}").to_date
-    terms = []
-    all.each do |term|
-      if (term.start_of_term..term.end_of_term).include?(date_to)
-        terms << term
-      end
-    end
-    terms.last
+    all.where("start_of_term < ? AND end_of_term > ?", date_to, date_to).last
+    # terms = []
+    # all.each do |term|
+    #   if (term.start_of_term..term.end_of_term).include?(date_to)
+    #     terms << term
+    #   end
+    # end
+    # terms.last
   end
 
   def ordinal

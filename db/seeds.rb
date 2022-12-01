@@ -9,6 +9,12 @@ office.sp_terms.find_or_create_by(
 	end_of_term: ("2022-06-30").to_date
 )
 
+office.sp_terms.find_or_create_by(
+	ordinal_number: 19,
+	start_of_term: ("2022-07-01").to_date,
+	end_of_term: ("2025-06-30").to_date
+)
+
 Stage.find_or_create_by(name: "First Reading", phase: 0, alias_name: "first_reading")
 Stage.find_or_create_by(name: "Second Reading", phase: 1, alias_name: "second_reading")
 Stage.find_or_create_by(name: "Disapproved on Third Reading", phase: 2, alias_name: "disapproved_on_third_reading")
