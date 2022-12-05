@@ -13,6 +13,8 @@ class StandingMembersPdf < Prawn::Document
   end
 
   def heading
+    text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :center, size: 12, style: :bold
+    move_down 2
     text @title.upcase, align: :center, size: 13, style: :bold
     move_down 2
     text @sp_term.in_year_range, align: :center, size: 11, style: :bold

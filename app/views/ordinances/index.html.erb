@@ -17,7 +17,7 @@
 				<% end %>
 			</div>
 			<div class="col-md-3 col-sm-12">
-				<%= link_to "New Ordinance", new_ordinance_path, class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+				<%= link_to "New Ordinance", new_ordinance_path, class: "btn btn-primary float-right mt-md-0 mt-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
 			</div>
 		</div>
 	</div>
@@ -25,17 +25,17 @@
 		<%=form_tag ordinances_path, id: "filterForm", method: :get do %>
 			<div class="row">
 				<div class="col-md-3">
-					<%= select_tag :category_id, options_for_select(Category.all.map{|c| [c.name, c.id]}, params[:category_id]), class: "form-control", prompt: "Select Category" %>
+					<%= select_tag :category_id, options_for_select(Category.all.map{|c| [c.name, c.id]}, params[:category_id]), class: "form-control mb-md-0 mb-3", prompt: "Select Category" %>
 				</div>
 				<div class="col-md-3">
-					<%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input', :placeholder => "From " %>
+					<%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input mb-md-0 mb-3', :placeholder => "From " %>
 				</div>
 				<div class="col-md-3">
-					<%= text_field_tag :to_date, params[:to_date], :class => 'tDate form-control border-input', :placeholder => "To " %>
+					<%= text_field_tag :to_date, params[:to_date], :class => 'tDate form-control border-input mb-md-0 mb-3', :placeholder => "To " %>
 			  </div>
 			  <div class="col-md-1 mt-2">
-			  	<%= link_to ordinances_path do %>
-			  		<span class='fa fa-undo float-right'></span>
+			  	<%= link_to ordinances_path, title: "Reset Filter" do %>
+			  		<span class='fa fa-undo float-right mb-md-0 mb-3'></span>
 			  	<% end %>
 			  </div>
 			  <div class="col-md-2">
@@ -47,23 +47,18 @@
 		<div class="table-responsive">
       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
       	<table class="table">
-	      	<thead>
-	        	<tr>
-	        		<td>Number</td>
-	        		<td>Title</td>
-	        		<td>Date Approved</td>
-	        	</tr>
-	        </thead>
 	        <tbody>
 	        	<% @ordinances.each do |ordinance| %>
 		        	<tr>
 		        		<td>
-		        			<%= highlight(ordinance.number, params[:search]) %>
+		        			<b>PO# <%= highlight(ordinance.number, params[:search]) %></b>
 		        			<br>
-		        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
+		        			<p class="my-0">
+			        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
+			        			<span class="text-muted"><%= ordinance.date_approved %></span>
+			        		</p>
+		        			<j><%= link_to highlight(ordinance.title, params[:search]), ordinance_path(ordinance) %></j>
 		        		</td>
-		        		<td class="col-md-8"><%= link_to highlight(ordinance.title, params[:search]), ordinance_path(ordinance) %></td>
-		        		<td><%= ordinance.date_approved %></td>
 		        	</tr>
 		        <% end %>
 	        </tbody>

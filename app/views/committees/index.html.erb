@@ -7,7 +7,7 @@
 			<div class="col-md-6 col-sm-12">
 				<%=form_tag committees_path, method: :get, class: "" do %>
 				  <div class="input-group">
-				    <%= text_field_tag :search, params[:search], class: "form-control border-0 small", placeholder: "Search for committees..." %>
+				    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for committees..." %>
 				    <span class="input-group-append">
 				      <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
 				        <i class="fas fa-search fa-sm"></i>
@@ -17,7 +17,7 @@
 				<% end %>
 			</div>
 			<div class="col-md-3 col-sm-12">
-				<%= link_to "New Committee", new_committee_path, class: "btn btn-primary btn-sm text-right pull-right float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+				<%= link_to "New Committee", new_committee_path, class: "btn btn-primary btn-sm text-right pull-right float-right mt-md-0 mt-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
 			</div>
 		</div>
 	</div>
@@ -28,14 +28,12 @@
 	      	<thead>
 	        	<tr>
 	        		<td>Name</td>
-	        		<td>Term</td>
 	        	</tr>
 	        </thead>
 	        <tbody>
 	        	<% @committees.each do |committee| %>
 		        	<tr>
 		        		<td><%= link_to highlight(committee.name, params[:search]), committee_path(committee) %></td>
-		        		<td></td>
 		        	</tr>
 		        <% end %>
 	        </tbody>

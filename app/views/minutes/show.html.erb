@@ -20,24 +20,28 @@
 		<table class="table">
 			<tbody>
 		  	<tr>
-		      <td class="col-md-2 text-muted">Title</td>
-		  		<td><%= @minute.title %></td>
-		  	</tr>
-		  	<tr>
-		      <td class="col-md-2 text-muted">Date</td>
-		  		<td><%= @minute.date.strftime("%B %e, %Y") %></td>
-		  	</tr>
-		  	<tr>
-		      <td class="col-md-2 text-muted">Attached Minutes</td>
 		      <td>
+		      	<p class="text-muted mb-0">Title</p>
+		      	<%= @minute.title %>
+		  		</td>
+		  	</tr>
+		  	<tr>
+		      <td>
+		      	<p class="text-muted mb-0">Date</p>
+		  			<%= @minute.date.strftime("%B %e, %Y") %>
+		  		</td>
+		  	</tr>
+		  	<tr>
+		      <td>
+		      	<p class="text-muted mb-0">Attached Minutes</p>
 		      	<%= simple_form_for @minute, url: minute_documents_path(minute_id: @minute.id), html: {multipart: true }, method: :post do |f| %>
 		          <%= f.input :file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
 		        <% end if current_user_admin? %>
 		  			<% if @minute.file.attached?  %>
 		  				<%= link_to @minute.file.filename, rails_blob_path(@minute.file, disposition: "inline"), target: "_blank" %>
-		  				<span class="float-right">
-		  					<%= button_to "Delete", minute_document_path(minute_id: @minute.id, id: @minute.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if current_user_admin? %>
-		  				</span> <br>
+		  				<%= link_to minute_document_path(minute_id: @minute.id, id: @minute.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: "Remove Attachment" do %>
+		  					<span class="fa fas fa-times"></span>
+		  				<% end if current_user_admin? %>
 		  			<% end %>
 			  	</td>
 		  	</tr>

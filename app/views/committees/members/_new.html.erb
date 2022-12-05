@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h5 class="modal-title">New Committee Member</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @member, html: { autocomplete: "off"}, remote: remote, url: committee_members_path(committee_id: @committee.id), method: :post do |f| %>
+  <%= render 'form', f: f %>
+<% end %>

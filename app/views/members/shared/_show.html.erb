@@ -19,21 +19,19 @@
 		  </li>
 		</ul>
 	</div>
-	<div class="card-body">
-		<% if current_page?(member_path(member)) %>
-	    <%=render 'members/tab_contents/details', member: member %>
-	  <% end %>
-		<% if current_page?(member_terms_path(member)) %>
-	    <%=render 'members/tab_contents/terms', member: member, terms: terms %>
-	  <% end %>
-	  <% if current_page?(member_ordinances_path(member)) %>
-	    <%=render 'members/tab_contents/ordinances', member: member, ordinances: ordinances %>
-	  <% end %>
-	  <% if current_page?(member_resolutions_path(member)) %>
-	    <%=render 'members/tab_contents/resolutions', member: member, resolutions: resolutions %>
-	  <% end %>
-		<% if current_page?(member_salary_adjustments_path(member)) %>
-	    <%=render 'members/tab_contents/salary_adjustments', member: member, salary_adjustments: salary_adjustments %>
-	  <% end %>
-	</div>
 </div>
+<% if current_page?(member_path(member)) %>
+  <%=render 'members/tab_contents/details', member: member %>
+<% end %>
+<% if current_page?(member_terms_path(member)) %>
+  <%=render 'members/tab_contents/terms', member: member, terms: terms %>
+<% end %>
+<% if current_page?(member_ordinances_path(member)) %>
+  <%=render 'members/tab_contents/ordinances', member: member, ordinances: ordinances %>
+<% end %>
+<% if current_page?(member_resolutions_path(member)) %>
+  <%=render 'members/tab_contents/resolutions', member: member, resolutions: resolutions %>
+<% end %>
+<% if current_page?(member_salary_adjustments_path(member)) %>
+  <%=render 'members/tab_contents/salary_adjustments', member: member, salary_adjustments: salary_adjustments %>
+<% end %>

@@ -1,9 +1,11 @@
-<%= link_to "Update Committee Details", edit_committee_path(committee.id), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+<%= link_to "Update Committee Details", edit_committee_path(committee.id), class: "btn btn-primary btn-sm float-right mb-md-0 mb-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
 <table class="table">
 	<tbody>
   	<tr>
-      <td class="col-md-4">Name</td>
-  		<td><%= @committee.name %></td>
+  		<td>
+        <p class="text-muted mb-0">Name</p>
+        <%= @committee.name %>
+      </td>
   	</tr>
   </tbody>
 </table>

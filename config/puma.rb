@@ -25,8 +25,8 @@ plugin :tmp_restart
 # state_path '/home/deploy/spis/shared/tmp/sockets/puma.state'
 # directory '/home/deploy/spis/current'
 
-# workers 2
-# threads 1,2
+# workers 4
+# threads 1,16
 
 # stdout_redirect '/home/deploy/spis/shared/log/puma.stdout.log', '/home/deploy/spis/shared/log/puma.stderr.log'
 # activate_control_app 'unix:///home/deploy/spis/shared/tmp/sockets/pumactl.sock'

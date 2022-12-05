@@ -3,8 +3,10 @@
 	<tbody>
     <% ordinances.each do |ordinance| %>
     	<tr>
-        <td class="col-md-2"><%= ordinance.number %></td>
-        <td><%= link_to ordinance.title, ordinance_path(id: ordinance.id) %></td>
+        <td class="col-md-2">
+          PO# <%= ordinance.number %><br>
+          <%= link_to ordinance.title, ordinance_path(id: ordinance.id) %>  
+        </td>
     	</tr>
     <% end %>
   </tbody>

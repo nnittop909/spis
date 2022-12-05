@@ -19,22 +19,19 @@
 		  </li>
 		</ul>
 	</div>
-	<div class="card-body">
-		<% if current_page?(committee_path(committee)) %>
-	    <%=render 'committees/tab_contents/details', committee: committee %>
-	  <% end %>
-	  <% if current_page?(committee_members_path(committee)) %>
-	    <%=render 'committees/tab_contents/members', committee: committee, members: members %>
-	  <% end %>
-		<% if current_page?(committee_terms_path(committee)) %>
-	    <%=render 'committees/tab_contents/terms', committee: committee, terms: terms %>
-	  <% end %>
-	  <% if current_page?(committee_ordinances_path(committee)) %>
-	    <%=render 'committees/tab_contents/ordinances', committee: committee, ordinances: ordinances %>
-	  <% end %>
-	  <% if current_page?(committee_resolutions_path(committee)) %>
-	    <%=render 'committees/tab_contents/resolutions', committee: committee, resolutions: resolutions %>
-	  <% end %>
-		
-	</div>
 </div>
+<% if current_page?(committee_path(committee)) %>
+  <%=render 'committees/tab_contents/details', committee: committee %>
+<% end %>
+<% if current_page?(committee_members_path(committee)) %>
+  <%=render 'committees/tab_contents/members', committee: committee, members: members %>
+<% end %>
+<% if current_page?(committee_terms_path(committee)) %>
+  <%=render 'committees/tab_contents/terms', committee: committee, terms: terms %>
+<% end %>
+<% if current_page?(committee_ordinances_path(committee)) %>
+  <%=render 'committees/tab_contents/ordinances', committee: committee, ordinances: ordinances %>
+<% end %>
+<% if current_page?(committee_resolutions_path(committee)) %>
+  <%=render 'committees/tab_contents/resolutions', committee: committee, resolutions: resolutions %>
+<% end %>

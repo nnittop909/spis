@@ -17,7 +17,7 @@
       <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
           <%=render 'layouts/shared/header' %>
-          <div class="container-fluid">
+          <div class="container-fluid px-md-3 px-0">
             <%=render 'layouts/shared/flash' %>
             <%= yield %>
           </div>
@@ -25,4 +25,9 @@
       </div>
     </div>
   </body>
+  <script type="text/javascript">
+    if ($(window).width() < 768) {
+      $('.nav-pills').addClass('flex-column')
+    }
+  </script>
 </html>

@@ -1,26 +1,18 @@
-<div class="card">
+<div class="card mb-1">
 	<div class="card-body min-padding">
 		<div class="row">
-			<div class="col-md-1 col-sm-2">
+			<div class="col-md-2 col-sm-2">
 				<% if member.avatar.attached? %>
-					<%= image_tag(member.avatar, height: 60, width: 60, class: "img-circle float-right") %>
+					<%= image_tag(member.avatar, height: 60, width: 60, class: "mx-auto d-block") %>
 				<% else %>
-					<%= image_tag('default', height: 60, width: 60, class: "img-circle float-right") %>
+					<%= image_tag('default', height: 60, width: 60, class: "mx-auto d-block") %>
 				<% end %>
 			</div>
-			<div class="col-md-4 col-sm-10">
-				<h5 class="mb-0 text-primary"><%= member.name %></h5>
+			<div class="col-md-10 col-sm-10">
+				<h5 class="mb-0 text-primary"><%= highlight(member.name, params[:search]) %></h5>
 				<small class="badge bg-info"><%= member.current_position %></small>
 				<br>
 				<small class="text-muted"><%= member.current_party %></small>
-			</div>
-			<div class="col-md-3">
-				
-			</div>
-			<div class="col-md-4">
-				<div class="align-content-end mt-10">
-					
-    		</div>
 			</div>
 		</div>
 	</div>

@@ -1,89 +1,99 @@
-
 <div class="row">
   <div class="col-md-6">
-    <h4>
-      Salary Adjustments
-      <%= link_to "New Salary Adjustment", new_member_salary_adjustment_path(member), class: "btn btn-primary btn-sm float-right mx-1", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
-    </h4>
-    <table class="table">
-      <% @salary_adjustments.each do |salary_adjustment| %>
-        <tbody>
-          <tr>
-            <td>Term</td>
-            <td class="text-right"><%= salary_adjustment.term.in_year_range %></td>
-          </tr>
-          <tr>
-            <td>Dated At</td>
-            <td class="text-right"><%= salary_adjustment.dated_at.strftime("%B %e, %Y") %></td>
-          </tr>
-          <tr>
-            <td>Effectivity Date</td>
-            <td class="text-right"><%= salary_adjustment.effectivity_date.strftime("%B %e, %Y") %></td>
-          </tr>
-          <tr>
-            <td>Basic Salary</td>
-            <td class="text-right"><%= number_to_currency salary_adjustment.monthly_salary %></td>
-          </tr>
-            <td>Adustment</td>
-            <td class="text-right"><%= number_to_currency salary_adjustment.adjustment %></td>
-          </tr>
-          <tr>
-            <td>Adusted Salary</td>
-            <td class="text-right"><%= number_to_currency salary_adjustment.adjusted_salary %></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-right">
-              <% if current_user_admin? %>
-                <%= link_to "Edit", edit_member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
-                <%= link_to "Delete", member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), method: :delete, data: {confirm: "Are you sure?"} %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      <% end %>
-    </table>
+    <div class="card mb-2">
+      <div class="card-header">
+        <h4>
+          Salary Adjustments
+          <%= link_to "New Salary Adjustment", new_member_salary_adjustment_path(member), class: "btn btn-primary btn-sm float-right mx-1", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+        </h4>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <% @salary_adjustments.each do |salary_adjustment| %>
+            <tbody>
+              <tr>
+                <td>Term</td>
+                <td class="text-right"><%= salary_adjustment.term.in_year_range %></td>
+              </tr>
+              <tr>
+                <td>Dated At</td>
+                <td class="text-right"><%= salary_adjustment.dated_at.strftime("%B %e, %Y") %></td>
+              </tr>
+              <tr>
+                <td>Effectivity Date</td>
+                <td class="text-right"><%= salary_adjustment.effectivity_date.strftime("%B %e, %Y") %></td>
+              </tr>
+              <tr>
+                <td>Basic Salary</td>
+                <td class="text-right"><%= number_to_currency salary_adjustment.monthly_salary %></td>
+              </tr>
+                <td>Adustment</td>
+                <td class="text-right"><%= number_to_currency salary_adjustment.adjustment %></td>
+              </tr>
+              <tr>
+                <td>Adusted Salary</td>
+                <td class="text-right"><%= number_to_currency salary_adjustment.adjusted_salary %></td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-right">
+                  <% if current_user_admin? %>
+                    <%= link_to "Edit", edit_member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+                    <%= link_to "Delete", member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), class: "btn btn-sm btn-warning", method: :delete, data: {confirm: "Are you sure?"} %>
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+    </div>
   </div>
   <div class="col-md-6">
-    <h4>
-      Step Increment
-      <%= link_to "New Step Increment", new_member_step_increment_path(member), class: "btn btn-primary btn-sm float-right mx-1", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
-    </h4>
-    <table class="table">
-      <% @step_increments.each do |increment| %>
-        <tbody>
-          <tr>
-            <td>Term</td>
-            <td class="text-right"><%= increment.term.in_year_range %></td>
-          </tr>
-          <tr>
-            <td>Dated At</td>
-            <td class="text-right"><%= increment.dated_at.strftime("%B %e, %Y") %></td>
-          </tr>
-          <tr>
-            <td>Effectivity Date</td>
-            <td class="text-right"><%= increment.effectivity_date.strftime("%B %e, %Y") %></td>
-          </tr>
-          <tr>
-            <td>Basic Salary</td>
-            <td class="text-right"><%= number_to_currency increment.salary_prior_to_adjustment %></td>
-          </tr>
-            <td>Adustment</td>
-            <td class="text-right"><%= number_to_currency increment.salary_adjustment %></td>
-          </tr>
-          <tr>
-            <td>Adusted Salary</td>
-            <td class="text-right"><%= number_to_currency increment.adjusted_salary %></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-right">
-              <% if current_user_admin? %>
-                <%= link_to "Edit", edit_member_step_increment_path(member_id: member.id, id: increment.id), remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
-                <%= link_to "Delete", member_step_increment_path(member_id: member.id, id: increment.id), method: :delete, data: {confirm: "Are you sure?"} %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
-      <% end %>
-    </table>
+    <div class="card">
+      <div class="card-header">
+        <h4>
+          Step Increment
+          <%= link_to "New Step Increment", new_member_step_increment_path(member), class: "btn btn-primary btn-sm float-right mx-1", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+        </h4>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <% @step_increments.each do |increment| %>
+            <tbody>
+              <tr>
+                <td>Term</td>
+                <td class="text-right"><%= increment.term.in_year_range %></td>
+              </tr>
+              <tr>
+                <td>Dated At</td>
+                <td class="text-right"><%= increment.dated_at.strftime("%B %e, %Y") %></td>
+              </tr>
+              <tr>
+                <td>Effectivity Date</td>
+                <td class="text-right"><%= increment.effectivity_date.strftime("%B %e, %Y") %></td>
+              </tr>
+              <tr>
+                <td>Basic Salary</td>
+                <td class="text-right"><%= number_to_currency increment.salary_prior_to_adjustment %></td>
+              </tr>
+                <td>Adustment</td>
+                <td class="text-right"><%= number_to_currency increment.salary_adjustment %></td>
+              </tr>
+              <tr>
+                <td>Adusted Salary</td>
+                <td class="text-right"><%= number_to_currency increment.adjusted_salary %></td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-right">
+                  <% if current_user_admin? %>
+                    <%= link_to "Edit", edit_member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
+                    <%= link_to "Delete", member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-warning", method: :delete, data: {confirm: "Are you sure?"} %>
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
   </div>
 </div>

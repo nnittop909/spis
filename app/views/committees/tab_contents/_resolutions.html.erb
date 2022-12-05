@@ -3,12 +3,9 @@
 	<tbody>
     <% resolutions.each do |resolution| %>
     	<tr>
-        <td class="col-md-2"><%= resolution.number %></td>
-        <td><%= link_to resolution.name, resolution_path(id: resolution.id) %></td>
-    		<td>
-          <% resolution.documents.each do |document| %>
-            <%= link_to resolution.name, resolution_path(id: resolution.id) %>
-          <% end %>   
+        <td class="col-md-2">
+          RES# <%= resolution.number %><br>
+          <%= link_to resolution.name, resolution_path(id: resolution.id) %>
         </td>
     	</tr>
     <% end %>

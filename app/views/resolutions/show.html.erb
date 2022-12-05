@@ -1,106 +1,105 @@
-<div class="card shadow mb-4">
+<div class="card shadow mb-2">
 	<div class="card-header py-3">
-		<div class="row">
-			<div class="col-md-4">
-				<h2 class="font-weight-bold text-primary">Resolution # <%= @resolution.number %></h2>
-		    <span class="badge bg-info"><%= @resolution.current_stage.titleize if @resolution.current_stage.present? %></span>
-		    <span class="badge bg-info"><%= @resolution.date_approved if @resolution.stages.present? %></span>
-			</div>
-			<div class="col-md-8">
-				<% if current_user_admin? %>
-					<ul class="nav nav-pills justify-content-end">
-						<li class="nav-item px-2">
-					    <%= link_to 'Update Status', @resolution.stagings.present? ? edit_resolution_stage_path(resolution_id: @resolution.id, id: @resolution.stagings.last.id) : new_resolution_stage_path(@resolution), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-					  </li>
-					  <li class="nav-item px-2">
-					    <div class="btn-group">
-			          <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			            Add Authors
-			          </button>
-			          <div class="dropdown-menu">
-			          	<%= link_to 'Principal Authors', new_resolution_authorships_author_path(resolution_id: @resolution.id), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-			          	<%= link_to 'Co Authors', new_resolution_authorships_co_author_path(resolution_id: @resolution.id), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-			          	<div class="dropdown-divider"></div>
-			          	<%= link_to 'Single Author', new_resolution_author_path(@resolution), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-			          </div>
-			        </div>
-					  </li>
-					  <li class="nav-item px-2">
-					    <%= link_to 'Add Sponsor', new_resolution_sponsor_path(@resolution), class: "btn btn-secondary btn-sm", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-					  </li>
-					  <li class="nav-item px-2">
-					  	<%= link_to "Update Details", edit_resolution_path(@resolution), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-					  </li>
-					</ul>
-					<%#= link_to "Status Logs", resolution_stages_path(resolution_id: @resolution.id), class: 'float-right mr-3 mt-3' %>
-				<% end %>
-			</div>
-		</div>
+		<h2 class="font-weight-bold text-primary">Resolution # <%= @resolution.number %></h2>
+    <span class="badge bg-info"><%= @resolution.current_stage.titleize if @resolution.current_stage.present? %></span>
+    <span class="badge bg-info"><%= @resolution.date_approved if @resolution.stages.present? %></span>
+  </div>
+</div>
+<% if current_user_admin? %>
+	<div class="btn-group mb-2" role="group">
+		<%= link_to "Update Details", edit_resolution_path(@resolution), class: "btn btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+		<%= link_to 'Update Stage', @resolution.stagings.present? ? edit_resolution_stage_path(resolution_id: @resolution.id, id: @resolution.stagings.last.id) : new_resolution_stage_path(@resolution), class: "btn btn-secondary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+		<%= link_to 'Add Sponsor', new_resolution_sponsor_path(@resolution), class: "btn btn-secondary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+	  <div class="btn-group" role="group">
+	    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	      Add Authors
+	    </button>
+	    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+	      <%= link_to 'Principal Authors', new_resolution_authorships_author_path(resolution_id: @resolution.id), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+      	<%= link_to 'Co Authors', new_resolution_authorships_co_author_path(resolution_id: @resolution.id), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+      	<div class="dropdown-divider"></div>
+      	<%= link_to 'Single Author', new_resolution_author_path(@resolution), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+	    </div>
+	  </div>
 	</div>
+<%#= link_to "Status Logs", resolution_stages_path(resolution_id: @resolution.id), class: 'float-right mr-3 mt-3' %>
+<% end %>
+<div class="card">
 	<div class="card-body">
 		<table class="table">
 			<tbody>
 		  	<tr>
-		      <td class="col-md-2 text-muted">Title</td>
-		  		<td><%= @resolution.title %></td>
+		      <td>
+		      	<p class="text-muted mb-0">Title</p>
+		      	<%= @resolution.title %>
+		      </td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-2 text-muted">Date Recieved</td>
-		  		<td><%= @resolution.date.strftime("%B %e, %Y") if @resolution.date.present? %></td>
+		      <td>
+		      	<p class="text-muted mb-0">Date Recieved</p>
+		  			<%= @resolution.date.strftime("%B %e, %Y") if @resolution.date.present? %></td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-2 text-muted">Authors</td>
-		  		<td>
+		      <td>
+		      	<p class="text-muted mb-0">Authors</p>
 		  			<% if @principal_authors.present? %>
 			  			<p class="text-muted mb-1">Principal-Authors</p>
 			  			<% @principal_authors.each do |author| %>
-		  					<%= author.name_in_honorifics %>
-				  			<span class="float-right">
+			  				<p class="my-1">
+			  					<%= author.name_in_honorifics %>
 				  				<% if current_user_admin? %>
-					  				<%= link_to "Edit", edit_resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), class: 'd-inline', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
-					  				<%= button_to "Delete", resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+					  				<%#= link_to "Edit", edit_resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), class: 'btn btn-sm btn-primary', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+					  				<%= link_to resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: 'Remove Author' do %>
+					  					<span class="fa fas fa-times"></span>
+					  				<% end %>
 					  			<% end %>
-				  			</span>
-				  			<hr class="my-1">
+				  			</p>
+				  			<hr class="my-1"> 			
 				  		<% end %>
 				  	<% end %>
 					  <% if @co_authors.present? %>
 			  			<p class="text-muted mb-1 mt-3">Co-Authors</p>
 			  			<% @co_authors.each do |author| %>
-		  					<%= author.name_in_honorifics %>
-				  			<span class="float-right">
-				  				<% if current_user_admin? %>
-					  				<%= link_to "Edit", edit_resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), class: 'd-inline', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
-					  				<%= button_to "Delete", resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+			  				<p class="my-1">
+			  					<%= author.name_in_honorifics %>
+					  			<% if current_user_admin? %>
+					  				<%#= link_to "Edit", edit_resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), class: 'btn btn-sm btn-primary', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+					  				<%= link_to resolution_author_path(resolution_id: @resolution.id, id: @resolution.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: 'Remove Author' do %>
+					  					<span class="fa fas fa-times"></span>
+						  			<% end %>
 					  			<% end %>
-				  			</span>
+					  		</p>
 				  			<hr class="my-1">
 				  		<% end %>
 				  	<% end %>
 		  		</td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-2 text-muted">Sponsors</td>
-		  		<td>
+		      <td>
+		      	<p class="text-muted mb-0">Sponsors</p>
 		  			<% @sponsors.each do |sponsor| %>
-	  					<%= sponsor.name %>
-			  			<span class="float-right">
+		  				<p class="my-1">
+		  					<%= sponsor.name %>
 			  				<% if current_user_admin? %>
-				  				<%= link_to "Edit", edit_resolution_sponsor_path(resolution_id: @resolution.id, id: @resolution.sponsorships.where(sponsor_id: sponsor.id).last.id), class: 'd-inline', class: 'd-inline', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
-				  				<%= button_to "Delete", resolution_sponsor_path(resolution_id: @resolution.id, id: @resolution.sponsorships.where(sponsor_id: sponsor.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
+				  				<%#= link_to "Edit", edit_resolution_sponsor_path(resolution_id: @resolution.id, id: @resolution.sponsorships.where(sponsor_id: sponsor.id).last.id), class: 'btn btn-sm btn-primary', class: 'btn btn-sm btn-primary', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+				  				<%= link_to resolution_sponsor_path(resolution_id: @resolution.id, id: @resolution.sponsorships.where(sponsor_id: sponsor.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: 'Remove Sponsor' do %>
+				  					<span class="fa fas fa-times"></span>
+					  			<% end %>
 				  			<% end %>
-			  			</span>
-			  			<hr>
+				  		</p>
+			  			<hr class="my-1">
 			  		<% end %>		  				
 		  		</td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-2 text-muted">Remarks</td>
-		  		<td><%= @resolution.remarks %></td>
+		      <td>
+		      	<p class="text-muted mb-0">Remarks</p>
+		      	<%= @resolution.remarks %>
+		      </td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-2 text-muted">Attached Documents</td>
 		      <td>
+		      	<p class="text-muted mb-0">Attached Documents</p>
 		      	<%= simple_form_for @resolution.documents.new, url: resolution_documents_path(resolution_id: @resolution.id), html: {multipart: true }, method: :post do |f| %>
 		          <%= f.input :document_file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
 		        <% end if current_user_admin? %>
@@ -108,9 +107,9 @@
 		  				<% @resolution.documents.each do |document| %>
 		  					<% if document.document_file.attached? %>
 				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" %>
-				  				<span class="float-right">
-				  					<%= button_to "Delete", resolution_document_path(resolution_id: @resolution.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if current_user_admin? %>
-				  				</span> <br>
+			  					<%= link_to resolution_document_path(resolution_id: @resolution.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: 'Remove Attachment' do %>
+			  						<span class="fa fas fa-times"></span>
+			  					<% end if current_user_admin? %>
 				  			<% end %>
 			  			<% end %>
 			  		<% end %>

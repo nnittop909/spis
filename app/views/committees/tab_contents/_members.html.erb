@@ -1,50 +1,35 @@
-<div class="row">
-  <div class="col-md-2 col-sm-12">
-    <%=form_tag committee_members_path(committee_id: committee.id), method: :get do %>
-      <div class="input-group mb-4">
-        <%= select_tag :committee_membership_id, options_for_select(committee.committee_memberships.order(start_of_term: :desc).map{|s| [s.term, s.id]}, params[:committee_membership_id]), class: "form-control", prompt: "Select Term", onchange: 'this.form.submit();' %>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3 col-sm-12">
+        <%=form_tag committee_members_path(committee_id: committee.id), method: :get do %>
+          <div class="input-group">
+            <%= select_tag :committee_membership_id, options_for_select(committee.committee_memberships.order(start_of_term: :desc).map{|s| [s.term, s.id]}, params[:committee_membership_id]), class: "form-control", prompt: "Select Term", onchange: 'this.form.submit();' %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-  <div class="col-md-10 col-sm-12">
-    <%= simple_form_for @member, html: { autocomplete: "off"}, url: @member.persisted? ? committee_member_path(id: @member.id, committee_id: @committee.id) : committee_members_path(committee_id: @committee.id) do |f| %>
-      <%= f.error_notification %>
-      <div class="row">
-        <div class="col-md-4 col-sm-12">
-          <%= f.input :member_id, label: false, collection: Member.all.order(:first_name).map{|m| [m.name, m.id] }, input_html: {id: "memberSelect"}, prompt: "Select Member" %>
-          <%= f.input :committee_membership_id, input_html: {value: params[:committee_membership_id]}, as: :hidden %>
-          <%= f.input :committee_id, input_html: {value: @committee.id}, as: :hidden %>
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <%= f.input :role, label: false, collection: CommitteeMember.roles.keys.to_a.map{|a| [a.titleize, a]}, prompt: "Select Role" %>
-        </div>
-        <div class="col-md-4 col-sm-12">
-          <%= f.submit "Add Member", class: "btn btn-outline-success", data: { disable_with: "Processing..." } %>
-        </div>
+      <div class="col-md-9 col-sm-12">
+        <%= link_to "New Committee Member", new_committee_member_path(committee_id: committee.id), class: "btn btn-primary btn-sm float-right my-md-0 my-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
       </div>
-    <% end if current_user_admin? %>
+    </div>
+    <br>
+    <table class="table">
+    	<tbody>
+        <% members.each do |member| %>
+        	<tr>
+            <td>
+              <%= member.name %>
+              <p class="text-muted mt-0"><%= member.titleized_role %></p>
+            </td>
+          	<td class="text-right">
+              <% if current_user_admin? %>
+                <%= link_to "Edit", edit_committee_member_path(committee_id: committee.id, id: member.id), class: 'btn btn-sm btn-primary', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+                <%= link_to "Delete", committee_member_path(committee_id: committee.id, id: member.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-sm btn-warning' %>
+              <% end %>
+            </td>
+        	</tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
-<table class="table">
-	<tbody>
-    <% members.each do |member| %>
-    	<tr>
-        <td><%= member.name %></td>
-        <td><%= member.titleized_role %></td>
-      	<td class="text-right">
-          <% if current_user_admin? %>
-            <%= link_to "Edit", edit_committee_member_path(committee_id: committee.id, id: member.id)%> | 
-            <%= button_to "Delete", committee_member_path(committee_id: committee.id, id: member.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
-          <% end %>
-        </td>
-    	</tr>
-    <% end %>
-  </tbody>
-</table>
-
-<script type="text/javascript">
-  $( "#memberSelect" ).select2({
-    theme: "bootstrap",
-    width: '100%'
-  });
-</script>

@@ -17,7 +17,7 @@
 				<% end %>
 			</div>
 			<div class="col-md-3 col-sm-12">
-				<%= link_to "New Minute", new_minute_path, class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+				<%= link_to "New Minute", new_minute_path, class: "btn btn-primary btn-sm float-right mt-md-0 mt-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
 			</div>
 		</div>
 	</div>
@@ -25,17 +25,17 @@
 		<%=form_tag minutes_path, id: "filterForm", method: :get do %>
 			<div class="row">
 				<div class="col-md-3">
-					<%= select_tag :minute_type, options_for_select(Minute.minute_types.keys.map{|m| [m.titleize, m]}, params[:minute_type]), class: "form-control", prompt: "Select Category" %>
+					<%= select_tag :minute_type, options_for_select(Minute.minute_types.keys.map{|m| [m.titleize, m]}, params[:minute_type]), class: "form-control mb-md-0 mb-3", prompt: "Select Category" %>
 				</div>
 				<div class="col-md-3">
-					<%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input', :placeholder => "From " %>
+					<%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input mb-md-0 mb-3', :placeholder => "From " %>
 				</div>
 				<div class="col-md-3">
-					<%= text_field_tag :to_date, params[:to_date], :class => 'tDate form-control border-input', :placeholder => "To " %>
+					<%= text_field_tag :to_date, params[:to_date], :class => 'tDate form-control border-input mb-md-0 mb-3', :placeholder => "To " %>
 			  </div>
 			  <div class="col-md-1 mt-2">
 			  	<%= link_to minutes_path do %>
-			  		<span class='fa fa-undo float-right'></span>
+			  		<span class='fa fa-undo float-right mb-md-0 mb-3'></span>
 			  	<% end %>
 			  </div>
 			  <div class="col-md-2">
@@ -47,23 +47,18 @@
 		<div class="table-responsive">
       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
       	<table class="table">
-	      	<thead>
-	        	<tr>
-	        		<td>Date</td>
-	        		<td>Title</td>
-	        		<td>Type</td>
-	        	</tr>
-	        </thead>
 	        <tbody>
 	        	<% @minutes.each do |minute| %>
 		        	<tr>
 		        		<td>
-		        			<%= minute.date.strftime("%B %e, %Y") %>
-		        		</td>
-		        		<td class="col-md-8">
-		        			<%= link_to highlight(minute.title, params[:search]), minute_path(minute) %>
-		        		</td>
-		        		<td><%= minute.minute_type.titleize %></td>
+		        			<%= link_to minute_path(minute) do %>
+		        				<%= highlight(minute.title, params[:search]) %>
+		        				<p class="my-0">
+			        				<small class="badge bg-info"><%= minute.minute_type.titleize %></small>
+			        				<span class="mb-0"><%= minute.date.strftime("%B %e, %Y") %></span>
+			        			</p>
+			        		<% end %>
+			        	</td>
 		        	</tr>
 		        <% end %>
 	        </tbody>

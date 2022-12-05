@@ -1,35 +1,47 @@
-<%= link_to "Update Member Details", edit_member_path(member), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
-<table class="table">
-	<tbody>
-  	<tr>
-      <td class="col-md-4">Name</td>
-  		<td><%= @member.name %></td>
-  	</tr>
-  	<tr>
-      <td class="col-md-4">Party</td>
-  		<td><%= member.current_party %></td>
-  	</tr>
-  	<tr>
-      <td class="col-md-4">Position</td>
-  		<td><%= member.current_position %></td>
-  	</tr>
-  	<tr>
-      <td class="col-md-4">Appointment Status</td>
-  		<td><%= member.current_appointment_status %></td>
-  	</tr>
-    <tr>
-      <td class="col-md-4">Attached Service Oath</td>
-      <td>
-        <%= simple_form_for member, url: member_service_oaths_path(member_id: @member.id), html: {multipart: true }, method: :post do |f| %>
-          <%= f.input :service_oath, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
-        <% end if current_user_admin? %>
-        <% if @member.service_oath.attached?  %>
-          <%= link_to @member.service_oath.filename, rails_blob_path(@member.service_oath, disposition: "inline"), target: "_blank" %>
-          <span class="float-right">
-            <%= button_to "Delete", member_service_oath_path(member_id: @member.id, id: @member.service_oath.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if current_user_admin? %>
-          </span>
-        <% end %>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="card">
+  <div class="card-body">
+    <%= link_to "Update Member Details", edit_member_path(member), class: "btn btn-primary btn-sm float-right mb-md-0 mb-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+    <table class="table">
+    	<tbody>
+      	<tr>
+          <td class="col-md-4">
+            <p class="text-muted mb-0">Name</p>
+            <%= @member.name %>
+          </td>
+      	</tr>
+      	<tr>
+          <td class="col-md-4">
+            <p class="text-muted mb-0">Party</p>
+            <%= member.current_party %>
+          </td>
+      	</tr>
+      	<tr>
+          <td class="col-md-4">
+            <p class="text-muted mb-0">Position</p>
+      		  <%= member.current_position %>
+          </td>
+      	</tr>
+      	<tr>
+          <td class="col-md-4">
+            <p class="text-muted mb-0">Appointment Status</p>
+            <%= member.current_appointment_status %>
+          </td>
+      	</tr>
+        <tr>
+          <td class="col-md-4">
+            <p class="text-muted mb-0">Attached Service Oath</p>
+            <% if @member.service_oath.attached?  %>
+              <%= link_to @member.service_oath.filename, rails_blob_path(@member.service_oath, disposition: "inline"), target: "_blank" %>
+              <span class="float-right">
+                <%= button_to "Delete", member_service_oath_path(member_id: @member.id, id: @member.service_oath.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if current_user_admin? %>
+              </span>
+            <% end %>
+            <%= simple_form_for member, url: member_service_oaths_path(member_id: @member.id), html: {multipart: true }, method: :post do |f| %>
+              <%= f.input :service_oath, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
+            <% end if current_user_admin? %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
