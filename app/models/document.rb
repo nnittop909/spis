@@ -1,4 +1,9 @@
 class Document < ApplicationRecord
+  multisearchable against: [:name]
+  pg_search_scope( :search, 
+                    against: [:name],
+                    using: { tsearch: { prefix: true }} )
+
   belongs_to :documentable, polymorphic: true
   has_one_attached :document_file
 

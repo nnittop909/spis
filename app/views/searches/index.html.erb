@@ -1,0 +1,35 @@
+
+<div class="card">
+	<div class="card-body pb-0">
+		<%=form_tag searches_path, method: :get, class: "" do %>
+	    <div class="input-group">
+	      <%= text_field_tag :search, params[:search], class: "form-control ml-0", placeholder: "Search for..." %>
+	      <span class="input-group-append">
+	        <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
+	          <i class="fas fa-search fa-sm"></i>
+	        <% end %>
+	      </span>
+	    </div>
+	  <% end if params[:controller] == "searches" %>
+		<% if params[:search].present? %>
+			<br>
+			<p class="ml-2"><%= results_count_alert(@results.count + @file_results.count)%></p>
+		<% end %>
+	</div>
+</div>
+<div class="card my-2">
+	<div class="card-body">
+		<% @records.each do |record| %>
+			<div class="row">
+				<div class="col-md-12">
+					<%= link_to search_link(record) do %>
+						<h4 class="text-info"><%= highlight(search_result_title(record), params[:search]) %></h4>
+					<% end %>
+					<p class="text-muted"><%= highlight(search_result(record), params[:search]) %></p>
+					<hr>
+				</div>
+			</div>
+		<% end %>
+		<center><%= paginate @records, :window => 1 %></center>
+	</div>
+</div>

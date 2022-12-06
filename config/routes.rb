@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     resources :passwords, only: [:edit, :update]
   end
 
+  resources :searches, only: [:index]
+  namespace :searches do
+    resources :files, only: [:index]
+  end
+
   resources :committees do
     resources :committee_members, module: :committees
     resources :terms, module: :committees
