@@ -1,4 +1,5 @@
 class Document < ApplicationRecord
+  include PgSearch::Model
   multisearchable against: [:name]
   pg_search_scope( :search, 
                     against: [:name],
