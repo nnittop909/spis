@@ -18,9 +18,6 @@ Rails.application.routes.draw do
   end
 
   resources :searches, only: [:index]
-  namespace :searches do
-    resources :files, only: [:index]
-  end
 
   resources :committees do
     resources :committee_members, module: :committees
