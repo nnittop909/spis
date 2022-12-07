@@ -1,14 +1,18 @@
-<p class="text-muted mb-1">Records Count: <%= @results.count %></p>
-<table class="table">
-	<tbody>
-    <% resolutions.each do |resolution| %>
-    	<tr>
-        <td class="col-md-2">
-          RES# <%= resolution.number %><br>
-          <%= link_to resolution.name, resolution_path(id: resolution.id) %>
-        </td>
-    	</tr>
-    <% end %>
-  </tbody>
-</table>
-<center><%= paginate resolutions, :window => 1 %></center>
+<div class="card">
+  <div class="card-body">
+    <p class="text-muted mb-1">Records Count: <%= @results.count %></p>
+    <table class="table">
+    	<tbody>
+        <% resolutions.each do |resolution| %>
+        	<tr>
+            <td class="col-md-2">
+              RES# <%= resolution.number %><br>
+              <%= link_to resolution.name, resolution_path(id: resolution.id) %>
+            </td>
+        	</tr>
+        <% end %>
+      </tbody>
+    </table>
+    <center><%= paginate resolutions, :window => 1 %></center>
+  </div>
+</div>

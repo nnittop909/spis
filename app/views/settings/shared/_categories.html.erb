@@ -1,10 +1,8 @@
-<div class="row">
-	<div class="col-md-6">
-		<h6 class="m-0 font-weight-bold">Ordinance/Resolution Categories</h6>
-	</div>
-	<div class="col-md-6">
-		<%= link_to "New Category", new_settings_category_path, class: "btn btn-outline-success float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-	</div>
+<div class="mb-2">
+	<span class="m-0 font-weight-bold h5">Categories</span>
+	<%= link_to new_settings_category_path, class: "btn btn-sm btn-outline-primary float-right rounded-circle", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+		<span class="fa fa-plus"></span>
+	<% end %>
 </div>
 <div class="table-responsive">
   <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -13,7 +11,11 @@
       	<% @categories.each do |category| %>
       		<tr>
       			<td><%= category.name %></td>
-      			<td class="text-right"><%= link_to "Edit", edit_settings_category_path(id: category.id), remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %></td>
+      			<td class="text-right">
+      				<%= link_to edit_settings_category_path(id: category.id), class: 'float-right', title: 'Edit', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+      					<i class="fa fa-edit"></i>
+      				<% end %>
+      			</td>
       		</tr>
       	<% end %>
       </tbody>

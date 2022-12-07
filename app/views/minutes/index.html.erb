@@ -1,10 +1,13 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
+		<span class="font-weight-bold text-primary h3">
+			<i class="fa fa-bullhorn"></i> Minutes
+		</span>
+		<%= link_to new_minute_path, class: "btn btn-outline-primary float-right rounded-circle", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+			<span class="fa fas fa-plus"></span>
+		<% end if current_user_admin? %>
 		<div class="row">
-			<div class="col-md-3 col-sm-12">
-				<h2 class="font-weight-bold text-primary">Minutes</h2>
-			</div>
-			<div class="col-md-6 col-sm-12">
+			<div class="col-md-6 offset-md-3 col-sm-12 d-none d-sm-inline-block">
 				<%=form_tag minutes_path, method: :get, class: "" do %>
 				  <div class="input-group">
 				    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for minutes title..." %>
@@ -16,33 +19,40 @@
 				  </div>
 				<% end %>
 			</div>
-			<div class="col-md-3 col-sm-12">
-				<%= link_to "New Minute", new_minute_path, class: "btn btn-primary btn-sm float-right mt-md-0 mt-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
-			</div>
 		</div>
 	</div>
 	<div class="card-body">
-		<%=form_tag minutes_path, id: "filterForm", method: :get do %>
-			<div class="row">
-				<div class="col-md-3">
-					<%= select_tag :minute_type, options_for_select(Minute.minute_types.keys.map{|m| [m.titleize, m]}, params[:minute_type]), class: "form-control mb-md-0 mb-3", prompt: "Select Category" %>
-				</div>
-				<div class="col-md-3">
-					<%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input mb-md-0 mb-3', :placeholder => "From " %>
-				</div>
-				<div class="col-md-3">
-					<%= text_field_tag :to_date, params[:to_date], :class => 'tDate form-control border-input mb-md-0 mb-3', :placeholder => "To " %>
-			  </div>
-			  <div class="col-md-1 mt-2">
-			  	<%= link_to minutes_path do %>
-			  		<span class='fa fa-undo float-right mb-md-0 mb-3'></span>
-			  	<% end %>
-			  </div>
-			  <div class="col-md-2">
-			  	<%= button_tag "Filter", class: "btn btn-success float-right" %>
-			  </div>
-			</div>
-		<% end %>
+		<div class="dropdown">
+		  <a class="btn dropdown-toggle float-right text-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Filter Options
+		  </a>
+		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		    <form class="px-4 py-3">
+		    	<%=form_tag minutes_path, id: "filterForm", method: :get do %>
+		    		<h5 class="text-muted">Filter Options</h5>
+						<div class="row">
+							<div class="col-md-3">
+								<%= select_tag :minute_type, options_for_select(Minute.minute_types.keys.map{|m| [m.titleize, m]}, params[:minute_type]), class: "form-control mb-md-0 mb-3", prompt: "Select Category" %>
+							</div>
+							<div class="col-md-3">
+								<%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input mb-md-0 mb-3', :placeholder => "From " %>
+							</div>
+							<div class="col-md-3">
+								<%= text_field_tag :to_date, params[:to_date], :class => 'tDate form-control border-input mb-md-0 mb-3', :placeholder => "To " %>
+						  </div>
+						  <div class="col-md-1 mt-2">
+						  	<%= link_to minutes_path, title: "Reset Filter" do %>
+						  		<span class='fa fa-undo float-right mb-md-0 mb-3'></span>
+						  	<% end %>
+						  </div>
+						  <div class="col-md-2">
+						  	<%= button_tag "Filter", class: "btn btn-success float-right" %>
+						  </div>
+						</div>
+					<% end %>
+		    </form>
+		  </div>
+		</div>
 		<p class="text-muted my-2">Records Count: <%= @results.count %></p>
 		<div class="table-responsive">
       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">

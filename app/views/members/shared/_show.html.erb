@@ -1,23 +1,50 @@
 <%= render "members/shared/card", member: member %>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<ul class="nav nav-pills">
-		  <li class="nav-item">
-		    <%= link_to 'Details', member_path(member), class: "nav-link #{'active' if current_page?(member_path(member))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Terms', member_terms_path(member), class: "nav-link #{'active' if current_page?(member_terms_path(member))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Ordinances', member_ordinances_path(member), class: "nav-link #{'active' if current_page?(member_ordinances_path(member))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Resolutions', member_resolutions_path(member), class: "nav-link #{'active' if current_page?(member_resolutions_path(member))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Salary Adjustments', member_salary_adjustments_path(member), class: "nav-link #{'active' if current_page?(member_salary_adjustments_path(member))}" %>
-		  </li>
-		</ul>
+		<div class="d-none d-sm-inline-block">
+			<ul class="nav nav-pills">
+			  <li class="nav-item">
+			    <%= link_to 'Details', member_path(member), class: "nav-link #{'active' if current_page?(member_path(member))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Terms', member_terms_path(member), class: "nav-link #{'active' if current_page?(member_terms_path(member))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Ordinances', member_ordinances_path(member), class: "nav-link #{'active' if current_page?(member_ordinances_path(member))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Resolutions', member_resolutions_path(member), class: "nav-link #{'active' if current_page?(member_resolutions_path(member))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Salary Adjustments', member_salary_adjustments_path(member), class: "nav-link #{'active' if current_page?(member_salary_adjustments_path(member))}" %>
+			  </li>
+			</ul>
+		</div>
+		<div class="d-sm-none">
+			<div id="accordion">
+	      <h4 class="mb-0">
+	        <a class="btn btn-primary text-left btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          <%= 'Member Info' if current_page?(member_path(member)) %>
+	          <%= 'Member Terms' if current_page?(member_terms_path(member)) %>
+	          <%= 'Ordinances' if current_page?(member_ordinances_path(member)) %>
+	          <%= 'Resolutions' if current_page?(member_resolutions_path(member)) %>
+	          <%= 'Salary Adjustments' if current_page?(member_salary_adjustments_path(member)) %>
+	        </a>
+	      </h4>
+
+		    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+		      <%= link_to 'Member Info', member_path(member), class: "dropdown-item mt-2" %>
+		      <div class="dropdown-divider"></div>
+					<%= link_to 'Member Terms', member_terms_path(member), class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Ordinances', member_ordinances_path(member), class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Resolutions', member_resolutions_path(member), class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Salary Adjustments', member_salary_adjustments_path(member), class: "dropdown-item" %>
+		    </div>
+			</div>
+		</div>
 	</div>
 </div>
 <% if current_page?(member_path(member)) %>
@@ -35,3 +62,7 @@
 <% if current_page?(member_salary_adjustments_path(member)) %>
   <%=render 'members/tab_contents/salary_adjustments', member: member, salary_adjustments: salary_adjustments %>
 <% end %>
+
+<script type="text/javascript">
+	$('.collapse').collapse()
+</script>

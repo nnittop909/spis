@@ -1,10 +1,13 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
+		<span class="font-weight-bold text-primary h3">
+			<i class="fa fa-file"></i> Ordinances
+		</span>
+		<%= link_to new_ordinance_path, class: "btn btn-outline-primary float-right rounded-circle", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+			<span class="fa fas fa-plus"></span>
+		<% end if current_user_admin? %>
 		<div class="row">
-			<div class="col-md-3 col-sm-12">
-				<h2 class="font-weight-bold text-primary">Ordinances</h2>
-			</div>
-			<div class="col-md-6 col-sm-12">
+			<div class="col-md-6 offset-md-3 col-sm-12 d-none d-sm-inline-block">
 				<%=form_tag ordinances_path, method: :get, class: "" do %>
 				  <div class="input-group">
 				    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for ordinance number or title..." %>
@@ -16,16 +19,13 @@
 				  </div>
 				<% end %>
 			</div>
-			<div class="col-md-3 col-sm-12">
-				<%= link_to "New Ordinance", new_ordinance_path, class: "btn btn-primary float-right mt-md-0 mt-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
-			</div>
 		</div>
 	</div>
 	<div class="card-body">
 		<div class="dropdown">
-		  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    Filter
-		  </button>
+		  <a class="btn dropdown-toggle float-right text-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Filter Options
+		  </a>
 		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		    <form class="px-4 py-3">
 		    	<%=form_tag ordinances_path, id: "filterForm", method: :get do %>
@@ -61,13 +61,17 @@
 	        	<% @ordinances.each do |ordinance| %>
 		        	<tr>
 		        		<td>
-		        			<b>PO# <%= highlight(ordinance.number, params[:search]) %></b>
-		        			<br>
-		        			<p class="my-0">
-			        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
-			        			<span class="text-muted"><%= ordinance.date_approved %></span>
-			        		</p>
-		        			<j><%= link_to highlight(ordinance.title, params[:search]), ordinance_path(ordinance) %></j>
+		        			<%= link_to ordinance_path(ordinance) do %>
+			        			<b>PO# <%= highlight(ordinance.number, params[:search]) %></b>
+			        			<br>
+			        			<p class="my-0">
+				        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
+				        			<span class="text-muted"><%= ordinance.date_approved.strftime("%B %e, %Y") %></span>
+				        		</p>
+				        		<p class="text-justify my-0">
+			        				<%=  highlight(ordinance.title, params[:search]) %>
+			        			</p>
+			        		<% end %>
 		        		</td>
 		        	</tr>
 		        <% end %>

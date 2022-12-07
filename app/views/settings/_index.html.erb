@@ -1,39 +1,57 @@
-<h2 class="font-weight-bold text-primary">
-	<span class="fa fa-cog"></span> Management
-</h2>
 <%= render "settings/shared/card", office: current_office %>
-<div class="card shadow mb-4">
+<div class="card shadow mb-3">
 	<div class="card-header py-3">
-		<ul class="nav nav-pills">
-		  <li class="nav-item">
-		    <%= link_to 'Info', settings_path, class: "nav-link #{'active' if current_page?(settings_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Positions', settings_positions_path, class: "nav-link #{'active' if current_page?(settings_positions_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Parties', settings_political_parties_path, class: "nav-link #{'active' if current_page?(settings_political_parties_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Ordinance/Resolution Categories', settings_categories_path, class: "nav-link #{'active' if current_page?(settings_categories_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'SP Terms', settings_sp_terms_path, class: "nav-link #{'active' if current_page?(settings_sp_terms_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Committees', settings_committees_path, class: "nav-link #{'active' if current_page?(settings_committees_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'SP Members', settings_members_path, class: "nav-link #{'active' if current_page?(settings_members_path)}" if current_user.developer? %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Ordinances', settings_ordinances_path, class: "nav-link #{'active' if current_page?(settings_ordinances_path)}" if current_user.developer? %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Resolutions', settings_resolutions_path, class: "nav-link #{'active' if current_page?(settings_resolutions_path)}" if current_user.developer? %>
-		  </li>
-		</ul>
+		<h3 class="font-weight-bold text-primary mb-0">
+			<span class="fa fa-cog"></span> Management
+		</h3>
 	</div>
+	<div class="card-body">
+		<div class="d-none d-sm-inline-block">
+			<%= render 'settings/partials/nav_links' %>
+		</div>
+		<!-- Small Size Compatibility -->
+		<div class="d-sm-none">
+			<div id="accordion">
+	      <h4 class="mb-0">
+	        <a class="btn btn-primary text-left btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          <%= 'Info' if current_page?(settings_path) %>
+	          <%= 'Positions' if current_page?(settings_positions_path) %>
+	          <%= 'Parties' if current_page?(settings_political_parties_path) %>
+	          <%= 'Ordinance/Resolution Categories' if current_page?(settings_categories_path) %>
+	          <%= 'SP Terms' if current_page?(settings_sp_terms_path) %>
+	          <%= 'Committees' if current_page?(settings_committees_path) %>
+	          <%= 'Members' if current_page?(settings_members_path) %>
+	          <%= 'Ordinances' if current_page?(settings_ordinances_path) %>
+	          <%= 'Resolutions' if current_page?(settings_resolutions_path) %>
+	        </a>
+	      </h4>
+
+		    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+		      <%= link_to 'Info', settings_path, class: "dropdown-item mt-2" %>
+		      <div class="dropdown-divider"></div>
+					<%= link_to 'Positions', settings_positions_path, class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Parties', settings_political_parties_path, class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Ordinance/Resolution Categories', settings_categories_path, class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'SP Terms', settings_sp_terms_path, class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Committees', settings_committees_path, class: "dropdown-item" %>
+					<% if current_user.developer? %>
+						<div class="dropdown-divider"></div>
+						<%= link_to 'SP Members', settings_members_path, class: "dropdown-item" %>
+						<div class="dropdown-divider"></div>
+						<%= link_to 'Ordinances', settings_ordinances_path, class: "dropdown-item" %>
+						<div class="dropdown-divider"></div>
+						<%= link_to 'Resolutions', settings_resolutions_path, class: "ndropdown-item" %>
+					<% end %>
+		    </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card">
 	<div class="card-body">
 		<% if current_page?(user_path(current_user)) %>
 	    <%=render 'settings/shared/details' %>
@@ -64,3 +82,6 @@
 	  <% end %>
 	</div>
 </div>
+<script type="text/javascript">
+	$('.collapse').collapse()
+</script>

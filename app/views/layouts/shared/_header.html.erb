@@ -7,7 +7,7 @@
 
   <%=form_tag searches_path, method: :get, class: "d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" do %>
     <div class="input-group">
-      <%= text_field_tag :search, params[:search], class: "form-control bg-light border-0 small", placeholder: "Search for members, ordinances, resolutions, and files..." %>
+      <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for members, ordinances, resolutions, and files..." %>
       <span class="input-group-append">
         <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
           <i class="fas fa-search fa-sm"></i>
@@ -29,7 +29,7 @@
       <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
         <%=form_tag searches_path, method: :get, class: "form-inline mr-auto w-100 navbar-search" do %>
           <div class="input-group">
-            <%= text_field_tag :search, params[:search], class: "form-control bg-light border-0 small", placeholder: "Search for members, ordinances, resolutions, and files..." %>
+            <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for members, ordinances, resolutions, and files..." %>
             <span class="input-group-append">
               <%= button_tag(type: 'submit', id: "search-btn", class: "btn btn-primary") do %>
                 <i class="fas fa-search fa-sm"></i>

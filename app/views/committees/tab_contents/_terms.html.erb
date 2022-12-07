@@ -7,11 +7,11 @@
         	<tr>
             <td>
               <%= term.name %>
-              <p class="text-muted mt-0"><%= term.in_date_range %></p>
+              <p class="text-muted my-0"><%= term.in_date_range %></p>
             </td>
         		<td class="text-right">
               <% if current_user_admin? %>
-              <%= link_to "Edit", edit_committee_term_path(committee_id: committee.id, id: term.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+              <%= link_to "Edit", edit_committee_term_path(committee_id: committee.id, id: term.id), class: "btn btn-sm btn-primary mb-md-0 mb-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
               <%= link_to "Delete", committee_term_path(committee_id: committee.id, id: term.id), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-sm btn-warning' %>
               <% end %>
             </td>

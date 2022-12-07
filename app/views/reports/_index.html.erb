@@ -1,26 +1,42 @@
-<h2 class="font-weight-bold text-primary">
-	<span class="fa fa-server ml-2"></span> Reports
-</h2>
-<div class="card shadow mb-4">
+<div class="card shadow mb-3">
 	<div class="card-header py-3">
-		<ul class="nav nav-pills">
-		  <li class="nav-item">
-		    <%= link_to 'Members', reports_members_path, class: "nav-link #{'active' if current_page?(reports_members_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Committees', reports_committees_path, class: "nav-link #{'active' if current_page?(reports_committees_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Ordinances', reports_ordinances_path, class: "nav-link #{'active' if current_page?(reports_ordinances_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Resolutions', reports_resolutions_path, class: "nav-link #{'active' if current_page?(reports_resolutions_path)}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Minutes', reports_minutes_path, class: "nav-link #{'active' if current_page?(reports_minutes_path)}" %>
-		  </li>
-		</ul>
+		<h3 class="font-weight-bold text-primary mb-0">
+			<span class="fa fa-server ml-2"></span> Reports
+		</h3>
 	</div>
+	<div class="card-body">
+		<div class="d-none d-sm-inline-block">
+			<%= render 'reports/partials/nav_links' %>
+		</div>
+		<!-- Small Size Compatibility -->
+		<div class="d-sm-none">
+			<div id="accordion">
+	      <h4 class="mb-0">
+	        <a class="btn btn-primary text-left btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          <%= 'Members' if current_page?(reports_members_path) %>
+	          <%= 'Committees' if current_page?(reports_committees_path) %>
+	          <%= 'Ordinances' if current_page?(reports_ordinances_path) %>
+	          <%= 'Resolutions' if current_page?(reports_resolutions_path) %>
+	          <%= 'Minutes' if current_page?(reports_minutes_path) %>
+	        </a>
+	      </h4>
+
+		    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+		      <%= link_to 'Members', reports_members_path, class: "dropdown-item mt-2" %>
+		      <div class="dropdown-divider"></div>
+					<%= link_to 'Committees', reports_committees_path, class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Ordinances', reports_ordinances_path, class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Resolutions', reports_resolutions_path, class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Minutes', reports_minutes_path, class: "dropdown-item" %>
+		    </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card">
 	<div class="card-body">
 		<% if current_page?(reports_members_path) %>
 	    <%=render 'reports/shared/members' %>
@@ -39,3 +55,7 @@
 	  <% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$('.collapse').collapse()
+</script>

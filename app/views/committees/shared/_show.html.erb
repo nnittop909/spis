@@ -1,23 +1,50 @@
 <%= render "committees/shared/card", committee: committee %>
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<ul class="nav nav-pills">
-		  <li class="nav-item">
-		    <%= link_to 'Details', committee_path(committee), class: "nav-link #{'active' if current_page?(committee_path(committee))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Membership', committee_members_path(committee_id: committee.id, committee_membership_id: committee.current_membership.id), class: "nav-link #{'active' if current_page?(committee_members_path(committee_id: committee.id, committee_membership_id: params[:committee_membership_id]))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Terms', committee_terms_path(committee), class: "nav-link #{'active' if current_page?(committee_terms_path(committee))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Ordinances', committee_ordinances_path(committee), class: "nav-link #{'active' if current_page?(committee_ordinances_path(committee))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Resolutions', committee_resolutions_path(committee), class: "nav-link #{'active' if current_page?(committee_resolutions_path(committee))}" %>
-		  </li>
-		</ul>
+		<div class="d-none d-sm-inline-block">
+			<ul class="nav nav-pills">
+			  <li class="nav-item">
+			    <%= link_to 'Details', committee_path(committee), class: "nav-link #{'active' if current_page?(committee_path(committee))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Membership', committee_members_path(committee_id: committee.id, committee_membership_id: committee.current_membership.id), class: "nav-link #{'active' if current_page?(committee_members_path(committee_id: committee.id, committee_membership_id: params[:committee_membership_id]))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Terms', committee_terms_path(committee), class: "nav-link #{'active' if current_page?(committee_terms_path(committee))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Ordinances', committee_ordinances_path(committee), class: "nav-link #{'active' if current_page?(committee_ordinances_path(committee))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Resolutions', committee_resolutions_path(committee), class: "nav-link #{'active' if current_page?(committee_resolutions_path(committee))}" %>
+			  </li>
+			</ul>
+		</div>
+		<div class="d-sm-none">
+			<div id="accordion">
+	      <h4 class="mb-0">
+	        <a class="btn btn-primary text-left btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          <%= 'Details' if current_page?(committee_path(committee)) %>
+	          <%= 'Membership' if current_page?(committee_members_path(committee)) %>
+	          <%= 'Terms' if current_page?(committee_terms_path(committee)) %>
+	          <%= 'Ordinances' if current_page?(committee_ordinances_path(committee)) %>
+	          <%= 'Resolutions' if current_page?(committee_resolutions_path(committee)) %>
+	        </a>
+	      </h4>
+
+		    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+		      <%= link_to 'Details', committee_path(committee), class: "dropdown-item mt-2" %>
+		      <div class="dropdown-divider"></div>
+					<%= link_to 'Membership', committee_members_path(committee), class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Terms', committee_terms_path(committee), class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Ordinances', committee_ordinances_path(committee), class: "dropdown-item" %>
+					<div class="dropdown-divider"></div>
+					<%= link_to 'Resolutions', committee_resolutions_path(committee), class: "dropdown-item" %>
+		    </div>
+			</div>
+		</div>
 	</div>
 </div>
 <% if current_page?(committee_path(committee)) %>
@@ -35,3 +62,7 @@
 <% if current_page?(committee_resolutions_path(committee)) %>
   <%=render 'committees/tab_contents/resolutions', committee: committee, resolutions: resolutions %>
 <% end %>
+
+<script type="text/javascript">
+	$('.collapse').collapse()
+</script>
