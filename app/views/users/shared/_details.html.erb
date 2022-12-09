@@ -1,33 +1,31 @@
-<div class="row">
-	<div class="col-md-2">
-		<% if @user.avatar.attached? %>
-			<%= image_tag(@user.avatar, height: 150, width: 150, class: "img-profile rounded-circle float-md-right") %>
-		<% else %>
-			<%= image_tag('default', height: 150, width: 150, class: "img-profile rounded-circle float-md-right") %>
-		<% end %>
-	</div>
-	<div class="col-md-8">
-		<table class="table">
-			<tr>
-				<td>Name:</td>
-				<td><h5><%= @user.full_name %></h5></td>
-			</tr>
-			<tr>
-				<td>Role:</td>
-				<td><h5><%= @user.role.titleize %></h5></td>
-			</tr>
-			<tr>
-				<td>Username:</td>
-				<td><h5><%= @user.username %></h5></td>
-			</tr>
-			<tr>
-				<td>Email:</td>
-				<td><h5><%= @user.email %></h5></td>
-			</tr>
-			<tr>
-				<td>Office:</td>
-				<td><h5><%= @user.office.name %></h5></td>
-			</tr>
-		</table>
-	</div>
+<div class="d-block ml-3 mb-2">
+	<% if @user.avatar.attached? %>
+		<%= image_tag(@user.avatar, height: 150, width: 150, class: "img-profile rounded-circle mx-auto my-auto d-block") %>
+	<% else %>
+		<%= image_tag('default', height: 150, width: 150, class: "img-profile rounded-circle mx-auto my-auto d-block") %>
+	<% end %>
+</div>
+<div class="d-block ml-3">
+	<table class="table">
+		<tr>
+			<td class="py-2 text-muted">Name:</td>
+			<td class="py-2"><%= @user.full_name %></td>
+		</tr>
+		<tr>
+			<td class="py-2 text-muted">Role:</td>
+			<td class="py-2"><%= @user.role.titleize %></td>
+		</tr>
+		<tr>
+			<td class="py-2 text-muted">Username:</td>
+			<td class="py-2"><%= @user.username %></td>
+		</tr>
+		<tr>
+			<td class="py-2 text-muted">Email:</td>
+			<td class="py-2"><%= @user.email %></td>
+		</tr>
+		<tr>
+			<td class="py-2 text-muted">Office:</td>
+			<td class="py-2"><%= @user.office.name %></td>
+		</tr>
+	</table>
 </div>

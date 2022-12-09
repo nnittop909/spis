@@ -1,15 +1,31 @@
 <%= render "users/shared/card", user: current_user %>
-<div class="card shadow mb-4">
-	<div class="card-header py-3">
-		<ul class="nav nav-pills">
-		  <li class="nav-item">
-		    <%= link_to 'Profile', user_path(current_user), class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
-		  </li>
-		  <li class="nav-item">
-		    <%= link_to 'Account Settings', user_settings_path(current_user), class: "nav-link #{'active' if current_page?(user_settings_path(current_user))}" %>
-		  </li>
-		  </li>
-		</ul>
+<div class="card shadow mb-2">
+	<div class="card-header py-2">
+		<div class="d-none d-sm-inline-block">
+			<ul class="nav nav-pills">
+			  <li class="nav-item">
+			    <%= link_to 'Profile', user_path(current_user), class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
+			  </li>
+			  <li class="nav-item">
+			    <%= link_to 'Account Settings', user_settings_path(current_user), class: "nav-link #{'active' if current_page?(user_settings_path(current_user))}" %>
+			  </li>
+			</ul>
+		</div>
+		<div class="d-sm-none">
+			<div id="accordion">
+	      <h4 class="mb-0">
+	        <a class="btn btn-primary text-left btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          <%= 'Profile' if current_page?(user_path(current_user)) %>
+	          <%= 'Account Settings' if current_page?(user_settings_path(current_user)) %>
+	          <span class="fa fa-bars small py-1 float-right"></span>
+	        </a>
+	      </h4>
+		    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+		    	<%= link_to 'Profile', user_path(current_user), class: "dropdown-item mt-2" %>
+		    	<%= link_to 'Account Settings', user_settings_path(current_user), class: "dropdown-item mt-2" %>
+		    </div>
+			</div>
+		</div>
 	</div>
 	<div class="card-body">
 		<% if current_page?(user_path(current_user)) %>
@@ -20,3 +36,7 @@
 	  <% end %>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$('.collapse').collapse()
+</script>

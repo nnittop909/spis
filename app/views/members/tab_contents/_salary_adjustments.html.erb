@@ -14,27 +14,27 @@
           <% @salary_adjustments.each do |salary_adjustment| %>
             <tbody>
               <tr>
-                <td>Term</td>
-                <td class="text-right"><%= salary_adjustment.term.in_year_range %></td>
+                <td class="py-1 text-muted">Term</td>
+                <td class="py-1 text-right"><%= salary_adjustment.term.in_year_range %></td>
               </tr>
               <tr>
-                <td>Dated At</td>
-                <td class="text-right"><%= salary_adjustment.dated_at.strftime("%B %e, %Y") %></td>
+                <td class="py-1 text-muted">Dated At</td>
+                <td class="py-1 text-right"><%= salary_adjustment.dated_at.strftime("%B %e, %Y") %></td>
               </tr>
               <tr>
-                <td>Effectivity Date</td>
-                <td class="text-right"><%= salary_adjustment.effectivity_date.strftime("%B %e, %Y") %></td>
+                <td class="py-1 text-muted">Effectivity Date</td>
+                <td class="py-1 text-right"><%= salary_adjustment.effectivity_date.strftime("%B %e, %Y") %></td>
               </tr>
               <tr>
-                <td>Basic Salary</td>
-                <td class="text-right"><%= number_to_currency salary_adjustment.monthly_salary %></td>
+                <td class="py-1 text-muted">Basic Salary</td>
+                <td class="py-1 text-right"><%= number_to_currency salary_adjustment.monthly_salary %></td>
               </tr>
-                <td>Adustment</td>
-                <td class="text-right"><%= number_to_currency salary_adjustment.adjustment %></td>
+                <td class="py-1 text-muted">Adustment</td>
+                <td class="py-1 text-right"><%= number_to_currency salary_adjustment.adjustment %></td>
               </tr>
               <tr>
-                <td>Adusted Salary</td>
-                <td class="text-right"><%= number_to_currency salary_adjustment.adjusted_salary %></td>
+                <td class="py-1 text-muted">Adusted Salary</td>
+                <td class="py-1 text-right"><%= number_to_currency salary_adjustment.adjusted_salary %></td>
               </tr>
               <tr>
                 <td colspan="2" class="text-right">
@@ -65,32 +65,32 @@
           <% @step_increments.each do |increment| %>
             <tbody>
               <tr>
-                <td>Term</td>
-                <td class="text-right"><%= increment.term.in_year_range %></td>
+                <td class="py-1 text-muted">Term</td>
+                <td class="py-1 text-right"><%= increment.term.in_year_range %></td>
               </tr>
               <tr>
-                <td>Dated At</td>
-                <td class="text-right"><%= increment.dated_at.strftime("%B %e, %Y") %></td>
+                <td class="py-1 text-muted">Dated At</td>
+                <td class="py-1 text-right"><%= increment.dated_at.strftime("%B %e, %Y") %></td>
               </tr>
               <tr>
-                <td>Effectivity Date</td>
-                <td class="text-right"><%= increment.effectivity_date.strftime("%B %e, %Y") %></td>
+                <td class="py-1 text-muted">Effectivity Date</td>
+                <td class="py-1 text-right"><%= increment.effectivity_date.strftime("%B %e, %Y") %></td>
               </tr>
               <tr>
-                <td>Basic Salary</td>
-                <td class="text-right"><%= number_to_currency increment.salary_prior_to_adjustment %></td>
+                <td class="py-1 text-muted">Basic Salary</td>
+                <td class="py-1 text-right"><%= number_to_currency increment.salary_prior_to_adjustment %></td>
               </tr>
-                <td>Adustment</td>
-                <td class="text-right"><%= number_to_currency increment.salary_adjustment %></td>
+                <td class="py-1 text-muted">Adustment</td>
+                <td class="py-1 text-right"><%= number_to_currency increment.salary_adjustment %></td>
               </tr>
               <tr>
-                <td>Adusted Salary</td>
-                <td class="text-right"><%= number_to_currency increment.adjusted_salary %></td>
+                <td class="py-1 text-muted">Adusted Salary</td>
+                <td class="py-1 text-right"><%= number_to_currency increment.adjusted_salary %></td>
               </tr>
               <tr>
                 <td colspan="2" class="text-right">
                   <% if current_user_admin? %>
-                    <%= link_to "Edit", edit_member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> | 
+                    <%= link_to "Edit", edit_member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
                     <%= link_to "Delete", member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-warning", method: :delete, data: {confirm: "Are you sure?"} %>
                   <% end %>
                 </td>
