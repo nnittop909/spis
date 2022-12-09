@@ -66,7 +66,7 @@
 			        			<br>
 			        			<p class="mb-0">
 			        				<small class="badge bg-info"><%= resolution.current_stage.titleize if resolution.current_stage.present? %></small>
-			        				<span><%= resolution.date_approved.strftime("%B %e, %Y") %></span>
+			        				<span><%= resolution.date_approved.try(:strftime, "%B %e, %Y") %></span>
 			        			</p>
 			        			<p class="text-justify my-0">
 			        				<%= highlight(resolution.title, params[:search]) %>

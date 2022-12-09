@@ -66,7 +66,7 @@
 			        			<br>
 			        			<p class="my-0">
 				        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
-				        			<span class="text-muted"><%= ordinance.date_approved.strftime("%B %e, %Y") %></span>
+				        			<span class="text-muted"><%= ordinance.date_approved.try(:strftime, "%B %e, %Y") %></span>
 				        		</p>
 				        		<p class="text-justify my-0">
 			        				<%=  highlight(ordinance.title, params[:search]) %>

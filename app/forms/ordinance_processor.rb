@@ -5,7 +5,7 @@ class OrdinanceProcessor
 			:category_id, :date_approved, :effectivity_date,
 			:same_as_date_approved, :stage_id
 
-	validates :number, :title, presence: true
+	validates :number, :title, :date, :date_approved, presence: true
 
 	def process!
 		if valid?
