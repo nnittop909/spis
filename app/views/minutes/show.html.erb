@@ -1,22 +1,18 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<div class="row">
-			<div class="col-md-4">
-				<h2 class="font-weight-bold text-primary"><%= @minute.title %></h2>
-			</div>
-			<div class="col-md-8">
-				<% if current_user_admin? %>
-					<ul class="nav nav-pills justify-content-end">
-					  <li class="nav-item px-2">
-					  	<%= link_to "Update", edit_minute_path(@minute), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-					  </li>
-					</ul>
-					<%#= link_to "Status Logs", ordinance_stages_path(ordinance_id: @ordinance.id), class: 'float-right mr-3 mt-3' %>
-				<% end %>
-			</div>
-		</div>
+		<h3 class="font-weight-bold text-primary"><%= @minute.title %></h3>
 	</div>
 	<div class="card-body">
+		<% if current_user_admin? %>
+			<ul class="nav nav-pills justify-content-end">
+			  <li class="nav-item px-2">
+			  	<%= link_to edit_minute_path(@minute), class: "btn btn-outline-primary rounded-circle float-right mb-2", title: "Edit minute details", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+			  		<span class="fa fa-edit"></span>
+			  	<% end %>
+			  </li>
+			</ul>
+			<%#= link_to "Status Logs", ordinance_stages_path(ordinance_id: @ordinance.id), class: 'float-right mr-3 mt-3' %>
+		<% end %>
 		<table class="table">
 			<tbody>
 		  	<tr>
@@ -33,13 +29,13 @@
 		  	</tr>
 		  	<tr>
 		      <td>
-		      	<p class="text-muted mb-0">Attached Minutes</p>
+		      	<p class="text-muted mb-0">Attached Documents</p>
 		      	<%= simple_form_for @minute, url: minute_documents_path(minute_id: @minute.id), html: {multipart: true }, method: :post do |f| %>
 		          <%= f.input :file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
 		        <% end if current_user_admin? %>
 		  			<% if @minute.file.attached?  %>
 		  				<%= link_to @minute.file.filename, rails_blob_path(@minute.file, disposition: "inline"), target: "_blank" %>
-		  				<%= link_to minute_document_path(minute_id: @minute.id, id: @minute.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: "Remove Attachment" do %>
+		  				<%= link_to minute_document_path(minute_id: @minute.id, id: @minute.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: "Remove Attachment" do %>
 		  					<span class="fa fas fa-times"></span>
 		  				<% end if current_user_admin? %>
 		  			<% end %>

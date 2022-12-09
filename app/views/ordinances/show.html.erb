@@ -48,7 +48,7 @@
 			  			<span class="float-right">
 			  				<% if current_user_admin? %>
 				  				<%#= link_to "Edit", edit_ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> 
-				  				<%= link_to ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: "Remove Sponsor" do %>
+				  				<%= link_to ordinance_sponsor_path(ordinance_id: @ordinance.id, id: @ordinance.sponsorships.where(sponsor_id: sponsor.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: "Remove Sponsor" do %>
 				  					<span class="fa fas fa-times"></span>
 				  				<% end %>
 				  			<% end %>
@@ -66,7 +66,7 @@
 		  					<span class="ml-2"><%= author.name_in_honorifics %></span>
 			  				<% if current_user_admin? %>
 				  				<%#= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), class: 'btn btn-sm btn-primary', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> 
-				  				<%= link_to ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: "Remove Author" do %>
+				  				<%= link_to ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: "Remove Author" do %>
 				  					<span class="fa fas fa-times"></span>
 				  				<% end %>
 				  			<% end %>
@@ -79,7 +79,7 @@
 		  					<span class="ml-2"><%= author.name_in_honorifics %></span>
 			  				<% if current_user_admin? %>
 				  				<%#= link_to "Edit", edit_ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), class: 'btn btn-sm btn-primary', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %> 
-				  				<%= link_to ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: "Remove Author" do %>
+				  				<%= link_to ordinance_author_path(ordinance_id: @ordinance.id, id: @ordinance.authorships.where(author_id: author.id).last.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: "Remove Author" do %>
 				  					<span class="fa fas fa-times"></span>
 				  				<% end %>
 				  			<% end %>
@@ -110,7 +110,7 @@
 		  				<% @ordinance.documents.each do |document| %>
 		  					<% if document.document_file.attached? %>
 				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" %>
-				  				<%= link_to ordinance_document_path(ordinance_id: @ordinance.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'text-danger float-right', title: "Remove Attachment" do %>
+				  				<%= link_to ordinance_document_path(ordinance_id: @ordinance.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: "Remove Attachment" do %>
 				  					<span class="fa fas fa-times"></span>
 				  				<% end if current_user_admin? %>
 				  			<% end %>

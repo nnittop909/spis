@@ -12,8 +12,8 @@
       		<tr>
       			<td><%= category.name %></td>
       			<td class="text-right">
-      				<%= link_to edit_settings_category_path(id: category.id), class: 'float-right', title: 'Edit', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
-      					<i class="fa fa-edit"></i>
+      				<%= link_to edit_settings_category_path(id: category.id), class: 'btn btn-xs btn-outline-primary rounded-circle float-right px-1', title: 'Edit', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+      					<i class="fa fa-edit small pb-1 pl-1"></i>
       				<% end %>
       			</td>
       		</tr>

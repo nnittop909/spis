@@ -4,7 +4,9 @@
       <div class="card-header">
         <h4>
           Salary Adjustments
-          <%= link_to "New Salary Adjustment", new_member_salary_adjustment_path(member), class: "btn btn-primary btn-sm float-right mx-1", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+          <%= link_to new_member_salary_adjustment_path(member), class: "btn btn-outline-primary float-right rounded-circle", title: "New Salary Adjustment", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+            <span class="fa fas fa-plus"></span>
+          <% end if current_user_admin? %>
         </h4>
       </div>
       <div class="card-body">
@@ -53,7 +55,9 @@
       <div class="card-header">
         <h4>
           Step Increment
-          <%= link_to "New Step Increment", new_member_step_increment_path(member), class: "btn btn-primary btn-sm float-right mx-1", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+          <%= link_to new_member_step_increment_path(member), class: "btn btn-outline-primary float-right rounded-circle", title: "New Step Increment", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+            <span class="fa fas fa-plus"></span>
+          <% end if current_user_admin? %>
         </h4>
       </div>
       <div class="card-body">

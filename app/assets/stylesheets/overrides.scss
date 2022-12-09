@@ -36,3 +36,10 @@ mark {
 .chosen-container-multi .chosen-choices li.search-choice {
   line-height: 1.5rem;
 }
+
+.btn-xs, .btn-group-xs > .btn {
+    padding: 0.25rem 0.40rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    border-radius: 0.2rem;
+}

@@ -14,8 +14,8 @@
       			<td><%= sp_term.in_year_range %></td>
       			<td><%= sp_term.current? ? "Current Term" : "" %></td>
       			<td class="text-right">
-      				<%= link_to edit_settings_sp_term_path(id: sp_term.id), class: 'float-right', title: 'Edit', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
-      					<i class="fa fa-edit"></i>
+      				<%= link_to edit_settings_sp_term_path(id: sp_term.id), class: 'btn btn-xs btn-outline-primary rounded-circle float-right px-1', title: 'Edit', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+      					<i class="fa fa-edit small pb-1 pl-1"></i>
       				<% end %>
     				</td>
       		</tr>

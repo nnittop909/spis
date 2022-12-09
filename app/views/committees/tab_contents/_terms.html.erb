@@ -1,6 +1,8 @@
 <div class="card">
   <div class="card-body">
-    <%= link_to "Add Term", new_committee_term_path(committee), class: "btn btn-primary btn-sm float-right my-md-0 my-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } if current_user_admin? %>
+    <%= link_to new_committee_term_path(committee), class: "btn btn-outline-primary rounded-circle float-right mb-2", title: 'New Term', remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+      <span class="fa fa-plus"></span>
+    <% end if current_user_admin? %>
     <table class="table">
     	<tbody>
         <% terms.each do |term| %>
@@ -11,8 +13,28 @@
             </td>
         		<td class="text-right">
               <% if current_user_admin? %>
-              <%= link_to "Edit", edit_committee_term_path(committee_id: committee.id, id: term.id), class: "btn btn-sm btn-primary mb-md-0 mb-3", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-              <%= link_to "Delete", committee_term_path(committee_id: committee.id, id: term.id), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-sm btn-warning' %>
+                <div class="dropdown no-arrow d-sm-none">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bars"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <%= link_to edit_committee_term_path(committee_id: committee.id, id: term.id), class: 'dropdown-item text-primary', title: "Edit", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+                      <i class="fa fa-edit"></i> Edit
+                    <% end %> 
+                    <div class="dropdown-divider"></div>
+                    <%= link_to committee_term_path(committee_id: committee.id, id: term.id), class: 'dropdown-item text-danger', title: "Delete", method: :delete, data: {confirm: "Are you sure?"} do %>
+                      <i class="fa fa-trash-alt"></i> Delete
+                    <% end %>
+                  </div>
+                </div>
+                <div class="d-none d-sm-inline-block">
+                  <%= link_to edit_committee_term_path(committee_id: committee.id, id: term.id), class: 'btn btn-sm btn-outline-primary rounded-circle mr-3', title: "Edit", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %> 
+                  <%= link_to committee_term_path(committee_id: committee.id, id: term.id), class: 'btn btn-sm btn-outline-danger rounded-circle', title: "Delete", method: :delete, data: {confirm: "Are you sure?"} do %>
+                    <i class="fa fa-trash-alt"></i>
+                  <% end %>
+                </div>
               <% end %>
             </td>
         	</tr>
