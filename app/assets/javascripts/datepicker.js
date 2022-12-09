@@ -15,6 +15,9 @@ $( document ).on('turbolinks:load', function() {
 	  dateFormat: "F j, Y",
     defaultDate: date_to
 	});
+	$('.datePickerNoValue').flatpickr({
+	  dateFormat: "F j, Y"
+	});
 });
 
 $( document ).on('turbolinks:load', function() {

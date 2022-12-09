@@ -4,17 +4,15 @@ $("#remote-modal").modal();
 $(document).ready(function() {
   var defDate = new Date(<%= @stage.date.present? ? @stage.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
   var enactDate = new Date(<%= @stage.effectivity_date.present? ? @stage.effectivity_date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
-  $('.datepicker').flatpickr({
+  $('.datePickerNoValue').flatpickr({
     altInput: true,
     altFormat: "F j, Y",
-    dateFormat: "Y-m-d",
-    defaultDate: defDate
+    dateFormat: "Y-m-d"
   });
   $('.dateEnacted').flatpickr({
     altInput: true,
     altFormat: "F j, Y",
-    dateFormat: "Y-m-d",
-    defaultDate: enactDate
+    dateFormat: "Y-m-d"
   });
 });
 

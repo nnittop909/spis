@@ -3,9 +3,9 @@
 
   <%= f.input :stage_id, collection: Stage.for_resolutions.map{|s| [s.name, s.id]}, input_html: {class: "stageSelect"} %>
   <label class="dateLabel"></label>
-  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker" } %>
+  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datePickerNoValue" } %>
   <div class="effDate">
-    <%= f.input :effectivity_date, as: :string, label: "Date Adopted", placeholder: "Select date...", input_html: { class: "dateEnacted" } %>
+    <%= f.input :effectivity_date, as: :string, label: "Date Adopted", placeholder: "Select date...", input_html: { class: "datePickerNoValue dateEnacted" } %>
   </div>
   <div class="sameCheck">
     <%= f.input :same_as_date_approved, as: :boolean, input_html: {class: "pb-0 sameAsApproved"} %>
@@ -33,7 +33,7 @@
         $('.dateLabel').text('Date Approved');
       } else {
         $('.effDate').hide();  
-        $('.dateLabel').text('Date Received')
+        $('.dateLabel').text('Date Adopted')
       } 
     }).change();
   });

@@ -1,11 +1,11 @@
 <div class="modal-body">
   <%= f.error_notification %>
 
-  <%= f.input :stage_id, collection: Stage.for_ordinances.map{|s| [s.name, s.id]}, input_html: {class: 'stageSelect'} %>
+  <%= f.input :stage_id, collection: Stage.for_ordinances.map{|s| [s.name, s.id]}, input_html: {class: 'stageSelect'}, selected: 7 %>
   <label class="dateLabel"></label>
-  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datepicker dateApproved"} %>
+  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datePickerNoValue dateApproved"} %>
   <div class="effDate">
-    <%= f.input :effectivity_date, as: :string, label: "Date Enacted", placeholder: "Select date...", input_html: { class: "dateEnacted" } %>
+    <%= f.input :effectivity_date, as: :string, label: "Date Enacted", placeholder: "Select date...", input_html: { class: "datePickerNoValue dateEnacted" } %>
   </div>
   <div class="sameCheck">
     <%= f.input :same_as_date_approved, as: :boolean, input_html: {class: "pb-0 sameAsApproved"} %>
@@ -32,7 +32,7 @@
         $('.dateLabel').text('Date Approved');
       } else {
         $('.effDate').hide();  
-        $('.dateLabel').text('Date Received')
+        $('.dateLabel').text('Date Enacted')
       } 
     }).change();
   });

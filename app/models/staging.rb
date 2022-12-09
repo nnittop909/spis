@@ -7,7 +7,7 @@ class Staging < ApplicationRecord
 
   attribute :same_as_date_approved, :boolean
 
-  validates :stage_id, :date, presence: true
+  validates :stage_id, presence: true
 
   after_save :update_current_stage, :update_stageable_date_approved, :update_remarks_if_deemed_approved
   before_save :set_effectivity_date
