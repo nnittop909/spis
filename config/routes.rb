@@ -113,5 +113,6 @@ Rails.application.routes.draw do
     resources :resolutions, only: [:index]
     resources :ordinances,  only: [:index]
     resources :minutes,  only: [:index]
+    resources :member_profile, only: [:index]
   end
 end

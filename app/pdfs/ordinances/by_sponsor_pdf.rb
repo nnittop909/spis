@@ -15,10 +15,12 @@ module Ordinances
     end
 
     def heading
-      text title, align: :center, size: 13, style: :bold
+      text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :right, size: 8
+      stroke_horizontal_rule
+      move_down 5
+      text title, align: :center, size: 14, style: :bold
       move_down 2
       text dates_in_range, align: :center, size: 11, style: :bold
-      move_down 5
       stroke_horizontal_rule
       table(additional_data, header: true, cell_style: { size: 10, font: "Helvetica", :padding => [1,4,1,4]}, column_widths: HEADING_WIDTHS) do
         cells.borders = []
@@ -63,18 +65,18 @@ module Ordinances
     end
 
     def oldest_date
-      Staging.where(stageable_type: "Resolution").order(:date).first.date
+      Staging.where(stageable_type: "Ordinance").order(:date).first.date
     end
 
     def title
       if @category.present?
         if @category.name == "General"
-          "Ordinances"
+          "SPONSORED ORDINANCES"
         else
-          "#{@category.name} Ordinances"
+          "SPONSORED #{@category.name.upcase} ORDINANCES"
         end
       else
-        "Ordinances"
+        "SPONSORED ORDINANCES"
       end
     end
   end

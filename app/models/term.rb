@@ -27,7 +27,7 @@ class Term < ApplicationRecord
     if start_of_term.present?
       [start_of_term.year, end_of_term.year].join(" - ")
     else
-      "Please edit and set dates."
+      "N/A"
     end
   end
 

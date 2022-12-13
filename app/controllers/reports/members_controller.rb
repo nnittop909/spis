@@ -10,13 +10,8 @@ module Reports
 			respond_to do |format|
 	      format.html
 	      format.pdf do
-	      	if @members.present?
-	      		pdf = StandingMembersPdf.new(@members, @sp_term, @year, view_context)
-	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "#{@number_ordinal}StandingMembers.pdf"
-	      	else
-	      		pdf = StandingMembersPdf.new(@members, @sp_term, @year, view_context)
-	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "#{@number_ordinal}StandingMembers.pdf"
-	        end
+      		pdf = StandingMembersPdf.new(@members, @sp_term, @year, view_context)
+          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "#{@number_ordinal}StandingMembers.pdf"
 	      end
 	    end
 		end

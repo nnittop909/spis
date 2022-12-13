@@ -15,9 +15,13 @@ module Ordinances
     end
 
     def heading
-      text title, align: :center, size: 13, style: :bold
+      text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :right, size: 8
+      stroke_horizontal_rule
+      move_down 5
+      text title, align: :center, size: 14, style: :bold
       move_down 2
       text dates_in_range, align: :center, size: 11, style: :bold
+      stroke_horizontal_rule
     end
 
     def display_ordinances_table
@@ -58,12 +62,12 @@ module Ordinances
     def title
       if @category.present?
         if @category.name == "General"
-          "Ordinances"
+          "ORDINANCES"
         else
-          "#{@category.name} Ordinances"
+          "#{@category.name.upcase} ORDINANCES"
         end
       else
-        "Ordinances"
+        "ORDINANCES"
       end
     end
   end

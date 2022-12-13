@@ -11,7 +11,7 @@ module Ordinances
 
 		def query!
 			authorable_ids = Authorship.author
-			.where(author_id: author.id)
+			.where(author_id: @author.id)
 			.where(authorable_type: "Ordinance")
 			.pluck(:authorable_id)
 
@@ -19,12 +19,12 @@ module Ordinances
 				Ordinance
 				.where(category_id: @category.id)
 				.where(id: authorable_ids)
-				.where(date_approved: from_date..to_date)
+				.where(date_approved: @from_date..@to_date)
 				.sort_by(&:parsed_number)
 			else
 				Ordinance
 				.where(id: authorable_ids)
-				.where(date_approved: from_date..to_date)
+				.where(date_approved: @from_date..@to_date)
 				.sort_by(&:parsed_number)
 			end
 		end

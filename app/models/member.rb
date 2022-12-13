@@ -73,6 +73,14 @@ class Member < ApplicationRecord
   	TermFinder.new(termable: self).current_term_in_years
   end
 
+  def current_salary_adjustment
+    salary_adjustments.order(:effectivity_date).last
+  end
+
+  def current_step_increment
+    step_increments.order(:effectivity_date).last
+  end
+
   def by_term_in_years(year)
   	TermFinder.new(termable: self, year: year).by_term_in_years
   end

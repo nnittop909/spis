@@ -25,19 +25,14 @@ module Reports
 			respond_to do |format|
 	      format.html
 	      format.pdf do
-	      	if @ordinances.present?
-	      		if params[:author_id].present?
-	      			pdf = Ordinances::ByAuthorPdf.new(@ordinances, @category, @author, @from_date, @to_date, view_context)
-		          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "AuthoredOrdinances.pdf"
-	      		elsif params[:sponsor_id].present?
-		      		pdf = Ordinances::BySponsorPdf.new(@ordinances, @category, @sponsor, @from_date, @to_date, view_context)
-		          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "SponsoredOrdinances.pdf"
-		        else
-		         	pdf = Ordinances::ByDatePdf.new(@ordinances, @category, @from_date, @to_date, view_context)
-		          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Ordinances.pdf"
-		        end
-	      	else
-	      		pdf = Ordinances::ByDatePdf.new(@ordinances, @category, @from_date, @to_date, view_context)
+      		if params[:author_id].present?
+      			pdf = Ordinances::ByAuthorPdf.new(@ordinances, @category, @author, @from_date, @to_date, view_context)
+	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "AuthoredOrdinances.pdf"
+      		elsif params[:sponsor_id].present?
+	      		pdf = Ordinances::BySponsorPdf.new(@ordinances, @category, @sponsor, @from_date, @to_date, view_context)
+	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "SponsoredOrdinances.pdf"
+	        else
+	         	pdf = Ordinances::ByDatePdf.new(@ordinances, @category, @from_date, @to_date, view_context)
 	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Ordinances.pdf"
 	        end
 	      end

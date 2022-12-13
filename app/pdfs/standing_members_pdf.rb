@@ -13,12 +13,13 @@ class StandingMembersPdf < Prawn::Document
   end
 
   def heading
-    text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :center, size: 12, style: :bold
-    move_down 2
-    text @title.upcase, align: :center, size: 13, style: :bold
+    text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :right, size: 8
+    stroke_horizontal_rule
+    move_down 5
+    text @title.upcase, align: :center, size: 14, style: :bold
     move_down 2
     text @sp_term.in_year_range, align: :center, size: 11, style: :bold
-    move_down 10
+    stroke_horizontal_rule
   end
 
   def display_members_table
@@ -27,7 +28,7 @@ class StandingMembersPdf < Prawn::Document
       text "No data.", align: :center
     else
       move_down 4
-      header = [["MEMBER", "POSITION", "PARTY", "CONSECUTIVE TERMS COUNT"]]
+      header = [["MEMBER", "POSITION", "PARTY", "TERMS COUNT"]]
       table(header, :cell_style => {size: 9, :padding => [2, 4, 2, 4]}, column_widths: TABLE_WIDTHS) do
         cells.borders = []
         row(0).font_style = :bold
@@ -35,7 +36,7 @@ class StandingMembersPdf < Prawn::Document
       stroke_horizontal_rule
       header = ["", "", "", ""]
       footer = ["", "", "", ""]
-      members_data = @members.map { |m| [m.name_in_honorifics.titleize, m.by_term_position(@year), m.by_term_party(@year).code, m.consecutive_terms_count]}
+      members_data = @members.map { |m| [m.name_in_honorifics.titleize, m.by_term_position(@year), m.by_term_party(@year).code, m.terms.count]}
       table_data = [header, *members_data, footer]
       table(table_data, cell_style: { size: 9, font: "Helvetica", inline_format: true, :padding => [2, 4, 2, 4]}, column_widths: TABLE_WIDTHS) do
         cells.borders = [:top]

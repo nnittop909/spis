@@ -24,19 +24,14 @@ module Reports
 			respond_to do |format|
 	      format.html
 	      format.pdf do
-	      	if @resolutions.present?
-	      		if params[:author_id].present?
-	      			pdf = Resolutions::ByAuthorPdf.new(@resolutions, @category, @author, @from_date, @to_date, view_context)
-		          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "AuthoredResolutions.pdf"
-	      		elsif params[:sponsor_id].present?
-		      		pdf = Resolutions::BySponsorPdf.new(@resolutions, @category, @sponsor, @from_date, @to_date, view_context)
-		          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "SponsoredResolutions.pdf"
-		        else
-		         	pdf = Resolutions::ByDatePdf.new(@resolutions, @category, @from_date, @to_date, view_context)
-		          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Resolutions.pdf"
-		        end
-	      	else
-	      		pdf = Resolutions::ByDatePdf.new(@resolutions, @category, @from_date, @to_date, view_context)
+      		if params[:author_id].present?
+      			pdf = Resolutions::ByAuthorPdf.new(@resolutions, @category, @author, @from_date, @to_date, view_context)
+	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "AuthoredResolutions.pdf"
+      		elsif params[:sponsor_id].present?
+	      		pdf = Resolutions::BySponsorPdf.new(@resolutions, @category, @sponsor, @from_date, @to_date, view_context)
+	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "SponsoredResolutions.pdf"
+	        else
+	         	pdf = Resolutions::ByDatePdf.new(@resolutions, @category, @from_date, @to_date, view_context)
 	          send_data pdf.render, type: "application/pdf", disposition: 'inline', file_name: "Resolutions.pdf"
 	        end
 	      end

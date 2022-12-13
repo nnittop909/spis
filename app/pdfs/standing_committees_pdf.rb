@@ -14,12 +14,13 @@ class StandingCommitteesPdf < Prawn::Document
   end
 
   def heading
-    text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :center, size: 12, style: :bold
-    move_down 2
-    text @title.upcase, align: :center, size: 13, style: :bold
+    text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :right, size: 8
+    stroke_horizontal_rule
+    move_down 5
+    text @title.upcase, align: :center, size: 14, style: :bold
     move_down 2
     text @sp_term.in_year_range, align: :center, size: 11, style: :bold
-    move_down 5
+    stroke_horizontal_rule
   end
 
   def display_committees_table
@@ -35,12 +36,10 @@ class StandingCommitteesPdf < Prawn::Document
         column(3).align = :center
       end
       stroke_horizontal_rule
-      header = ["", "", "", ""]
       committees_data = @committees.map { |c| [c.name.titleize, c.by_term_chairperson(@year).try(:name_in_honorifics).try(:titleize), c.by_term_vice_chairperson(@year).try(:name_in_honorifics).try(:titleize), c.by_term_members(@year).map{|m| m.name_in_honorifics.try(:titleize)}.join(", ")]}
-      table_data = [header, *committees_data]
+      table_data = [*committees_data]
       table(table_data, cell_style: { size: 9, font: "Helvetica", inline_format: true, :padding => [2, 4, 2, 4]}, column_widths: TABLE_WIDTHS) do
         cells.borders = [:top, :right, :bottom, :left]
-        row(0).font_style = :bold
       end
     end
   end

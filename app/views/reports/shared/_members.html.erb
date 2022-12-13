@@ -13,3 +13,26 @@
 		<% end %>
 	</div>
 </div>
+<hr>
+<div class="row">
+	<div class="col-md-12">
+		<h4>Member Profile</h4>
+		<%= form_tag({:action => "index", controller: "reports/member_profile", format: 'pdf', target: "_blank"}, {:method => :get})  do %>
+			<div class="row">
+				<div class="col-md-6">
+		    	<%= select_tag :member_id, options_for_select(Member.order(:last_name).map{|m| [m.reversed_name, m.id]}, params[:member_id]), class: "form-control mb-md-0 mb-3", id: "memberSelect", prompt: "Select Member" %>
+		    </div>
+		    <div class="col-md-6">
+		    	<%= button_tag "Generate Report (PDF)", class: "btn btn-outline-success float-right", data: { disable_with: "Processing...", target: "_blank" } %>
+		    </div>
+		  </div>
+		<% end %>
+	</div>
+</div>
+
+<script type="text/javascript">
+  $( "#memberSelect" ).select2({
+    theme: "bootstrap",
+    width: '100%'
+  });
+</script>

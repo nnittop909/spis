@@ -15,7 +15,9 @@ module Resolutions
     end
 
     def heading
-      text 'Resolutions', align: :center, size: 13, style: :bold
+      text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :center, size: 12, style: :bold
+      move_down 2
+      text title, align: :center, size: 14, style: :bold
       move_down 2
       text dates_in_range, align: :center, size: 11, style: :bold
       move_down 5
@@ -68,13 +70,13 @@ module Resolutions
 
     def title
       if @category.present?
-        if @category.name == "General          column(1).align = :center          column(1).align = :center"
-          "Resolutions"
+        if @category.name == "General"
+          "RESOLUTIONS"
         else
-          "#{@category.name} Resolutions"
+          "#{@category.name.upcase} RESOLUTIONS"
         end
       else
-        "Resolutions"
+        "RESOLUTIONS"
       end
     end
   end
