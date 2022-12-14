@@ -14,12 +14,12 @@ module Resolutions
     end
 
     def heading
-      text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :center, size: 12, style: :bold
-      move_down 2
+      text "PROVINCIAL LOCAL GOVERNMENT UNIT - IFUGAO", align: :right, size: 8
+      stroke_horizontal_rule
+      move_down 5
       text title, align: :center, size: 14, style: :bold
       move_down 2
       text dates_in_range, align: :center, size: 11, style: :bold
-      move_down 5
       stroke_horizontal_rule
     end
 
