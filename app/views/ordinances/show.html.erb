@@ -115,7 +115,9 @@
 					  					<span class="fa fas fa-times"></span>
 					  				<% end if current_user_admin? %>
 					  			</p>
-					  			<%= '<hr class="my-1">' if @ordinance.documents.count > 1 %>
+					  			<% if @ordinance.documents.count > 1 %>
+					  				<hr class="my-1">
+					  			<% end %>
 				  			<% end %>
 			  			<% end %>
 			  		<% end %>
