@@ -106,10 +106,13 @@
 		  			<% if @resolution.documents.present? %>
 		  				<% @resolution.documents.each do |document| %>
 		  					<% if document.document_file.attached? %>
-				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" %>
-			  					<%= link_to resolution_document_path(resolution_id: @resolution.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: 'Remove Attachment' do %>
-			  						<span class="fa fas fa-times"></span>
-			  					<% end if current_user_admin? %>
+			  					<p>
+					  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" %>
+				  					<%= link_to resolution_document_path(resolution_id: @resolution.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: 'Remove Attachment' do %>
+				  						<span class="fa fas fa-times"></span>
+				  					<% end if current_user_admin? %>
+				  				</p>
+				  				<%= '<hr class="my-1">' if @resolution.documents.count > 1 %>
 				  			<% end %>
 			  			<% end %>
 			  		<% end %>
