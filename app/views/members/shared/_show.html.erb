@@ -4,7 +4,7 @@
 		<div class="d-none d-sm-inline-block">
 			<ul class="nav nav-pills">
 			  <li class="nav-item">
-			    <%= link_to 'Details', member_path(member), class: "nav-link #{'active' if current_page?(member_path(member))}" %>
+			    <%= link_to 'Profile', member_path(member), class: "nav-link #{'active' if current_page?(member_path(member))}" %>
 			  </li>
 			  <li class="nav-item">
 			    <%= link_to 'Terms', member_terms_path(member), class: "nav-link #{'active' if current_page?(member_terms_path(member))}" %>
