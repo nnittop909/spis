@@ -18,6 +18,12 @@ class Staging < ApplicationRecord
     if same_as_date_approved? == true
       self.effectivity_date = self.date
     end
+    if date.blank? && effectivity_date.present?
+      self.date = self.effectivity_date
+    end
+    if effectivity_date.blank? && date.present?
+      self.effectivity_date = self.date
+    end
   end
 
   def set_stage
