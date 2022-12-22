@@ -3,7 +3,7 @@
 
   <%= f.input :stage_id, collection: Stage.for_resolutions.map{|s| [s.name, s.id]}, input_html: {class: "stageSelect"} %>
   <label class="dateLabel"></label>
-  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datePickerNoValue" } %>
+  <%= f.input :date, as: :string, label: false, placeholder: "Select date...", input_html: { class: "datePickerNoValue dateApproved" } %>
   <div class="effDate">
     <%= f.input :effectivity_date, as: :string, label: "Date Adopted", placeholder: "Select date...", input_html: { class: "datePickerNoValue dateEnacted" } %>
   </div>
@@ -19,7 +19,7 @@
 
   $(function() {
 
-    $('.datepicker, .dateEnacted').on('change', function(){
+    $('.dateApproved, .dateEnacted').on('change', function(){
       if($('.datepicker').val() == $('.dateEnacted').val()) {
         $('.sameAsApproved').prop('checked', true);
       }
