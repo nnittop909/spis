@@ -39,8 +39,8 @@
               <tr>
                 <td colspan="2" class="text-right">
                   <% if current_user_admin? %>
-                    <%= link_to "Edit", edit_member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-                    <%= link_to "Delete", member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), class: "btn btn-sm btn-warning", method: :delete, data: {confirm: "Are you sure?"} %>
+                    <%= link_to "Edit", edit_member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), class: "btn btn-sm btn-outline-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+                    <%= link_to "Delete", member_salary_adjustment_path(member_id: member.id, id: salary_adjustment.id), class: "btn btn-sm btn-outline-warning", method: :delete, data: {confirm: "Are you sure?"} %>
                   <% end %>
                 </td>
               </tr>
@@ -90,8 +90,8 @@
               <tr>
                 <td colspan="2" class="text-right">
                   <% if current_user_admin? %>
-                    <%= link_to "Edit", edit_member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
-                    <%= link_to "Delete", member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-warning", method: :delete, data: {confirm: "Are you sure?"} %>
+                    <%= link_to "Edit", edit_member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-outline-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+                    <%= link_to "Delete", member_step_increment_path(member_id: member.id, id: increment.id), class: "btn btn-sm btn-outline-warning", method: :delete, data: {confirm: "Are you sure?"} %>
                   <% end %>
                 </td>
               </tr>
