@@ -54,7 +54,9 @@
 					  				<% end %>
 					  			<% end %>
 				  			</p>
-				  			<hr class="my-1"> 			
+				  			<% if @principal_authors.count > 1 %>
+				  				<hr class="my-1">
+				  			<% end %> 			
 				  		<% end %>
 				  	<% end %>
 					  <% if @co_authors.present? %>
@@ -69,7 +71,9 @@
 						  			<% end %>
 					  			<% end %>
 					  		</p>
-				  			<hr class="my-1">
+					  		<% if @co_authors.count > 1 %>
+				  				<hr class="my-1">
+				  			<% end %>
 				  		<% end %>
 				  	<% end %>
 		  		</td>
@@ -87,7 +91,9 @@
 					  			<% end %>
 				  			<% end %>
 				  		</p>
-			  			<hr class="my-1">
+				  		<% if @sponsors.count > 1 %>
+			  				<hr class="my-1">
+			  			<% end %>
 			  		<% end %>		  				
 		  		</td>
 		  	</tr>
