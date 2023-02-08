@@ -1,0 +1,18 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Members") do |sheet|
+  # Create the header row
+  sheet.add_row ["LAST_NAME", "FIRST_NAME", "MIDDLE_NAME", "NAME_SUFFIX", "POSITION", "START_OF_TERM", "END_OF_TERM"]
+  # Create entries for each member
+  @members.each do |member|
+    sheet.add_row [
+      member.last_name,
+      member.first_name,
+      member.middle_name,
+      member.name_suffix,
+      member.current_position.present? ? member.current_position : "",
+      member.latest_term.present? ? member.latest_term.start_of_term : "",
+      member.latest_term.present? ? member.latest_term.end_of_term : ""
+    ]
+  end
+end

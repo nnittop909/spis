@@ -65,6 +65,12 @@ class Member < ApplicationRecord
   	"HON. #{name.upcase}"
   end
 
+  def latest_term
+    if terms.where.not(start_of_term: nil).present?
+      terms.where.not(start_of_term: nil).order(:start_of_term).last
+    end
+  end
+
   def current_term
   	TermFinder.new(termable: self).current_term
   end

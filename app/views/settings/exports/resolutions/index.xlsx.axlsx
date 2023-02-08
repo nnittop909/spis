@@ -1,0 +1,14 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Resolutions") do |sheet|
+  # Create the header row
+  sheet.add_row ["NUMBER", "TITLE", "DATE_APPROVED",]
+  # Create entries for each resolution
+  @resolutions.each do |resolution|
+    sheet.add_row [
+      resolution.number,
+      resolution.title,
+      resolution.date_approved
+    ]
+  end
+end

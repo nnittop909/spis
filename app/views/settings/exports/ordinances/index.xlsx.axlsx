@@ -1,0 +1,14 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Ordinances") do |sheet|
+  # Create the header row
+  sheet.add_row ["NUMBER", "TITLE", "DATE_APPROVED",]
+  # Create entries for each ordinance
+  @ordinances.each do |ordinance|
+    sheet.add_row [
+      ordinance.number,
+      ordinance.title,
+      ordinance.date_approved
+    ]
+  end
+end

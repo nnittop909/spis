@@ -100,6 +100,13 @@ Rails.application.routes.draw do
       resources :memberships,          only: [:create]
       resources :member_terms,         only: [:create]
     end
+    resources :exports, only: [:index]
+    namespace :exports do
+      resources :members, only: [:index]
+      resources :committees, only: [:index]
+      resources :resolutions, only: [:index]
+      resources :ordinances, only: [:index]
+    end
     namespace :mergers do
       resources :committees, only: [:new, :create]
       match 'members', to: 'members#merge', via: [:get, :post]

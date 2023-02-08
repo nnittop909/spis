@@ -26,4 +26,7 @@
 	<li class="nav-item">
 	  <%= link_to 'Resolutions', settings_resolutions_path, class: "nav-link #{'active' if current_page?(settings_resolutions_path)}" if current_user.developer? %>
 	</li>
+	<li class="nav-item">
+	  <%= link_to 'Exports', settings_exports_path, class: "nav-link #{'active' if current_page?(settings_exports_path)}"%>
+	</li>
 </ul>

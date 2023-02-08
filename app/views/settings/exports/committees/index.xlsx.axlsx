@@ -1,0 +1,12 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Committees") do |sheet|
+  # Create the header row
+  sheet.add_row ["NAME"]
+  # Create entries for each committee
+  @committees.each do |committee|
+    sheet.add_row [
+      committee.name
+    ]
+  end
+end
