@@ -3,7 +3,7 @@ module Settings
 		class CommitteesController < ApplicationController
 
 			def index
-				@committees = Committee.order(name: :asc).all
+				@committees = Committee.order(current_name: :asc).all
 			  respond_to do |format|
 		      format.xlsx { render xlsx: "index", disposition: 'inline', filename: "Committees.xlsx" }
 		    end
