@@ -7,7 +7,7 @@
 			    <%= link_to 'Profile', committee_path(committee), class: "nav-link #{'active' if current_page?(committee_path(committee))}" %>
 			  </li>
 			  <li class="nav-item">
-			    <%= link_to 'Membership', committee_members_path(committee_id: committee.id, committee_membership_id: committee.current_membership.id), class: "nav-link #{'active' if current_page?(committee_members_path(committee_id: committee.id, committee_membership_id: params[:committee_membership_id]))}" %>
+			    <%= link_to 'Membership', committee_members_path(committee_id: committee.id, committee_membership_id: committee.current_membership.id), class: "nav-link #{'active' if current_page?(committee_members_path(committee_id: committee.id, committee_membership_id: params[:committee_membership_id]))}" if committee.current_membership %>
 			  </li>
 			  <li class="nav-item">
 			    <%= link_to 'Terms', committee_terms_path(committee), class: "nav-link #{'active' if current_page?(committee_terms_path(committee))}" %>

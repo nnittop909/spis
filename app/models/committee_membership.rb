@@ -3,7 +3,7 @@ class CommitteeMembership < ApplicationRecord
   has_many :committee_members, dependent: :destroy
   has_many :members, through: :committee_members
   
-  validate :overlapping_terms, on: :create
+  # validate :overlapping_terms, on: :create
 
   def status
     if default

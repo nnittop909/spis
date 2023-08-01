@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <%= f.input :sponsor_id, label: 'Sponsor', collection: Committee.all.map{ |a| [a.name, a.id]}, input_html: {id: "sponsorSelect"} %>
-  <%= f.input :role, label: "Sponsor Type", collection: Sponsorship.roles.keys.to_a.map{ |a| [a.titleize, a]} %>
+  <%= f.input :role, as: :string, input_html: {value: "principal"}, as: :hidden %>
   <%= f.input :sponsor_type, input_html: {value: "Committee"}, as: :hidden %>
 </div>
 <div class="modal-footer">

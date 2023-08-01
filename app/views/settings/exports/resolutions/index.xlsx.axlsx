@@ -2,13 +2,15 @@ wb = xlsx_package.workbook
 
 wb.add_worksheet(name: "Resolutions") do |sheet|
   # Create the header row
-  sheet.add_row ["NUMBER", "TITLE", "DATE_APPROVED",]
+  sheet.add_row ["NUMBER", "TITLE", "DATE_APPROVED", "AUTHORS", "SPONSOR"]
   # Create entries for each resolution
   @resolutions.each do |resolution|
     sheet.add_row [
       resolution.number,
       resolution.title,
-      resolution.date_approved
+      resolution.date_approved,
+      resolution.authorships.order(:role).map{|a| a.author.full_name}.join(", "),
+      resolution.sponsorships.order(:role).map{|a| a.sponsor.name}.join(", ")
     ]
   end
 end

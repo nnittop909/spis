@@ -2,13 +2,15 @@ wb = xlsx_package.workbook
 
 wb.add_worksheet(name: "Ordinances") do |sheet|
   # Create the header row
-  sheet.add_row ["NUMBER", "TITLE", "DATE_APPROVED",]
+  sheet.add_row ["NUMBER", "TITLE", "DATE_APPROVED", "AUTHORS", "SPONSOR"]
   # Create entries for each ordinance
   @ordinances.each do |ordinance|
     sheet.add_row [
       ordinance.number,
       ordinance.title,
-      ordinance.date_approved
+      ordinance.date_approved,
+      ordinance.authorships.order(:role).map{|a| a.author.full_name}.join(", "),
+      ordinance.sponsorships.order(:role).map{|a| a.sponsor.name}.join(", ")
     ]
   end
 end
