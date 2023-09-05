@@ -8,12 +8,75 @@
   <%= link_to 'Download as Excel', settings_exports_committees_path(format: :xlsx), class: "btn btn-outline-success float-right" %>
 </h5>
 <hr class="my-4">
-<h5>
-  Export Ordinances
-  <%= link_to 'Download as Excel', settings_exports_ordinances_path(format: :xlsx), class: "btn btn-outline-success float-right" %>
-</h5>
+<h5 class="mb-3">Export Ordinances</h5>
+<h6>Custom Filter</h6>
+<%= form_tag({:action => "index", controller: "settings/exports/ordinances", format: 'xlsx'}, {:method => :get}) do %>
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input', :placeholder => "From " %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= text_field_tag :to_date, params[:to_date], :class => 'form-control border-input tDate', :placeholder => "To " %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= select_tag :category_id, options_for_select(Category.all.map{|m| [m.name, m.id]}, params[:category_id]), class: "form-control", prompt: "Select Category" %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <%= button_tag "Download as Excel", class: "btn btn-outline-success float-right", data: { disable_with: "Processing...", target: "_blank" } %>
+    </div>
+  </div>
+<% end %>
+<h6>Download all Records in MS Excel Format
+  <%= link_to 'Download', settings_exports_ordinances_path(format: :xlsx), class: "btn btn-outline-success float-right" %>
+</h6>
 <hr class="my-4">
-<h5>
-  Export Resolutions
+<h5 class="mb-3">Export Resolutions</h5>
+<h6>Custom Filter</h6>
+<%= form_tag({:action => "index", controller: "settings/exports/resolutions", format: 'xlsx'}, {:method => :get}) do %>
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input', :placeholder => "From " %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= text_field_tag :to_date, params[:to_date], :class => 'form-control border-input tDate', :placeholder => "To " %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <%= select_tag :category_id, options_for_select(Category.all.map{|m| [m.name, m.id]}, params[:category_id]), class: "form-control", prompt: "Select Category" %>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <%= button_tag "Download as Excel", class: "btn btn-outline-success float-right", data: { disable_with: "Processing...", target: "_blank" } %>
+    </div>
+  </div>
+<% end %>
+<h6>Download all Records in MS Excel Format
   <%= link_to 'Download as Excel', settings_exports_resolutions_path(format: :xlsx), class: "btn btn-outline-success float-right" %>
-</h5>
+</h6>
+
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    $('.fDate').flatpickr({
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d"
+    });
+    $('.tDate').flatpickr({
+      altInput: true,
+      altFormat: "F j, Y",
+      dateFormat: "Y-m-d"
+    });
+  });
+</script>
