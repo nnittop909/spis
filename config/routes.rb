@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ordinances do
+  resources :ordinances, except: [:show] do
     resources :documents, only: [:create, :destroy], module: :ordinances
     resources :sponsors, module: :ordinances
     resources :authors, module: :ordinances
@@ -56,6 +56,11 @@ Rails.application.routes.draw do
       resources :authors, module: :authorships
       resources :co_authors, module: :authorships
     end
+  end
+
+  namespace :ordinances do
+    resources :provincials, only: [:index]
+    resources :municipals, only: [:index]
   end
 
   resources :minutes do
@@ -119,6 +124,7 @@ Rails.application.routes.draw do
     resources :members,     only: [:index]
     resources :resolutions, only: [:index]
     resources :ordinances,  only: [:index]
+    resources :municipal_ordinances,  only: [:index]
     resources :minutes,  only: [:index]
     resources :member_profile, only: [:index]
   end

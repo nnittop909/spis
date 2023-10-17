@@ -61,4 +61,16 @@ pp6 = PoliticalParty.find_or_create_by(name: "NACIONALISTA", code: "NP")
 pp7 = PoliticalParty.find_or_create_by(name: "LAKAS-CMD", code: "LKSCMD")
 pp7 = PoliticalParty.find_or_create_by(name: "PARTIDO FEDERAL", code: "PFP")
 
+Municipality.find_or_create_by(name: "Aguinaldo")
+Municipality.find_or_create_by(name: "Alfonso Lista")
+Municipality.find_or_create_by(name: "Asipulo")
+Municipality.find_or_create_by(name: "Banaue")
+Municipality.find_or_create_by(name: "Hungduan")
+Municipality.find_or_create_by(name: "Hingyon")
+Municipality.find_or_create_by(name: "Kiangan")
+Municipality.find_or_create_by(name: "Lagawe")
+Municipality.find_or_create_by(name: "Lamut")
+Municipality.find_or_create_by(name: "Mayoyao")
+Municipality.find_or_create_by(name: "Tinoc")
+
 puts "Seeds Loaded!"

@@ -93,7 +93,11 @@ class ResolutionsController < ApplicationController
 			:date_approved,
 			:effectivity_date,
 			:same_as_date_approved,
-			:stage_id
+			:stage_id,
+			:municipality_id,
+			:keyword,
+			:ordinance_number,
+			:year_series
 		)
 	end
 end

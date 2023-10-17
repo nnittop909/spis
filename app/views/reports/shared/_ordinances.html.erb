@@ -1,3 +1,5 @@
+<h3>Provincial Ordinances</h3>
+<hr>
 <div class="row">
 	<div class="col-md-12">
 		<h4>Generate Report by Dates</h4>
@@ -91,6 +93,36 @@
 		  </div>
 		<% end %>
 	</div>
+</div>
+<hr>
+<h3>Municipal Ordinances</h3>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <h4>Generate Report by Dates</h4>
+    <%= form_tag({:action => "index", controller: "reports/municipal_ordinances", format: 'pdf', target: "_blank"}, {:method => :get})  do %>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input', :placeholder => "From " %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= text_field_tag :to_date, params[:to_date], :class => 'form-control border-input tDate', :placeholder => "To " %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= select_tag :municipality_id, options_for_select(Municipality.all.map{|m| [m.name, m.id]}, params[:municipality_id]), class: "form-control", prompt: "Select Municipality" %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <%= button_tag "Generate (PDF)", class: "btn btn-outline-success float-right", data: { disable_with: "Processing...", target: "_blank" } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <script type="text/javascript">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_005158) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_003211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -247,6 +247,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_005158) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "municipal_ordinances", force: :cascade do |t|
+    t.string "number"
+    t.string "year_and_number"
+    t.string "keyword"
+    t.integer "year_series"
+    t.date "date_approved"
+    t.bigint "resolution_id"
+    t.bigint "municipality_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["municipality_id"], name: "index_municipal_ordinances_on_municipality_id"
+    t.index ["resolution_id"], name: "index_municipal_ordinances_on_resolution_id"
+  end
+
+  create_table "municipalities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "offices", force: :cascade do |t|
     t.string "name"
     t.string "abbreviation"
@@ -451,6 +471,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_005158) do
   add_foreign_key "lce_approvals", "stagings"
   add_foreign_key "members", "civil_service_eligibilities"
   add_foreign_key "members", "educational_attainments"
+  add_foreign_key "municipal_ordinances", "municipalities"
+  add_foreign_key "municipal_ordinances", "resolutions"
   add_foreign_key "ordinances", "categories"
   add_foreign_key "resolutions", "categories"
   add_foreign_key "salary_adjustments", "members"

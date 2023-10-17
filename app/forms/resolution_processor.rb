@@ -3,7 +3,8 @@ class ResolutionProcessor
 	include ActiveModel::Model
 	attr_accessor :number, :title, :date, :remarks,
 			:category_id, :date_approved, :effectivity_date,
-			:same_as_date_approved, :stage_id
+			:same_as_date_approved, :stage_id, :municipality_id, :keyword,
+			:ordinance_number, :year_series
 
 	validates :number, :title, presence: true
 
@@ -12,6 +13,7 @@ class ResolutionProcessor
 			ActiveRecord::Base.transaction do
 				resolution = create_resolution
 				create_stage(resolution)
+				create_municipal_ordinance(resolution)
 			end
 		end
 	end
@@ -25,6 +27,17 @@ class ResolutionProcessor
 			remarks:     remarks,
 			date:        date,
 			category_id: category_id
+		)
+	end
+
+	def create_municipal_ordinance(resolution)
+		resolution.create_municipal_ordinance(
+			date_approved: date_approved,
+			number: ordinance_number,
+			year_series: year_series,
+			year_and_number: "#{year_series}-#{ordinance_number}",
+			keyword: keyword,
+			municipality_id: municipality_id
 		)
 	end
 

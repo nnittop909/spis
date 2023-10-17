@@ -35,6 +35,23 @@
       </div>
     </div>
     <%= f.input :remarks, as: :string %>
+    <h4>Municipal Ordinance Details</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :ordinance_number, label: "Municipal Ordinance Number", placeholder: "e.g. 01, 02, 03" %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :year_series, label: "Year Series", placeholder: "e.g. 2023, 2024" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :municipality_id, collection: Municipality.all.map{|m| [m, m.id]} %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :keyword %>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>

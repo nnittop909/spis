@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  keyword: MyString
+  resolution: one
+  municipality: one
+
+two:
+  number: MyString
+  keyword: MyString
+  resolution: two
+  municipality: two

@@ -1,0 +1,41 @@
+<div class="card shadow mb-3">
+	<div class="card-header py-3">
+		<div class="d-none d-sm-inline-block">
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+				  <%= link_to 'Provincial Ordinances', ordinances_provincials_path, class: "nav-link #{'active' if current_page?(ordinances_path)}" %>
+				</li>
+				<li class="nav-item">
+				  <%= link_to 'Municipal Ordinances', ordinances_municipals_path, class: "nav-link #{'active' if current_page?(ordinances_municipals_path)}" %>
+				</li>
+			</ul>
+		</div>
+		<!-- Small Size Compatibility -->
+		<div class="d-sm-none">
+			<div id="accordion">
+	      <h4 class="mb-0">
+	        <a class="btn btn-primary text-left btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          <%= 'Provincial Ordinances' if current_page?(ordinances_provincials_path) %>
+	          <%= 'Municipal Ordinances' if current_page?(ordinances_municipals_path) %>
+	          <span class="fa fa-bars small py-1 float-right"></span>
+	        </a>
+	      </h4>
+
+		    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+		      <%= link_to 'Provincial Ordinances', ordinances_provincials_path, class: "dropdown-item mt-2" %>
+		      <div class="dropdown-divider"></div>
+					<%= link_to 'Municipal Ordinances', ordinances_municipals_path, class: "dropdown-item" %>
+		    </div>
+			</div>
+		</div>
+	</div>
+</div>
+<% if current_page?(ordinances_path) %>
+  <%=render 'ordinances/shared/provincial' %>
+<% end %>
+<% if current_page?(ordinances_municipals_path) %>
+  <%=render 'ordinances/shared/municipal' %>
+<% end %>
+<script type="text/javascript">
+	$('.collapse').collapse()
+</script>
