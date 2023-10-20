@@ -61,15 +61,14 @@
 	        	<% @municipal_ordinances.each do |ordinance| %>
 		        	<tr>
 		        		<td>
-		        			<b>Municipal Ordinance Number <%= highlight(ordinance.year_and_number, params[:search]) %></b>
+		        			<b>Municipal Ordinance Number <%= highlight(ordinance.year_and_number, params[:search]) %></b><small class="badge bg-success"> <%= ordinance.municipality %></small>
 		        			<br>
 		        			<p class="my-0">
-			        			<small class="badge bg-info"><%= highlight(ordinance.keyword, params[:search]) %></small>
-			        			<small class="badge bg-success"><%= ordinance.municipality %></small>
-			        			<span class="text-muted"><%= ordinance.date_approved.try(:strftime, "%B %e, %Y") %></span>
+			        			<small><%= highlight(ordinance.keyword, params[:search]) %></small>
+			        			
 			        		</p>
 			        		<p class="text-justify my-0">
-		        				Declared as valid as per Provincial Resolution <%= link_to ordinance.resolution.number, resolution_path(ordinance.resolution) %>.
+		        				<span class="text-muted"><%= ordinance.date_approved.try(:strftime, "%B %e, %Y") %></span> - Declared as valid as per Provincial Resolution <%= link_to ordinance.resolution.number, resolution_path(ordinance.resolution) %>.
 		        			</p>
 		        		</td>
 		        	</tr>

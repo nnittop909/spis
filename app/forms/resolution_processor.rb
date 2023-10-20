@@ -4,9 +4,10 @@ class ResolutionProcessor
 	attr_accessor :number, :title, :date, :remarks,
 			:category_id, :date_approved, :effectivity_date,
 			:same_as_date_approved, :stage_id, :municipality_id, :keyword,
-			:ordinance_number, :year_series
+			:ordinance_number
 
 	validates :number, :title, presence: true
+	validate :invalid_ordinance_number
 
 	def process!
 		if valid?
@@ -34,9 +35,9 @@ class ResolutionProcessor
 		resolution.create_municipal_ordinance(
 			date_approved: date_approved,
 			number: ordinance_number,
-			year_series: year_series,
-			year_and_number: "#{year_series}-#{ordinance_number}",
-			keyword: keyword,
+			year_series: parse_ordinance_number,
+			year_and_number: ordinance_number,
+			keyword: keyword.present? ? keyword : title,
 			municipality_id: municipality_id
 		)
 	end
@@ -54,6 +55,16 @@ class ResolutionProcessor
 			date_approved
 		else
 			effectivity_date
+		end
+	end
+
+	def parse_ordinance_number
+		ordinance_number.split("-").first.to_i
+	end
+
+	def invalid_ordinance_number
+		if parse_ordinance_number.to_s.length != 4
+			errors.add(:base, "Invalid Municipal Ordinance Number.")
 		end
 	end
 end

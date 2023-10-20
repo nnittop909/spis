@@ -1,14 +1,11 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
 		<span class="font-weight-bold text-primary h3">
-			<i class="fa fa-file"></i> Provincial Ordinances
+			<i class="fa fa-file"></i> Municipal Ordinances
 		</span>
-		<%= link_to new_ordinance_path, class: "btn btn-outline-primary float-right rounded-circle", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
-			<span class="fa fas fa-plus"></span>
-		<% end if current_user_admin? %>
 		<div class="row">
 			<div class="col-md-6 offset-md-3 col-sm-12 d-none d-sm-inline-block">
-				<%=form_tag ordinances_path, method: :get, class: "" do %>
+				<%=form_tag municipal_ordinances_path, method: :get, class: "" do %>
 				  <div class="input-group">
 				    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for ordinance number or title..." %>
 				    <span class="input-group-append">
@@ -28,10 +25,13 @@
 		  </a>
 		  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		    <form class="px-4 py-3">
-		    	<%=form_tag ordinances_path, id: "filterForm", method: :get do %>
+		    	<%=form_tag municipal_ordinances_path, id: "filterForm", method: :get do %>
 						<div class="row">
-							<div class="col-md-3">
-								<%= select_tag :category_id, options_for_select(Category.all.map{|c| [c.name, c.id]}, params[:category_id]), class: "form-control mb-md-0 mb-3", prompt: "Select Category" %>
+							<div class="col-md-2">
+								<%= select_tag :municipality_id, options_for_select(Municipality.all.map{|m| [m.name, m.id]}, params[:municipality_id]), class: "form-control mb-md-0 mb-3", prompt: "Select Municipality" %>
+							</div>
+							<div class="col-md-2">
+								<%= text_field_tag :year_series, params[:year_series], :class => 'form-control border-input mb-md-0 mb-3', :placeholder => "Enter Year" %>
 							</div>
 							<div class="col-md-3">
 								<%= text_field_tag :from_date, params[:from_date], :class => 'fDate form-control border-input mb-md-0 mb-3', :placeholder => "From " %>
@@ -40,11 +40,11 @@
 								<%= text_field_tag :to_date, params[:to_date], :class => 'tDate form-control border-input mb-md-0 mb-3', :placeholder => "To " %>
 						  </div>
 						  <div class="col-md-1 mt-2">
-						  	<%= link_to ordinances_path, title: "Reset Filter" do %>
+						  	<%= link_to municipal_ordinances_path, title: "Reset Filter" do %>
 						  		<span class='fa fa-undo float-right mb-md-0 mb-3'></span>
 						  	<% end %>
 						  </div>
-						  <div class="col-md-2">
+						  <div class="col-md-1">
 						  	<%= button_tag "Filter", class: "btn btn-success float-right" %>
 						  </div>
 						</div>
@@ -58,26 +58,24 @@
       <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
       	<table class="table">
 	        <tbody>
-	        	<% @ordinances.each do |ordinance| %>
+	        	<% @municipal_ordinances.each do |ordinance| %>
 		        	<tr>
 		        		<td>
-		        			<%= link_to ordinance_path(ordinance) do %>
-			        			<b>PO# <%= highlight(ordinance.number, params[:search]) %></b>
-			        			<br>
-			        			<p class="my-0">
-				        			<small class="badge bg-info"><%= ordinance.current_stage.titleize if ordinance.current_stage.present? %></small>
-				        			<span class="text-muted"><%= ordinance.date_approved.try(:strftime, "%B %e, %Y") %></span>
-				        		</p>
-				        		<p class="text-justify my-0">
-			        				<%=  highlight(ordinance.title, params[:search]) %>
-			        			</p>
-			        		<% end %>
+		        			<b>Municipal Ordinance Number <%= highlight(ordinance.year_and_number, params[:search]) %></b><small class="badge bg-success"> <%= ordinance.municipality %></small>
+		        			<br>
+		        			<p class="my-0">
+			        			<small><%= highlight(ordinance.keyword, params[:search]) %></small>
+			        			
+			        		</p>
+			        		<p class="text-justify my-0">
+		        				<span class="text-muted"><%= ordinance.date_approved.try(:strftime, "%B %e, %Y") %></span> - Declared as valid as per Provincial Resolution <%= link_to ordinance.resolution.number, resolution_path(ordinance.resolution) %>.
+		        			</p>
 		        		</td>
 		        	</tr>
 		        <% end %>
 	        </tbody>
 	      </table>
-	      <center><%= paginate @ordinances, :window => 1 %></center>
+	      <center><%= paginate @municipal_ordinances, :window => 1 %></center>
       </div>
     </div>
 	</div>

@@ -96,8 +96,7 @@ class ResolutionsController < ApplicationController
 			:stage_id,
 			:municipality_id,
 			:keyword,
-			:ordinance_number,
-			:year_series
+			:ordinance_number
 		)
 	end
 end
