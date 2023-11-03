@@ -19,14 +19,20 @@ class SpSession < ApplicationRecord
 
 	has_many :committee_reports
 	has_many :documents, as: :documentable
+	has_one_attached :file
+	has_one_attached :signatory_file
 
 	enum event_type: [:special, :regular]
 
-	before_save :set_title
+	before_save :set_title, :set_description
 
 	private
 
 	def set_title
 		self.title = "#{event_number.ordinalize} #{event_type.titleize} Session"
+	end
+
+	def set_description
+		self.description = "#{event_number.ordinalize} #{event_type.titleize} Session of the #{Office.last.current_term.ordinal_number}#{Office.last.current_term.ordinal} Sanguniang Panlalawigan"
 	end
 end

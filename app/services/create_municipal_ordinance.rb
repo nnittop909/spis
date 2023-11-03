@@ -11,6 +11,7 @@ class CreateMunicipalOrdinance
 							.gsub("MUNICIPALITY OF", "MUNICIPALITY_OF")
 							.gsub("SANGGUNIANG BAYAN NG", "SANGGUNIANG_BAYAN_NG")
 							.gsub("MLGU OF", "MLGU_OF")
+							.gsub("SUPPLEMENTAL BUDGET", "SUPPLEMENTAL_BUDGET")
 							.split(" ")
 			if resolution.municipal_ordinance.blank?
 				if find_ordinance_number(title_array).present? && find_municipality(title_array).present?
@@ -64,17 +65,18 @@ class CreateMunicipalOrdinance
 
 	def find_keyword(title_array)
 		title_index = title_array.find_index("ENTITLED")
-		supplemental_index = title_array.find_index("SUPPLEMENTAL BUDGET")
+		supplemental_index = title_array.find_index("SUPPLEMENTAL_BUDGET")
+		supplemental_budget_number = "#{title_array[supplemental_index + 1] title_array[supplemental_index + 2]}"
 		annual_index = title_array.find_index("ANNUAL BUDGET")
 
 		if title_index.present?
 			beginning_title_index = keyword_index + 1
-		elsif title_array.find_index(keyword2)
-			beginning_title_index = title_array.find_index(keyword2) + 1
+		else
+			beginning_title_index = 0
 		end
 		ending_title_index = title_array.index title_array.last
 		if supplemental_index.present?
-			"#{set_series(title_array).to_s} SUPPLEMENTAL BUDGET"
+			"#{set_series(title_array).to_s} SUPPLEMENTAL BUDGET #{supplemental_budget_number}"
 		elsif annual_index.present?
 			"#{set_series(title_array).to_s} ANNUAL BUDGET"
 		else
@@ -82,7 +84,7 @@ class CreateMunicipalOrdinance
 		end
 	end
 
-	def find_municipality()
+	def find_municipality(title_array)
 		Municipality.select{ |m| title_array.include?(m.name.upcase) ? m : nil }.compact_blank.last
 	end
 

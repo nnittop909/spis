@@ -1,11 +1,12 @@
-<%= simple_form_for @sp_session, html: { autocomplete: "off"}, url: @sp_session.persisted? ? sp_session_path(@sp_session) : sp_sessions_path, method: @sp_session.persisted? ? :patch : :post do |f| %>
+<div class="modal-body">
   <%= f.error_notification %>
   <h4 class="mb-4">
     <%= current_sp_term.ordinal_number %><sup><%= current_sp_term.ordinal %></sup> Sanguniang Panlalawigan
   </h4>
   <%= f.input :event_number, label: "Session Number" %>
-  <%= f.input :event_type, label: "Type", collection: SpSession.event_types.keys.to_a.map{|s| [s.titleize, s]} %>
-  <%= f.input :date, :order => [:month, :day, :year], start_year: Date.current.year, end_year: 1950 %>
-  <%= f.input :description, as: :text, input_html: {rows: 5} %>
+  <%= f.input :event_type, label: "Type", collection: SpSession.event_types.keys.to_a.map{|s| [s.titleize, s]}, selected: "regular" %>
+  <%= f.input :date, as: :string, placeholder: "Select date...", input_html: { class: "dateSelect" } %>
+</div>
+<div class="modal-footer">
   <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
-<% end %>
+</div>

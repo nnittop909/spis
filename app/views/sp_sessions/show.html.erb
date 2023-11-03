@@ -7,20 +7,8 @@
 			</div>
 			<div class="col-md-8">
 				<ul class="nav nav-pills justify-content-end">
-					<li class="nav-item px-2">
-				    <%= link_to 'Add Ordinance', new_sp_session_ordinance_path(@sp_session), class: "btn btn-secondary btn-sm" %>
-				  </li>
-					<li class="nav-item px-2">
-				    <%= link_to 'Add Resolution', new_sp_session_resolution_path(@sp_session), class: "btn btn-secondary btn-sm" %>
-				  </li>
 				  <li class="nav-item px-2">
-				    <%= link_to 'Add Committee', new_sp_session_committee_path(@sp_session), class: "btn btn-secondary btn-sm" %>
-				  </li>
-				  <li class="nav-item px-2">
-				    <%= link_to 'Upload Committee Report', new_sp_session_committee_report_path(@sp_session), class: "btn btn-secondary btn-sm" %>
-				  </li>
-				  <li class="nav-item px-2">
-				  	<%= link_to "Update Details", edit_sp_session_path(@sp_session), class: "btn btn-primary btn-sm float-right" %>
+				  	<%= link_to "Update Details", edit_sp_session_path(@sp_session), class: "btn btn-primary btn-sm float-right", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 				  </li>
 				</ul>
 				
@@ -31,74 +19,38 @@
 		<table class="table">
 			<tbody>
 				<tr>
-		  		<td class="col-md-4">Concerned Committees</td>
-		  		<td>
-		  			<% if @committee_events.present? %>
-			  			<% @committee_events.each do |committee_event| %>
-				  				<%= committee_event.committee %>
-				  				<span class="float-right">
-				  					<%= button_to "Delete", sp_session_committee_path(sp_session_id: @sp_session.id, id: committee_event.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
-				  				</span> <hr>
-			  			<% end %>
-			  		<% end %>
-		  		</td>
-		  	</tr>
+					<td>Description</td>
+					<td><%= @sp_session.description %></td>
+				</tr>
 		  	<tr>
-		  		<td class="col-md-4">Considered Resolutions</td>
-		  		<td>
-		  			<% if @resolutions.present? %>
-			  			<% @resolutions.each do |resolution| %>
-				  				<%= resolution.number %>
-				  				<span class="float-right">
-				  					<%= button_to "Delete", sp_session_resolution_path(sp_session_id: @sp_session.id, id: resolution.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
-				  				</span> <hr>
-			  			<% end %>
-			  		<% end %>
-		  		</td>
-		  	</tr>
-		  	<tr>
-		  		<td class="col-md-4">Considered Ordinances</td>
-		  		<td>
-		  			<% if @ordinances.present? %>
-			  			<% @ordinances.each do |ordinance| %>
-				  				<%= ordinance.number %>
-				  				<span class="float-right">
-				  					<%= button_to "Delete", sp_session_ordinance_path(sp_session_id: @sp_session.id, id: ordinance.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' %>
-				  				</span> <hr>
-			  			<% end %>
-			  		<% end %>
-		  		</td>
-		  	</tr>
-		  	<tr>
-		      <td class="col-md-4" rowspan="<%= @sp_session.documents.count %>">
+		      <td class="col-md-4">
 		      	Attached Documents
+		      	<%= simple_form_for @sp_session, url: sp_session_files_path(sp_session_id: @sp_session.id), html: {multipart: true }, method: :post do |f| %>
+		          <%= f.input :file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
+		        <% end %>
 		      </td>
 		      <td>
-		      	<%= simple_form_for @sp_session.documents.new, url: sp_session_documents_path(sp_session_id: @sp_session.id), html: {multipart: true }, method: :post do |f| %>
-		          <%= f.input :document_file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
-		        <% end %>
-		  			<% if @documents.present? %>
-			  			<% @documents.each do |document| %>
-				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" if document.document_file.attached? %>
-				  				<span class="float-right">
-				  					<%= button_to "Delete", sp_session_document_path(sp_session_id: @sp_session.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if document.document_file.attached? %>
-				  				</span> <hr>
-			  			<% end %>
+		  			<% if @sp_session.file.present? %>
+		  				<%= link_to @sp_session.file.filename, rails_blob_path(@sp_session.file, disposition: "inline"), target: "_blank" if @sp_session.file.attached? %>
+		  				<%= link_to sp_session_file_path(sp_session_id: @sp_session.id, id: @sp_session.file.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: 'Remove Attachment' do %>
+	  						<span class="fa fas fa-times"></span>
+	  					<% end if current_user_admin? %>
 			  		<% end %>
 			  	</td>
 		  	</tr>
 		  	<tr>
-		      <td class="col-md-4" rowspan="<%= @committee_reports.count %>">
-		      	Attached Committee Reports
+		      <td class="col-md-4">
+		      	Signatory File
+		      	<%= simple_form_for @sp_session, url: sp_session_signatory_files_path(sp_session_id: @sp_session.id), html: {multipart: true }, method: :post do |f| %>
+		          <%= f.input :signatory_file, label: false, input_html: { multipart: true, onchange: "this.form.submit();" } %>
+		        <% end %>
 		      </td>
 		      <td>
-		  			<% if @committee_reports.present? %>
-			  			<% @committee_reports.each do |document| %>
-				  				<%= link_to document.name, rails_blob_path(document.document_file, disposition: "inline"), target: "_blank" if document.document_file.attached? %>
-				  				<span class="float-right">
-				  					<%= button_to "Delete", sp_session_document_path(sp_session_id: @sp_session.id, id: document.id), method: :delete, data: {confirm: "Are you sure?"}, form: { class: 'd-inline'}, class: 'btn btn-link' if document.document_file.attached? %>
-				  				</span> <hr>
-			  			<% end %>
+		  			<% if @sp_session.signatory_file.present? %>
+		  				<%= link_to @sp_session.signatory_file.filename, rails_blob_path(@sp_session.signatory_file, disposition: "inline"), target: "_blank" if @sp_session.signatory_file.attached? %>
+	  					<%= link_to sp_session_signatory_file_path(sp_session_id: @sp_session.id, id: @sp_session.signatory_file.id), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-xs btn-outline-danger rounded-circle text-danger float-right', title: 'Remove Attachment' do %>
+	  						<span class="fa fas fa-times"></span>
+	  					<% end if current_user_admin? %>
 			  		<% end %>
 			  	</td>
 		  	</tr>

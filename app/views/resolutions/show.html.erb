@@ -9,6 +9,11 @@
 	<div class="btn-group mb-2" role="group">
 		<%= link_to "Update Details", edit_resolution_path(@resolution), class: "btn btn-primary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 		<%= link_to 'Update Stage', @resolution.stagings.present? ? edit_resolution_stage_path(resolution_id: @resolution.id, id: @resolution.stagings.last.id) : new_resolution_stage_path(@resolution), class: "btn btn-secondary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+		<% if @resolution.municipal_ordinance.blank? %>
+			<%= link_to 'Add Municipal Ordinance', new_resolution_municipal_ordinance_path(resolution_id: @resolution.id), class: "btn btn-secondary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+		<% else %>
+			<%= link_to 'Update Municipal Ordinance', edit_resolution_municipal_ordinance_path(resolution_id: @resolution.id, id: @resolution.municipal_ordinance.id), class: "btn btn-secondary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
+		<% end %>
 		<%= link_to 'Add Sponsor', new_resolution_sponsor_path(@resolution), class: "btn btn-secondary", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } %>
 	  <div class="btn-group" role="group">
 	    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -128,5 +133,51 @@
 		  	</tr>
 		  </tbody>
 		</table>
+		<% if @resolution.municipal_ordinance.present? %>
+			<table class="table">
+				<tbody>
+			  	<tr>
+			      <td>
+			      	<h5 class="mb-0">
+								Municipal Ordinance No. <%= @resolution.municipal_ordinance.number %>
+							</h5>
+			      </td>
+			      <td>
+			      	<% if current_user_admin? %>
+								<div class="dropdown">
+						      <button class="btn btn-outline-primary btn-xs dropdown-toggle btn-dropdown-toggle float-right" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						        <span class="fa fas fa-ellipsis-v"></span>
+						      </button>
+						      <div class="dropdown-menu dropdown-menu-right bg-white option-dropdown-border" aria-labelledby="dropdownMenu2">
+						        <div class="dropdown-divider"></div>
+						        <%= link_to resolution_municipal_ordinance_path(resolution_id: @resolution.id, id: @resolution.municipal_ordinance.id), class: "dropdown-item text-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
+						          <span class="fa fas fa-times"></span> Delete Municipal Ordinance
+						        <% end %>
+						      </div>
+						    </div>
+						  <% end %>
+			      </td>
+			  	</tr>
+			  	<tr>
+			  		<td colspan="2">
+			  			<p class="text-muted mb-0">Date Approved:</p>
+			      	<%= @resolution.municipal_ordinance.date_approved.strftime("%B %e, %Y") %>
+			      </td>
+			    </tr>
+			    <tr>
+			  		<td colspan="2">
+			      	<p class="text-muted mb-0">Municipality:</p>
+			      	<%= @resolution.municipal_ordinance.municipality %>
+			      </td>
+			    </tr>
+			    <tr>
+			  		<td colspan="2">
+			      	<p class="text-muted mb-0">Keyword:</p>
+			      	<%= @resolution.municipal_ordinance.keyword %>
+			  		</td>
+			  	</tr>
+			  </tbody>
+			</table>
+		<% end %>
 	</div>
 </div>

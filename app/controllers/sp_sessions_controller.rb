@@ -11,30 +11,46 @@ class SpSessionsController < ApplicationController
 
 	def new
 		@sp_session = SpSession.new
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def create
-		@sp_session = SpSession.create(sp_session_params)
+		@sp_session = SpSession.new(sp_session_params)
 		respond_to do |format|
       if @sp_session.save
-        format.html { redirect_to sp_session_url(@sp_session), notice: "SpSession saved." }
+        format.html { redirect_to sp_sessions_url, notice: 'Session created!' }
+        format.json { render :index, status: :created, location: sp_sessions_url }
+        format.js
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new }
+        format.json { render json: @sp_session.errors, status: :unprocessable_entity }
+        format.js { render :new }
       end
     end
 	end
 
 	def edit
 		@sp_session = SpSession.find(params[:id])
+		respond_to do |format|
+      format.html
+      format.js
+    end
 	end
 
 	def update
 		@sp_session = SpSession.find(params[:id])
 		respond_to do |format|
       if @sp_session.update(sp_session_params)
-        format.html { redirect_to sp_session_url(@sp_session), notice: "SpSession updated." }
+        format.html { redirect_to sp_session_url(@sp_session), notice: 'Session updated!' }
+        format.json { render :index, status: :updated, location: sp_session_url(@sp_session) }
+        format.js
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :new }
+        format.json { render json: @sp_session.errors, status: :unprocessable_entity }
+        format.js { render :new }
       end
     end
 	end
@@ -53,8 +69,7 @@ class SpSessionsController < ApplicationController
 		params.require(:sp_session).permit(
 			:event_number,
 			:event_type,
-			:date,
-			:description
+			:date
 		)
 	end
 end

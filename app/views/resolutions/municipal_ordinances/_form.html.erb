@@ -1,0 +1,15 @@
+<div class="modal-body">
+  <%= f.error_notification %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.input :number, label: "Municipal Ordinance Number" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :municipality_id, collection: Municipality.all.map{|m| [m, m.id]} %>
+    </div>
+  </div>
+  <%= f.input :keyword, as: :text %>
+</div>
+<div class="modal-footer">
+  <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+</div>

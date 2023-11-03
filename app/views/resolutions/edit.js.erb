@@ -3,13 +3,11 @@ $("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'ed
 $("#remote-modal").modal();
 
 $(document).ready(function() {
-  $(document).ready(function() {
-    var defDate = new Date(<%= @resolution.date.present? ? @resolution.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
-    $('.datepicker').flatpickr({
-      altInput: true,
-      altFormat: "F j, Y",
-      dateFormat: "Y-m-d",
-      defaultDate: defDate
-    });
+  var defDate = new Date(<%= @resolution.date.present? ? @resolution.date.strftime("%Y, %m-1, %d") : Date.today.strftime("%Y, %m-1, %d") %>);
+  $('.datepicker').flatpickr({
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+    defaultDate: defDate
   });
 });

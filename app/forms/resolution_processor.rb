@@ -12,9 +12,7 @@ class ResolutionProcessor
 	def process!
 		if valid?
 			ActiveRecord::Base.transaction do
-				resolution = create_resolution
-				create_stage(resolution)
-				create_municipal_ordinance(resolution)
+				create_resolution
 			end
 		end
 	end
@@ -22,24 +20,28 @@ class ResolutionProcessor
 	private
 
 	def create_resolution
-		Resolution.create!(
+		resolution = Resolution.create(
 			number:      number,
 			title:       title,
 			remarks:     remarks,
 			date:        date,
 			category_id: category_id
 		)
+		create_municipal_ordinance(resolution)
+		create_stage(resolution)
 	end
 
 	def create_municipal_ordinance(resolution)
-		resolution.create_municipal_ordinance(
-			date_approved: date_approved,
-			number: ordinance_number,
-			year_series: parse_ordinance_number,
-			year_and_number: ordinance_number,
-			keyword: keyword.present? ? keyword : title,
-			municipality_id: municipality_id
-		)
+		if ordinance_number.present? && municipality_id.present?
+			resolution.create_municipal_ordinance(
+				date_approved: resolution.date_approved,
+				number: ordinance_number,
+				year_series: parse_ordinance_number,
+				year_and_number: ordinance_number,
+				keyword: keyword.present? ? keyword : title,
+				municipality_id: municipality_id
+			)
+		end
 	end
 
 	def create_stage(resolution)
@@ -63,8 +65,17 @@ class ResolutionProcessor
 	end
 
 	def invalid_ordinance_number
-		if parse_ordinance_number.to_s.length != 4
-			errors.add(:base, "Invalid Municipal Ordinance Number.")
+		if ordinance_number.present?
+			if parse_ordinance_number.to_s.length != 4
+				errors.add(:ordinance_number, "invalid.")
+			end
+			presence_of_municipality
+		end
+	end
+
+	def presence_of_municipality
+		if municipality_id.blank?
+			errors.add(:municipality_id, "is blank.")
 		end
 	end
 end

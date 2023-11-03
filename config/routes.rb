@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :sponsors, module: :resolutions
     resources :authors, module: :resolutions
     resources :stages, module: :resolutions
+    resources :municipal_ordinances, module: :resolutions
     namespace :authorships, module: :resolutions do
       resources :authors, module: :authorships
       resources :co_authors, module: :authorships
@@ -58,7 +59,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :municipal_ordinances, only: [:index]
+  resources :municipal_ordinances, only: [:index, :show, :edit, :update, :destroy]
 
   resources :minutes do
     resources :documents, only: [:create, :destroy], module: :minutes
@@ -66,6 +67,8 @@ Rails.application.routes.draw do
 
   resources :sp_sessions do
     resources :documents, only: [:new, :create, :destroy], module: :sp_sessions
+    resources :files, only: [:new, :create, :destroy], module: :sp_sessions
+    resources :signatory_files, only: [:new, :create, :destroy], module: :sp_sessions
     resources :committee_reports, only: [:new, :create, :destroy], module: :sp_sessions
     resources :resolutions, only: [:new, :create, :destroy], module: :sp_sessions
     resources :ordinances, only: [:new, :create, :destroy], module: :sp_sessions

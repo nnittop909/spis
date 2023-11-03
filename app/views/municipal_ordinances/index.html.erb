@@ -61,7 +61,9 @@
 	        	<% @municipal_ordinances.each do |ordinance| %>
 		        	<tr>
 		        		<td>
-		        			<b>Municipal Ordinance Number <%= highlight(ordinance.year_and_number, params[:search]) %></b><small class="badge bg-success"> <%= ordinance.municipality %></small>
+		        			<%= link_to municipal_ordinance_path(ordinance) do %>
+		        				<b>Municipal Ordinance Number <%= highlight(ordinance.year_and_number, params[:search]) %></b><small class="badge bg-success"> <%= ordinance.municipality %></small>
+		        			<% end %>
 		        			<br>
 		        			<p class="my-0">
 			        			<small><%= highlight(ordinance.keyword, params[:search]) %></small>

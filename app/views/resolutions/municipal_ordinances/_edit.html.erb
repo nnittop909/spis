@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h5 class="modal-title">Edit Municipal Ordinance</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @municipal_ordinance, html: { autocomplete: "off"}, remote: remote, url: resolution_municipal_ordinance_path(resolution_id: @resolution.id), method: :patch do |f| %>
+  <%= render 'form', f: f %>
+<% end %>

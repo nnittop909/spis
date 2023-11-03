@@ -1,0 +1,10 @@
+$("#remote-modal").find(".modal-content").html("<%= escape_javascript(render 'edit', sp_session: @sp_session, stage: @stage, remote: true) %>");
+$("#remote-modal").modal();
+
+$(document).ready(function() {
+  $('.dateSelect').flatpickr({
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d"
+  });
+});

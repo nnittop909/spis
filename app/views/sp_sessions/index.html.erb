@@ -17,7 +17,9 @@
 				<% end %>
 			</div>
 			<div class="col-md-3 col-sm-12">
-				<%= link_to "New Session", new_sp_session_path, class: "btn btn-primary btn-sm float-right", data: { turbo_frame: "remote_modal", turbo: true } %>
+				<%= link_to new_sp_session_path, class: "btn btn-outline-primary float-right rounded-circle", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
+				<span class="fa fas fa-plus"></span>
+			<% end if current_user_admin? %>
 			</div>
 		</div>
 	</div>

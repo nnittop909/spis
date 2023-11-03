@@ -22,6 +22,8 @@ class Resolution < ApplicationRecord
 
   enum current_stage: [:first_reading, :approved, :active_file]
 
+  before_save :update_date_approved
+
   def self.categorize(category_name)
     if category_name == ""
       all
@@ -66,6 +68,12 @@ class Resolution < ApplicationRecord
   end
 
   private
+
+  def update_date_approved
+    if municipal_ordinance.present?
+      municipal_ordinance.update(date_approved: date_approved)
+    end
+  end
   
   def self.resolution_finder(args={})
     default_finder = "ResolutionFinder::DefaultFinder"

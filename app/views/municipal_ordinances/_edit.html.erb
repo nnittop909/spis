@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h5 class="modal-title">Update Municipal Ordinance</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @municipal_ordinance, html: { autocomplete: "off"}, remote: remote, url: municipal_ordinance_path(@municipal_ordinance), method: :patch do |f| %>
+  <div class="modal-body">
+    <%= f.error_notification %>
+    <%= f.input :number, label: "Ordinance Number" %>
+    <%= f.input :date_approved, as: :string, placeholder: "Select date...", input_html: { class: "dateSelect" } %>
+    <%= f.input :municipality_id, collection: Municipality.all.map{|m| [m, m.id]} %>
+    <%= f.input :keyword, as: :text %>
+  </div>
+  <div class="modal-footer">
+    <%= f.submit "Save", class: "btn btn-outline-success float-right", data: { disable_with: "Processing..." } %>
+  </div>
+<% end %>

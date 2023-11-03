@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h5 class="modal-title">Edit Session</h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% remote ||= false %>
+<%= simple_form_for @sp_session, html: { autocomplete: "off"}, remote: remote, url: sp_session_path(@sp_session), method: :patch do |f| %>
+  <%= render 'form', f: f %>
+<% end %>
