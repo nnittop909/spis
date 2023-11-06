@@ -66,7 +66,7 @@ class CreateMunicipalOrdinance
 	def find_keyword(title_array)
 		title_index = title_array.find_index("ENTITLED")
 		supplemental_index = title_array.find_index("SUPPLEMENTAL_BUDGET")
-		supplemental_budget_number = "#{title_array[supplemental_index + 1] title_array[supplemental_index + 2]}"
+		supplemental_budget_number = "#{title_array[supplemental_index + 1]} #{title_array[supplemental_index + 2]}"
 		annual_index = title_array.find_index("ANNUAL BUDGET")
 
 		if title_index.present?
