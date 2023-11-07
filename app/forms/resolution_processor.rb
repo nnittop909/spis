@@ -34,7 +34,7 @@ class ResolutionProcessor
 	def create_municipal_ordinance(resolution)
 		if ordinance_number.present? && municipality_id.present?
 			resolution.create_municipal_ordinance(
-				date_approved: resolution.date_approved,
+				date_approved: date_approved,
 				number: ordinance_number,
 				year_series: parse_ordinance_number,
 				year_and_number: ordinance_number,

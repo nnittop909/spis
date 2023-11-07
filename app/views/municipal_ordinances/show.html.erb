@@ -23,11 +23,11 @@
 						      </button>
 						      <div class="dropdown-menu dropdown-menu-right bg-white option-dropdown-border" aria-labelledby="dropdownMenu2">
 						      	<%= link_to edit_municipal_ordinance_path(id: @municipal_ordinance.id), class: "dropdown-item", remote: true, data: { toggle: "modal", target: '#remote-modal', backdrop: 'static', keyboard: false } do %>
-						          <span class="fa fas fa-edit"> Update Municipal Ordinance</span> 
+						          <span class="fa fas fa-edit"> </span> Update Municipal Ordinance
 						        <% end %>
 						        <div class="dropdown-divider"></div>
 						        <%= link_to municipal_ordinance_path(id: @municipal_ordinance.id), class: "dropdown-item text-danger", method: :delete, data: { confirm: "Are you sure?" } do %>
-						          <span class="fa fas fa-times"> Delete Municipal Ordinance</span> 
+						          <span class="fa fas fa-times"> </span> Delete Municipal Ordinance 
 						        <% end %>
 						      </div>
 						    </div>

@@ -22,7 +22,7 @@ class Resolution < ApplicationRecord
 
   enum current_stage: [:first_reading, :approved, :active_file]
 
-  before_save :update_date_approved
+  after_update :update_date_approved
 
   def self.categorize(category_name)
     if category_name == ""
